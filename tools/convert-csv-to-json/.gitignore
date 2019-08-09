@@ -1,0 +1,5 @@
+# Don't add csv files to GitHub because they can contain sensitive information
+*.csv
+
+# Don't add json files to GitHub because they can contain sensitive information
+*.json
