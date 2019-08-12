@@ -56,6 +56,33 @@ const mapKind = (data, kindIndex) => {
   }
 }
 
+const mapVrijwilligerValue = (vrijwilligerValue) => {
+  switch(vrijwilligerValue){
+    case 'Ja, voor 1 uur':
+      return 'UUR';
+    case 'Ja, voor de gehele dag':
+      return 'DAG';
+    case 'Ja, ik meld mij aan als vrijwilliger voor het dagdeel waar mijn kind/kinderen NIET bij aanwezig is/zijn':
+      return 'DAGDEELZONDERKIND';
+    case 'Ja, voor een dagdeel (ochtend- of middagsessie)':
+      return 'DAGDEEL';
+    default:
+      return 'NEE';
+  }
+}
+
+const mapVrijwilliger = (vrijwilliger1, vrijwilliger2, vrijwilliger3) => {
+  if(vrijwilliger1 != 'Nee'){
+    return mapVrijwilligerValue(vrijwilliger1);
+  }
+
+  if(vrijwilliger2 != 'Nee'){
+    return mapVrijwilligerValue(vrijwilliger2);
+  }
+
+  return mapVrijwilligerValue(vrijwilliger3);
+}
+
 const results = [];
 
 fs.createReadStream('input.csv')
@@ -71,7 +98,10 @@ fs.createReadStream('input.csv')
       email: data.email.trim(),
       aantalPersonen: parseInt(data.aantalPersonen),
       relatieClubOfSchool: mapRelatieClubOfSchool(data.relatieClubOfSchool),
-      kinderen: []
+      kinderen: [],
+      status: 'COMPLETE',
+      vrijwilliger: mapVrijwilliger(data.vrijwilliger, data.vrijwilliger2, data.vrijwilliger3),
+      commentaar: data.commentaar
     };
 
     let aantalKinderen = parseInt(data.aantalKinderen);
