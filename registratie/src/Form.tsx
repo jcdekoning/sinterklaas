@@ -1,27 +1,39 @@
 import React, { useState } from 'react';
-import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
 
-interface IFormProps extends ReactStripeElements.InjectedStripeProps {
+interface IFormProps {
 
 }
 
 const Form = (props: IFormProps) => {
   const [naam, setNaam] = useState("");
-  const [bedrag, setBedrag] = useState("");
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!props.stripe) {
-      throw new Error('Stripe not available');
-    }
+    const response = await fetch('https://localhost:4000/api/inschrijving',
+      {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({}),
 
-    try {
-      let token = await props.stripe.createToken({ name: naam });
-      console.log(token);
-    } catch (e) {
-      throw e;
-    }
+      });
+    const data = await response.json();
+    console.log(data);
+
+    const stripe = (window as any).Stripe('pk_test_FbPLI6YGcTMjFEcccJvSi0zm');
+    stripe.redirectToCheckout({
+      // Make the id field from the Checkout Session creation API response
+      // available to this file, so you can provide it as parameter here
+      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+      sessionId: data.sessionId
+    }).then((result: any) => {
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+      console.log(result);
+    });
   }
 
   return (
@@ -32,16 +44,10 @@ const Form = (props: IFormProps) => {
           type="text"
           value={naam}
           onChange={e => setNaam(e.target.value)} />
-        <label>Bedrag</label>
-        <input
-          type="text"
-          value={bedrag}
-          onChange={e => setBedrag(e.target.value)} />
-        <CardElement hidePostalCode={true} />
         <button>Betaal</button>
       </form>
     </main>
   )
 }
 
-export default injectStripe(Form);
+export default Form;
