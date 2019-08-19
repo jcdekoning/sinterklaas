@@ -19,13 +19,13 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-  workingDirectory: "registratie"
+  workingDirectory: 'registratie'
   
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: |
-      build\**\*
+    sourceFolder: 'registratie'
+    contents: |
+      build\**
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     
 - task: PublishBuildArtifacts@1
