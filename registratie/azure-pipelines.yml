@@ -23,7 +23,7 @@ steps:
   
 - task: CopyFiles@2
   inputs:
-    sourceFolder: 'registratie'
+    sourceFolder: '$(Build.SourcesDirectory)\registratie'
     contents: |
       build\**
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
