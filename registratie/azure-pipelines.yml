@@ -23,9 +23,9 @@ steps:
   
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)/registratie/'
+    sourceFolder: '$(Build.SourcesDirectory)/registratie/build/'
     contents: |
-      build/**/*
+      **/*
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     
 - task: PublishBuildArtifacts@1
