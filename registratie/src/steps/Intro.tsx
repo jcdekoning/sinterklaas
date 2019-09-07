@@ -38,7 +38,7 @@ const Intro = () => {
                 <BoekSvg />
               </div>
               <div>
-                <h3>Schrijven in het grote boek</h3>
+                <h3>Gegevens kinderen</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget leo justo. Praesent finibus pulvinar diam id sagittis. Praesent ac massa maximus, scelerisque velit nec, cursus massa. </p>
               </div>
             </li>
@@ -47,7 +47,7 @@ const Intro = () => {
                 <PaardSvg />
               </div>
               <div>
-                <h3>Opegeven als vrijwilliger</h3>
+                <h3>Opgeven als vrijwilliger</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget leo justo. Praesent finibus pulvinar diam id sagittis. Praesent ac massa maximus, scelerisque velit nec, cursus massa. </p>
               </div>
             </li>
@@ -75,7 +75,7 @@ const Intro = () => {
       <footer>
         <div className={styles.content}>
           <Link
-            to="/volwassene">Begin aanmelding</Link>
+            to="/stap1">Begin aanmelding</Link>
         </div>
       </footer>
     </article>

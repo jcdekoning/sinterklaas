@@ -1,29 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import Intro from './steps/Intro';
-import Volwassene from './steps/Volwassene';
-import Kind from './steps/Kind';
-import Vrijwilliger from './steps/Vrijwilliger';
-import Samenvatting from './steps/Samenvatting';
+import Stap1 from './steps/Stap1';
+import Stap2 from './steps/Stap2';
+import Stap3 from './steps/Stap3';
+import Stap4 from './steps/Stap4';
 
 import Header from './components/Header';
 
 const App = () => {
   return <>
-    <Header />
-    <main>
-      <Router>
+    <Router>
+      <Header />
+      <main>
         <Switch>
-          <Route path="/volwassene" component={Volwassene} />
-          <Route path="/kind/:kind" component={Kind} />
-          <Route path="/vrijwilliger" component={Vrijwilliger} />
-          <Route path="/samenvatting" component={Samenvatting} />
+          <Route path="/stap1" component={Stap1} />
+          <Route path="/stap2" component={Stap2} />
+          <Route path="/stap3" component={Stap3} />
+          <Route path="/stap4" component={Stap4} />
           <Route component={Intro} />
         </Switch>
-      </Router>
-    </main>
-    Vector illustration credit: <a href="https://www.vecteezy.com">Vecteezy!</a>
+      </main>
+      Vector illustration credit: <a href="https://www.vecteezy.com">Vecteezy!</a>
+    </Router>
   </>
 }
 

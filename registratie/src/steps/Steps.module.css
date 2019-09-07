@@ -1,0 +1,14 @@
+.header {
+  margin: auto;
+  max-width: 870px;
+}
+
+.section {
+  max-width: 870px;
+  margin: auto;
+}
+
+.footer {
+  max-width: 870px;
+  margin: auto;
+}
