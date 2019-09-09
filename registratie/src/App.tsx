@@ -2,12 +2,17 @@ import React from 'react';
 import useForm from "react-hook-form";
 
 const App = () => {
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit, watch } = useForm();
   const onSubmit = (data: any, e: any) => {
     console.log(data);
     console.log(e);
     alert(JSON.stringify(data));
   };
+
+  const createArrayWithNumbers = (length: number) => {
+    length = length || 1;
+    return Array.from({ length }, (_, k) => k);
+  }
 
   return <form onSubmit={handleSubmit(onSubmit)}>
     <h1>Aanmeldingsformulier Sinterklaas 2019</h1>
@@ -80,57 +85,63 @@ const App = () => {
         <option value="5">5</option>
       </select>
     </fieldset>
-    <h2>Gegevens kind</h2>
-    <fieldset>
-      <label htmlFor="roepnaamkind">Roepnaam kind</label>
-      <input name="roepnaamkind" ref={register({
-        required: "Vul de roepnaam van uw kind in"
-      })} />
-      {errors.roepnaamkind && <p className="error">{errors.roepnaamkind.message}</p>}
-    </fieldset>
-    <fieldset>
-      <label htmlFor="achternaamkind">Achternaam kind</label>
-      <input name="achternaamkind" ref={register({
-        required: "Vul de achternaam van uw kind in"
-      })} />
-      {errors.achternaamkind && <p className="error">{errors.achternaamkind.message}</p>}
-    </fieldset>
-    <fieldset>
-      <label htmlFor="leeftijdkind">Leeftijd kind</label>
-      <input type="number" name="leeftijdkind" ref={register({
-        required: 'Vul de leeftijd van uw kind in',
-        min: {
-          value: 0,
-          message: 'Leeftijd kan niet negatief zijn'
-        },
-        max: {
-          value: 10,
-          message: 'De maximale leeftijd is 10 jaar'
-        }
-      })} />
-      {errors.leeftijdkind && <p className="error">{errors.leeftijdkind.message}</p>}
-    </fieldset>
-    <fieldset>
-      <legend>Geslacht kind</legend>
-      <label><input
-        name="geslachtkind"
-        type="radio"
-        value="Jongen"
-        ref={register({ required: true })}
-      />Jongen</label>
-      <label><input
-        name="geslachtkind"
-        type="radio"
-        value="Meisje"
-        ref={register({ required: true })}
-      />Meisje</label>
-      {errors.geslachtkind && <p className="error">Kies een geslacht</p>}
-    </fieldset>
-    <fieldset>
-      <label htmlFor="anekdotekind">Anekdote kind</label>
-      <textarea name="anekdotekind" rows={3} ref={register} />
-      {errors.anekdotekind && <p className="error">Vul een anekdote in</p>}
-    </fieldset>
+    {createArrayWithNumbers(watch('aantalkinderen')).map(number => {
+      console.log(number);
+      return <div key={number}>
+        <h2>Gegevens kind {number + 1}</h2>
+        <fieldset>
+          <label htmlFor="roepnaamkind">Roepnaam kind</label>
+          <input name={`roepnaamkind[${number}]`} ref={register({
+            required: "Vul de roepnaam van uw kind in"
+          })} />
+          {errors.roepnaamkind && <p className="error">{errors.roepnaamkind.message}</p>}
+        </fieldset>
+        <fieldset>
+          <label htmlFor="achternaamkind">Achternaam kind</label>
+          <input name={`achternaamkind[${number}]`} ref={register({
+            required: "Vul de achternaam van uw kind in"
+          })} />
+          {errors.achternaamkind && <p className="error">{errors.achternaamkind.message}</p>}
+        </fieldset>
+        <fieldset>
+          <label htmlFor="leeftijdkind">Leeftijd kind</label>
+          <input type="number" name={`leeftijdkind[${number}]`} ref={register({
+            required: 'Vul de leeftijd van uw kind in',
+            min: {
+              value: 0,
+              message: 'Leeftijd kan niet negatief zijn'
+            },
+            max: {
+              value: 10,
+              message: 'De maximale leeftijd is 10 jaar'
+            }
+          })} />
+          {errors.leeftijdkind && <p className="error">{errors.leeftijdkind.message}</p>}
+        </fieldset>
+        <fieldset>
+          <legend>Geslacht kind</legend>
+          <label><input
+            name={`geslachtkind[${number}]`}
+            type="radio"
+            value="Jongen"
+            ref={register({ required: true })}
+          />Jongen</label>
+          <label><input
+            name={`geslachtkind[${number}]`}
+            type="radio"
+            value="Meisje"
+            ref={register({ required: true })}
+          />Meisje</label>
+          {errors.geslachtkind && <p className="error">Kies een geslacht</p>}
+        </fieldset>
+        <fieldset>
+          <label htmlFor="anekdotekind">Anekdote kind</label>
+          <textarea name={`anekdotekind[${number}]`} rows={3} ref={register} />
+          {errors.anekdotekind && <p className="error">Vul een anekdote in</p>}
+        </fieldset>
+      </div>
+    })}
+
     <h2>Vrijwilligers</h2>
     <p>We hebben uw hulp hard nodig op zaterdag 24 november, want zonder vrijwilligers is het onmogelijk om het Sinterklaasfeest te organiseren. We hopen dat we op uw inzet kunnen rekenen!
 
