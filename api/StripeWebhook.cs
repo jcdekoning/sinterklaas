@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using Stripe;
 using Microsoft.Extensions.Configuration;
 
-namespace Api
+namespace Sinterklaas.Api
 {
     public static class StripeWebhook
     {
@@ -32,6 +32,8 @@ namespace Api
             {
                 var stripeEvent = EventUtility.ConstructEvent(json,
                     req.Headers["Stripe-Signature"], secret);
+
+                log.Log(LogLevel.Information, JsonConvert.ToString(stripeEvent));
 
                 // Handle the checkout.session.completed event
                 if (stripeEvent.Type == Events.CheckoutSessionCompleted)

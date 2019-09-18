@@ -11,55 +11,94 @@ using Stripe;
 using Stripe.Checkout;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
+using Sinterklaas.Api.Models;
 
-namespace Api
+namespace Sinterklaas.Api
 {
     public static class AddInschrijving
     {
         [FunctionName("AddInschrijving")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "inschrijving")] HttpRequest req,
+            [CosmosDB(
+                databaseName: "Sinterklaas",
+                collectionName: "Inschrijvingen",
+                ConnectionStringSetting = "CosmosDBConnection")] IAsyncCollector<Inschrijving> inschrijvingenOut,
             ILogger log, ExecutionContext context)
         {
-            var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
-                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .Build();
+            try {
+                var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
+                    .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+                    .AddEnvironmentVariables()
+                    .Build();
 
-            StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                var inschrijving = JsonConvert.DeserializeObject<Inschrijving>(requestBody);
+                inschrijving.SessionId = null; //todo maybe make to models. One as api contract, the other for data storage
 
-            var options = new SessionCreateOptions {
-                CustomerEmail = "johan@nederlandsecluboslo.nl",
-                Locale = "nl",
-                PaymentMethodTypes = new List<string> {
-                    "card",
-                },
-                LineItems = new List<SessionLineItemOptions> {
-                    new SessionLineItemOptions {
-                        Name = "Inschrijving Sinterklaas",
-                        Description = "Voor Henk",
-                        Amount = 15000,
-                        Currency = "nok",
-                        Quantity = 1,
+                StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
+
+                var lineItems = CreateLineItemsFromInschrijving(inschrijving);
+                
+                var options = new SessionCreateOptions {
+                    CustomerEmail = inschrijving.Email,
+                    Locale = "nl",
+                    PaymentMethodTypes = new List<string> {
+                        "card",
                     },
-                    new SessionLineItemOptions {
-                        Name = "Inschrijving Sinterklaas",
-                        Description = "Voor Anja",
-                        Amount = 15000,
-                        Currency = "nok",
-                        Quantity = 1,
-                    }
-                },
-                SuccessUrl = "https://localhost:3000/success",
-                CancelUrl = "https://localhost:3000/cancel",
-            };
+                    LineItems = lineItems.ToList(),
+                    SuccessUrl = "https://localhost:3000/success", //todo config
+                    CancelUrl = "https://localhost:3000/cancel", //todo config
+                };
 
-            var service = new SessionService();
-            Session session = await service.CreateAsync(options);
+                var service = new SessionService();
+                Session session = await service.CreateAsync(options);
 
-            return new JsonResult(new {
-                sessionId = session.Id
-            });
+                var sessionId = session.Id;
+
+                await inschrijvingenOut.AddAsync(inschrijving);
+
+                return new JsonResult(new {
+                    sessionId = sessionId
+                });
+            }
+            catch (Exception e) {
+                log.LogError(e, "Something went wrong");
+                return new BadRequestResult();
+            }
         }
+
+    private static IEnumerable<SessionLineItemOptions> CreateLineItemsFromInschrijving(Inschrijving inschrijving)
+    {
+      if(inschrijving.Relatie.Equals("NieuwLid", StringComparison.OrdinalIgnoreCase)) {
+        yield return new SessionLineItemOptions {
+            Name = "Lidmaatschap Nederlandse Club Oslo",
+            Description = "2019",
+            Amount = 17500,
+            Currency = "nok",
+            Quantity = 1
+        };
+      }
+
+      if(inschrijving.aantalPersonen > 2) {
+          yield return new SessionLineItemOptions {
+            Name = "Bijdrage voor extra personen",
+            Amount = 5000,
+            Currency = "nok",
+            Quantity = inschrijving.aantalPersonen - 2
+        };
+      }
+
+      foreach(var kind in inschrijving.Kinderen) {
+           yield return new SessionLineItemOptions {
+                            Name = "Inschrijving Sinterklaas",
+                            Description = kind.Voornaam + " " + kind.Achternaam,
+                            Amount = 15000,
+                            Currency = "nok",
+                            Quantity = 1
+           };
+      }
     }
+  }
 }
