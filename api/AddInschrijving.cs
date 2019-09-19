@@ -35,8 +35,7 @@ namespace Sinterklaas.Api
 
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                 var inschrijving = JsonConvert.DeserializeObject<Inschrijving>(requestBody);
-                inschrijving.SessionId = null; //todo maybe make to models. One as api contract, the other for data storage
-
+                
                 StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
 
                 var lineItems = CreateLineItemsFromInschrijving(inschrijving);
@@ -56,6 +55,7 @@ namespace Sinterklaas.Api
                 Session session = await service.CreateAsync(options);
 
                 var sessionId = session.Id;
+                inschrijving.SessionId = sessionId;
 
                 await inschrijvingenOut.AddAsync(inschrijving);
 

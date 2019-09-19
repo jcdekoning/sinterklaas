@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { FormAction } from './types/actions';
+import { FormState } from './types/form';
+
 function createCtx<StateType, ActionType>(
   reducer: React.Reducer<StateType, ActionType>,
   initialState: StateType,
@@ -15,43 +18,6 @@ function createCtx<StateType, ActionType>(
   }
   return [ctx, Provider] as const
 }
-
-export type Stap1FormData = {
-  naam: string;
-  email: string;
-  aantalPersonen: number;
-  relatie: string;
-  aantalKinderen: number;
-}
-
-export type Stap2FormData = {
-  voornaam: string;
-  achternaam: string;
-  leeftijd: number;
-  geslacht: string;
-  anekdote: string;
-}
-
-export type Stap3FormData = {
-  vrijwilliger: string;
-}
-
-export type Stap4FormData = {
-  commentaar: string;
-  privacyverklaring: boolean;
-}
-
-type FormState = {
-  stap1?: Stap1FormData,
-  stap2?: Stap2FormData[],
-  stap3?: Stap3FormData
-  stap4?: Stap4FormData
-}
-
-type FormAction =
-  | { type: 'setStap1FormData', payload: Stap1FormData }
-  | { type: 'setStap2FormData', payload: Stap2FormData[] }
-  | { type: 'setStap3FormData', payload: Stap3FormData }
 
 const reducer = (state: FormState, action: FormAction): FormState => {
   switch (action.type) {

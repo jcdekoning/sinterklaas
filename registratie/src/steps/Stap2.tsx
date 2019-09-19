@@ -1,7 +1,9 @@
 import React from 'react';
 import useForm from "react-hook-form";
 import { RouterProps, Redirect } from 'react-router';
-import { FormContext, Stap1FormData, Stap2FormData } from '../FormContext';
+
+import { FormContext } from '../FormContext';
+import { Stap1FormData, Stap2FormData } from '../types/form';
 
 type FormData = {
   roepnaamkind: string[];

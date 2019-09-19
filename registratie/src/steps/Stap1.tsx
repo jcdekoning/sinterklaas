@@ -1,7 +1,9 @@
 import React from 'react';
 import useForm from "react-hook-form";
-import { FormContext, Stap1FormData } from './../FormContext';
 import { RouterProps } from 'react-router';
+
+import { FormContext } from './../FormContext';
+import { Stap1FormData } from '../types/form';
 
 const Stap1 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext)

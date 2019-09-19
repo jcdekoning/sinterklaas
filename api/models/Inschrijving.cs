@@ -19,6 +19,7 @@ namespace Sinterklaas.Api.Models
     public string Commentaar { get; set; }
     public bool Privacyverklaring { get; set; }
     public string SessionId { get; set; }
-    public string EventId = "Sinterklaas";
+    private const string eventId = "Sinterklaas";
+    public string EventId { get => eventId;  }
   }
 }
