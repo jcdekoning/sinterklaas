@@ -8,6 +8,9 @@ import Stap2 from './steps/Stap2';
 import Stap3 from './steps/Stap3';
 import Stap4 from './steps/Stap4';
 
+import SuccessPage from './SuccessPage';
+import ErrorPage from './ErrorPage';
+
 const App = () => {
   return (
     <ConfigLoader>
@@ -17,6 +20,8 @@ const App = () => {
             <Route path="/stap2" component={Stap2} />
             <Route path="/stap3" component={Stap3} />
             <Route path="/stap4" component={Stap4} />
+            <Route path="/success" component={SuccessPage} />
+            <Route path="/error" component={ErrorPage} />
             <Route component={Stap1} />
           </Switch>
         </Router>

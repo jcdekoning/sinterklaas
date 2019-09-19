@@ -6,9 +6,12 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Stripe;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using Sinterklaas.Api.Models;
+using System.Linq;
 
 namespace Sinterklaas.Api
 {
@@ -17,6 +20,7 @@ namespace Sinterklaas.Api
         [FunctionName("StripeWebhook")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "stripe")] HttpRequest req,
+            [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")] IDocumentClient client,
             ILogger log, ExecutionContext context)
         {
             var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
@@ -33,20 +37,31 @@ namespace Sinterklaas.Api
                 var stripeEvent = EventUtility.ConstructEvent(json,
                     req.Headers["Stripe-Signature"], secret);
 
-                log.Log(LogLevel.Information, JsonConvert.ToString(stripeEvent));
-
-                // Handle the checkout.session.completed event
                 if (stripeEvent.Type == Events.CheckoutSessionCompleted)
                 {
                     var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
 
-                    // Fulfill the purchase...
-                    //HandleCheckoutSession(session);
+                    log.LogInformation($"Searching for inschrijving with: {session.Id}");
+                    
+                    Uri collectionUri = UriFactory.CreateDocumentCollectionUri("sinterklaas", "inschrijvingen");
+
+                    var inschrijving = client.CreateDocumentQuery<InschrijvingDataModel>(collectionUri, 
+                        new FeedOptions()
+                        {
+                            PartitionKey = new Microsoft.Azure.Documents.PartitionKey("Sinterklaas")
+                        })
+                        .Where(i => i.SessionId.Contains(session.Id))
+                        .AsEnumerable()
+                        .SingleOrDefault();
+
+                    inschrijving.Commentaar = "Document updated"; //TODO
+                    await client.ReplaceDocumentAsync(inschrijving._self, inschrijving);
                 }
 
             }
             catch (Exception e)
             {
+                log.LogError(e, "Error in Stripe Webhook");
                 return new BadRequestResult();
             } 
 

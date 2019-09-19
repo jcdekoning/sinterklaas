@@ -42,30 +42,28 @@ const Stap4 = (props: RouterProps) => {
   }
 
   const onSubmit = async (data: Stap4FormData, e: any) => {
-    const response = await fetch(`${config.api}/inschrijving`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(mapFormStateToApiData({ ...state, stap4: data })),
+    try {
+      const response = await fetch(`${config.api}/inschrijving`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(mapFormStateToApiData({ ...state, stap4: data })),
 
+        });
+      const responseJson = await response.json();
+      console.log(responseJson);
+
+      const stripe = (window as any).Stripe('pk_test_FbPLI6YGcTMjFEcccJvSi0zm');
+      stripe.redirectToCheckout({
+        sessionId: responseJson.sessionId
+      }).then((result: any) => {
+        console.log(result);
       });
-    const responseJson = await response.json();
-    console.log(responseJson);
-
-    const stripe = (window as any).Stripe('pk_test_FbPLI6YGcTMjFEcccJvSi0zm');
-    stripe.redirectToCheckout({
-      // Make the id field from the Checkout Session creation API response
-      // available to this file, so you can provide it as parameter here
-      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-      sessionId: responseJson.sessionId
-    }).then((result: any) => {
-      // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `result.error.message`.
-      console.log(result);
-    });
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   return <form onSubmit={handleSubmit(onSubmit)}>

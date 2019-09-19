@@ -22,9 +22,9 @@ namespace Sinterklaas.Api
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "inschrijving")] HttpRequest req,
             [CosmosDB(
-                databaseName: "Sinterklaas",
-                collectionName: "Inschrijvingen",
-                ConnectionStringSetting = "CosmosDBConnection")] IAsyncCollector<Inschrijving> inschrijvingenOut,
+                databaseName: "sinterklaas",
+                collectionName: "inschrijvingen",
+                ConnectionStringSetting = "CosmosDBConnection")] IAsyncCollector<InschrijvingDataModel> inschrijvingenOut,
             ILogger log, ExecutionContext context)
         {
             try {
@@ -34,7 +34,7 @@ namespace Sinterklaas.Api
                     .Build();
 
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                var inschrijving = JsonConvert.DeserializeObject<Inschrijving>(requestBody);
+                var inschrijving = JsonConvert.DeserializeObject<InschrijvingViewModel>(requestBody);
                 
                 StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
 
@@ -47,17 +47,15 @@ namespace Sinterklaas.Api
                         "card",
                     },
                     LineItems = lineItems.ToList(),
-                    SuccessUrl = "https://localhost:3000/success", //todo config
+                    SuccessUrl = "https://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
                     CancelUrl = "https://localhost:3000/cancel", //todo config
                 };
 
                 var service = new SessionService();
                 Session session = await service.CreateAsync(options);
-
                 var sessionId = session.Id;
-                inschrijving.SessionId = sessionId;
 
-                await inschrijvingenOut.AddAsync(inschrijving);
+                await inschrijvingenOut.AddAsync(MapToDataModel(inschrijving, sessionId));
 
                 return new JsonResult(new {
                     sessionId = sessionId
@@ -69,7 +67,7 @@ namespace Sinterklaas.Api
             }
         }
 
-    private static IEnumerable<SessionLineItemOptions> CreateLineItemsFromInschrijving(Inschrijving inschrijving)
+    private static IEnumerable<SessionLineItemOptions> CreateLineItemsFromInschrijving(InschrijvingViewModel inschrijving)
     {
       if(inschrijving.Relatie.Equals("NieuwLid", StringComparison.OrdinalIgnoreCase)) {
         yield return new SessionLineItemOptions {
@@ -81,12 +79,12 @@ namespace Sinterklaas.Api
         };
       }
 
-      if(inschrijving.aantalPersonen > 2) {
+      if(inschrijving.AantalPersonen > 2) {
           yield return new SessionLineItemOptions {
             Name = "Bijdrage voor extra personen",
             Amount = 5000,
             Currency = "nok",
-            Quantity = inschrijving.aantalPersonen - 2
+            Quantity = inschrijving.AantalPersonen - 2
         };
       }
 
@@ -99,6 +97,26 @@ namespace Sinterklaas.Api
                             Quantity = 1
            };
       }
+    }
+
+    private static InschrijvingDataModel MapToDataModel(InschrijvingViewModel inschrijving, string sessionId){
+        return new InschrijvingDataModel{
+            Commentaar = inschrijving.Commentaar,
+            Email = inschrijving.Email,
+            Naam = inschrijving.Naam,
+            Privacyverklaring = inschrijving.Privacyverklaring,
+            SessionId = sessionId,
+            Relatie = inschrijving.Relatie,
+            Vrijwilliger = inschrijving.Vrijwilliger,
+            AantalPersonen = inschrijving.AantalPersonen,
+            Kinderen  = inschrijving.Kinderen.Select(k => new KindDataModel{
+                Achternaam = k.Achternaam,
+                Anekdote = k.Anekdote,
+                Geslacht = k.Geslacht,
+                Leeftijd = k.Leeftijd,
+                Voornaam = k.Voornaam
+            }).ToArray()
+        };
     }
   }
 }

@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.4" />
-    <PackageReference Include="Stripe.net" Version="27.24.0" />
+    <PackageReference Include="Stripe.net" Version="29.1.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

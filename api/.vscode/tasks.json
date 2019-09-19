@@ -37,7 +37,7 @@
       "options": {
         "cwd": "${workspaceFolder}/bin/Debug/netcoreapp2.1"
       },
-      "command": "host start --port 4000 --useHttps --cert development.pfx --password sinterklaas",
+      "command": "host start --port 4000", //--useHttps --cert development.pfx --password sinterklaas"
       "isBackground": true,
       "problemMatcher": "$func-watch"
     }
