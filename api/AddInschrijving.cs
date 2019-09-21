@@ -55,7 +55,8 @@ namespace Sinterklaas.Api
                 Session session = await service.CreateAsync(options);
                 var sessionId = session.Id;
 
-                await inschrijvingenOut.AddAsync(MapToDataModel(inschrijving, sessionId));
+                await inschrijvingenOut.AddAsync(MapToDataModel(inschrijving, sessionId, 
+                    options.LineItems.Where(l => l.Amount.HasValue).Sum(l => l.Amount.Value)));
 
                 return new JsonResult(new {
                     sessionId = sessionId
@@ -99,7 +100,7 @@ namespace Sinterklaas.Api
       }
     }
 
-    private static InschrijvingDataModel MapToDataModel(InschrijvingViewModel inschrijving, string sessionId){
+    private static InschrijvingDataModel MapToDataModel(InschrijvingViewModel inschrijving, string sessionId, long bedrag){
         return new InschrijvingDataModel{
             Commentaar = inschrijving.Commentaar,
             Email = inschrijving.Email,
@@ -115,7 +116,8 @@ namespace Sinterklaas.Api
                 Geslacht = k.Geslacht,
                 Leeftijd = k.Leeftijd,
                 Voornaam = k.Voornaam
-            }).ToArray()
+            }).ToArray(),
+            Bedrag = bedrag
         };
     }
   }

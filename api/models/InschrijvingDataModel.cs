@@ -1,4 +1,6 @@
 
+using System;
+
 namespace Sinterklaas.Api.Models 
 {
     public class KindDataModel {
@@ -20,6 +22,9 @@ namespace Sinterklaas.Api.Models
     public bool Privacyverklaring { get; set; }
     public string SessionId { get; set; }
     public string EventId = "Sinterklaas";
+    public long Bedrag {get; set;}
+    public bool Betaald {get; set;}
+    public DateTime? BetaaldOpUtc {get; set;}
     public string id {get; set; }
     public string _self {get; set;}
   }

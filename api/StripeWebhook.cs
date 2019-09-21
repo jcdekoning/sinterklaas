@@ -12,6 +12,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Sinterklaas.Api.Models;
 using System.Linq;
+using SendGrid.Helpers.Mail;
 
 namespace Sinterklaas.Api
 {
@@ -21,6 +22,7 @@ namespace Sinterklaas.Api
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "stripe")] HttpRequest req,
             [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")] IDocumentClient client,
+            [SendGrid(From = "sinterklaas@nederlandsecluboslo.nl")] IAsyncCollector<SendGridMessage> messageCollector,
             ILogger log, ExecutionContext context)
         {
             var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
@@ -54,8 +56,16 @@ namespace Sinterklaas.Api
                         .AsEnumerable()
                         .SingleOrDefault();
 
-                    inschrijving.Commentaar = "Document updated"; //TODO
+                    inschrijving.Betaald = true;
+                    inschrijving.BetaaldOpUtc = DateTime.UtcNow;
                     await client.ReplaceDocumentAsync(inschrijving._self, inschrijving);
+
+                    var message = new SendGridMessage();
+                    message.AddTo(inschrijving.Email);
+                    message.AddContent("text/html", "<h1>Test email</h1>");
+                    message.SetSubject("Inschrijving Sinterklaas");
+
+                    await messageCollector.AddAsync(message);
                 }
 
             }
