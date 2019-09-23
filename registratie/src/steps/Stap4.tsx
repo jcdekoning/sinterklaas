@@ -6,6 +6,7 @@ import { FormContext } from '../FormContext';
 import config from './../config';
 import { Stap4FormData, FormState, Stap1FormData, Stap2FormData, Stap3FormData } from '../types/form';
 import { Inschrijving } from '../types/api';
+import StepHeader from '../components/StepHeader';
 
 const mapFormStateToApiData = (state: FormState): Inschrijving => {
   const stap1 = state.stap1 as Stap1FormData;
@@ -17,7 +18,7 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
     naam: stap1.naam,
     email: stap1.email,
     aantalPersonen: stap1.aantalVolwassenen,
-    relatie: stap1.relatie,
+    relatie: 'change',
     kinderen: stap2.map(kind => {
       return {
         voornaam: kind.voornaam,
@@ -67,9 +68,7 @@ const Stap4 = (props: RouterProps) => {
   };
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <h1>Aanmeldingsformulier Sinterklaas 2019</h1>
-    <h2>Overzicht</h2>
-    <pre>{JSON.stringify(state)}</pre>
+    <StepHeader title="Overzicht inschrijving" />
     <fieldset>
       <label htmlFor="commentaar">Heeft u nog overige vragen en/of opmerkingen?</label>
       <textarea name="commentaar" rows={3} ref={register} />

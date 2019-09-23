@@ -11,11 +11,14 @@ import Stap4 from './steps/Stap4';
 import SuccessPage from './SuccessPage';
 import ErrorPage from './ErrorPage';
 
+import Header from './components/Header';
+
 const App = () => {
   return (
     <ConfigLoader>
       <FormProvider>
         <Router>
+          <Header />
           <Switch>
             <Route path="/stap2" component={Stap2} />
             <Route path="/stap3" component={Stap3} />

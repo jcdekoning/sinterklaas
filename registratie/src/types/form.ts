@@ -1,9 +1,11 @@
 export type Stap1FormData = {
   naam: string;
   email: string;
-  aantalVolwassenen: number;
-  relatie: string;
+  kindOpSchool: boolean;
+  lidVanClub: boolean;
   aantalKinderen: number;
+  aantalKinderen10Plus: number;
+  aantalVolwassenen: number;
 }
 
 export type Stap2FormData = {

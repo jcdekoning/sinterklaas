@@ -1,0 +1,16 @@
+.section {
+  background-color: #E9E2DD;
+}
+
+.content {
+  margin: auto;
+  max-width: 600px;
+  padding: 30px 20px;
+}
+
+.content h2 {
+  font-size: 24px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}

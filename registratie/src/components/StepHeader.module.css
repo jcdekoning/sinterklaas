@@ -1,0 +1,21 @@
+.content {
+  margin: auto;
+  max-width: 600px;
+  padding: 30px 20px;
+}
+
+.content h1 {
+  font-size: 36px;
+  font-weight: normal;
+  padding-bottom: 20px;
+  color: #C34F4F;
+  font-family: 'Noto Sans';
+}
+
+.content h2 {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  font-size: 24px;
+  font-weight: normal;
+  font-family: 'Noto Sans';
+}

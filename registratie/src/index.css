@@ -1,15 +1,15 @@
 
 body {
-  font-family: 'Fira Sans', sans-serif;
   font-size: 16px;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 125%;
+  color: #4F3B35;
+  background-color: #ECEFEE;
 }
 
-form {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-input {
+/* input {
   display: block;
   width: 100%;
   border-radius: 4px;
@@ -29,12 +29,14 @@ input[type="checkbox"]{
 }
 
 input[type="submit"] {
+  border: none;
+  background-color: #487D83;
+  color: white;
   padding: 20px;
-}
-
-label {
-  text-align: left;
-  display: block;
+  border-radius: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: auto;
 }
 
 select {
@@ -54,18 +56,13 @@ textarea {
 }
 
 h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
 }
 
 h2 {
-  font-size: 24px;
-  margin-bottom: 16px;
-}
-
-label {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
 }
 
 p {
@@ -73,11 +70,6 @@ p {
   margin-bottom: 10px;
 }
 
-legend {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .error {
   color: red;
-}
+} */

@@ -4,6 +4,7 @@ import { RouterProps, Redirect } from 'react-router';
 
 import { FormContext } from '../FormContext';
 import { Stap1FormData, Stap2FormData } from '../types/form';
+import StepHeader from '../components/StepHeader';
 
 type FormData = {
   roepnaamkind: string[];
@@ -58,7 +59,7 @@ const Stap2 = (props: RouterProps) => {
   }
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <h1>Aanmeldingsformulier Sinterklaas 2019</h1>
+    <StepHeader title="Gegevens kinderen" />
     {createArrayWithNumbers(aantalKinderen).map(number => {
       return <div key={number}>
         <h2>Gegevens kind {number + 1}</h2>
