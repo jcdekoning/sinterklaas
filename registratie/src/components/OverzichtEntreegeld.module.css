@@ -1,0 +1,19 @@
+.overzicht ul{
+  margin-top: 20px;
+}
+
+.overzicht li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.overzicht li div {
+  display: block;
+}
+
+.totaal {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 20px;
+}

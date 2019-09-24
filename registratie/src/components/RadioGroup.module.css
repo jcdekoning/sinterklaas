@@ -1,14 +1,10 @@
-.radiogroup {
-  margin-bottom: 20px;
-}
-
 .radiogroup legend {
   text-align: left;
   display: block;
   font-size: 18px;
   font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .radiogroup li {
@@ -16,8 +12,8 @@
 }
 
 .radiogroup ul {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .radiogroup p {
@@ -55,4 +51,9 @@
   background-color:  #487D83;
   border: 1px solid  #487D83;
   color: white;
+}
+
+.error {
+  color: red;
+  padding-top: 10px;
 }

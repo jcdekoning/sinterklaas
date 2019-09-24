@@ -14,7 +14,7 @@ const NumericField = (props: NumericFieldProps) => {
     <label htmlFor={props.name}>{props.label}</label>
     {props.description && <p className={styles.description}>{props.description}</p>}
     <input name={props.name} type="number" ref={props.register} />
-    {props.error && <p className={styles.error}>{props.error}</p>}
+    {props.error && <div className={styles.error}>{props.error}</div>}
   </fieldset>
 }
 

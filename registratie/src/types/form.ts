@@ -4,8 +4,10 @@ export type Stap1FormData = {
   kindOpSchool: boolean;
   lidVanClub: boolean;
   aantalKinderen: number;
-  aantalKinderen10Plus: number;
-  aantalVolwassenen: number;
+  aantalPersonen: number;
+  gratisLidmaatschap?: boolean;
+  adres?: string;
+  telefoon?: string;
 }
 
 export type Stap2FormData = {

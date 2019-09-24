@@ -17,7 +17,7 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
   return {
     naam: stap1.naam,
     email: stap1.email,
-    aantalPersonen: stap1.aantalVolwassenen,
+    aantalPersonen: stap1.aantalPersonen,
     relatie: 'change',
     kinderen: stap2.map(kind => {
       return {

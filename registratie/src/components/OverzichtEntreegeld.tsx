@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './OverzichtEntreegeld.module.css';
 
 type OverzichtEntreegeldProps = {
   aantalKinderen: number;
@@ -12,7 +13,7 @@ const OverzichtEntreegeld = (props: OverzichtEntreegeldProps) => {
 
   const aantalExtraPersonen = Math.max(aantalPersonen - 2, 0);
 
-  return <><h2>Overzicht entreegeld</h2>
+  return <div className={styles.overzicht}><h2>Overzicht entreegeld</h2>
     <p>Hier vindt u een overzicht van de totale kosten voor de inschrijving op basis van de keuzes die u hierboven heeft gemaakt.</p>
     <ul>
       {aantalKinderen > 0 && <li>
@@ -20,18 +21,18 @@ const OverzichtEntreegeld = (props: OverzichtEntreegeldProps) => {
         <div>{aantalKinderen * 150} NOK</div>
       </li>}
       {aantalExtraPersonen > 0 && <li>
-        <div>{aantalExtraPersonen} extra bijdrage voor personen x 50 NOK</div>
+        <div>{aantalExtraPersonen} extra {aantalExtraPersonen === 1 ? 'persoon' : 'personen'} x 50 NOK</div>
         <div>{aantalExtraPersonen * 50} NOK</div>
       </li>}
       {lidmaatschap && <li>
         <div>Lidmaatschap t/m eind 2019</div>
         <div>{gratisLidmaatschap ? 0 : 175} NOK</div>
       </li>}
-      <li>
+      <li className={styles.totaal}>
         <div>Totaal</div>
-        <div>{(Math.max(aantalKinderen, 0) * 150) + (aantalExtraPersonen * 50) + ((lidmaatschap && !gratisLidmaatschap) ? 175 : 0)}</div>
+        <div>{(Math.max(aantalKinderen, 0) * 150) + (aantalExtraPersonen * 50) + ((lidmaatschap && !gratisLidmaatschap) ? 175 : 0)} NOK</div>
       </li>
-    </ul></>;
+    </ul></div>;
 }
 
 export default OverzichtEntreegeld;

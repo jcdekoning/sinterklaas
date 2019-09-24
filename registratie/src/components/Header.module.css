@@ -9,11 +9,11 @@
 .header h1 {
   font-size: 25px;
   line-height: 30px;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .header h2 {
   margin-top: 5px;
   font-size: 16px;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans', sans-serif;
 }

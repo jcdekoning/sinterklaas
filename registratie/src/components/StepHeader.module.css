@@ -9,7 +9,7 @@
   font-weight: normal;
   padding-bottom: 20px;
   color: #C34F4F;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .content h2 {
@@ -17,5 +17,5 @@
   padding-bottom: 20px;
   font-size: 24px;
   font-weight: normal;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans', sans-serif;
 }

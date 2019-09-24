@@ -28,7 +28,7 @@ const RadioGroup = (props: PropsWithChildren<RadioGroupProps>) => {
         return <li key={child.props.value}>{child}</li>
       })}
     </ul>
-    {props.error && <p>{props.error}</p>}
+    {props.error && <div className={styles.error}>{props.error}</div>}
   </fieldset>
 }
 
