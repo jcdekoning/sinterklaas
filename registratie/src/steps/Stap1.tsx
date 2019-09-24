@@ -10,8 +10,7 @@ import StepSection from '../components/StepSection';
 import StepFooter from '../components/StepFooter';
 
 import TextField from '../components/TextField';
-import RadioGroup from '../components/RadioGroup';
-import Radio from '../components/Radio';
+import TwoOptionsField from '../components/TwoOptionsField';
 import NumericField from '../components/NumericField';
 import OverzichtEntreegeld from '../components/OverzichtEntreegeld';
 
@@ -56,29 +55,36 @@ const Stap1 = (props: RouterProps) => {
           }
         })}
         error={errors.email && errors.email.message} />
-      <RadioGroup
+      <TwoOptionsField
         name="kindOpSchool"
         label="Heeft uw kinderen op de NTC Het Noorderlicht?"
-        error={errors.kindOpSchool && "Maak een keuze"} >
-        <Radio value="true" label="Ja" register={register({ required: true })} />
-        <Radio value="false" label="Nee" register={register({ required: true })} />
-      </RadioGroup>
-      <RadioGroup
+        error={errors.kindOpSchool && "Maak een keuze"}
+        optionOneLabel="Ja"
+        optionOneValue="true"
+        optionTwoLabel="Nee"
+        optionTwoValue="false"
+        register={register({ required: true })} />
+      <TwoOptionsField
         name="lidVanClub"
         label="Bent u lid van de Nederlandse Club Oslo?"
-        error={errors.lidVanClub && "Maak een keuze"} >
-        <Radio value="true" label="Ja" register={register({ required: true })} />
-        <Radio value="false" label="Nee" register={register({ required: true })} />
-      </RadioGroup>
+        error={errors.lidVanClub && "Maak een keuze"}
+        optionOneLabel="Ja"
+        optionOneValue="true"
+        optionTwoLabel="Nee"
+        optionTwoValue="false"
+        register={register({ required: true })} />
       {kindOpSchool === 'true' && lidVanClub === 'false' &&
-        <RadioGroup
+        <TwoOptionsField
           name="gratisLidmaatschap"
           label="Wilt u lid worden van de Nederlandse Club Oslo?"
           description="Omdat u een of meerdere kinderen op de NTC Het Noorderlicht heeft, is een lidmaatschap van de Nederlandse Club Oslo geen vereiste om deel te nemen aan het Sinterklaasfeest. De Nederlandse Club Oslo biedt u wel een gratis lidmaatschap aan tot eind 2019. Wilt u van dit aanbod gebruik maken?"
-          error={errors.lidVanClub && "Maak een keuze"} >
-          <Radio value="true" label="Ja" register={register({ required: true })} />
-          <Radio value="false" label="Nee" register={register({ required: true })} />
-        </RadioGroup>}
+          error={errors.lidVanClub && "Maak een keuze"}
+          optionOneLabel="Ja"
+          optionOneValue="true"
+          optionTwoLabel="Nee"
+          optionTwoValue="false"
+          register={register({ required: true })} />
+      }
       {lidmaatschap &&
         <>
           <h2>Lidmaatschap Nederlandse Club Oslo</h2>
