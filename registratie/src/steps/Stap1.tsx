@@ -134,7 +134,7 @@ const Stap1 = (props: RouterProps) => {
             message: 'Minimaal aantal volwassenen moet 1 zijn'
           },
           max: {
-            value: 5,
+            value: 10,
             message: 'Er kunnen maximaal 10 personen mee. Wilt u meer personen meenemen, neem dan contact op via sinterklaas@nederlandsecluboslo.nl'
           }
         })}
