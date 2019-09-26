@@ -9,8 +9,6 @@ trigger:
 pool:
   vmImage: 'vs2017-win2016'
 
-displayName: 'Api'
-
 steps:
 - task: DotNetCoreCLI@2
   displayName: Build
