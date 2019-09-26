@@ -9,13 +9,15 @@ trigger:
 pool:
   vmImage: 'vs2017-win2016'
 
+displayName: 'Api'
+
 steps:
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: 'build'
     projects: |
-      'api/*.csproj'
+      '**/Api.csproj'
     arguments: --output publish_output --configuration Release
 
 - task: ArchiveFiles@2
