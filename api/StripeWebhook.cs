@@ -20,7 +20,7 @@ namespace Sinterklaas.Api
     {
         [FunctionName("StripeWebhook")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "stripe")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "stripe")] HttpRequest req,
             [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")] IDocumentClient client,
             [SendGrid(From = "sinterklaas@nederlandsecluboslo.nl")] IAsyncCollector<SendGridMessage> messageCollector,
             ILogger log, ExecutionContext context)

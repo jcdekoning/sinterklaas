@@ -14,7 +14,7 @@ namespace Sinterklaas.Api
     {
         [FunctionName("Ping")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "ping")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ping")] HttpRequest req,
             ILogger log)
         {
             return new JsonResult("Pong!");

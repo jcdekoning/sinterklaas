@@ -20,7 +20,7 @@ namespace Sinterklaas.Api
     {
         [FunctionName("AddInschrijving")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "inschrijving")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "inschrijving")] HttpRequest req,
             [CosmosDB(
                 databaseName: "sinterklaas",
                 collectionName: "inschrijvingen",
