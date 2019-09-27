@@ -1,9 +1,11 @@
 type Config = {
   api: string;
+  stripe: string;
 }
 
 const config: Config = {
-  api: ''
+  api: '',
+  stripe: ''
 };
 
 export default config;

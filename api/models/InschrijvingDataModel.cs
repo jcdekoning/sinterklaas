@@ -15,7 +15,11 @@ namespace Sinterklaas.Api.Models
     public string Naam { get; set; }
     public string Email { get; set; }
     public int AantalPersonen { get; set; }
-    public string Relatie { get; set; }
+    public bool KindOpSchool { get; set; }
+    public bool LidVanClub { get; set; }
+    public bool GratisLidmaatschap {get; set;}
+    public string Adres {get; set;}
+    public string Telefoon {get; set;}
     public KindDataModel[] Kinderen { get; set; }
     public string Vrijwilliger { get; set; }
     public string Commentaar { get; set; }

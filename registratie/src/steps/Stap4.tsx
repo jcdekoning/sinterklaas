@@ -7,6 +7,9 @@ import config from './../config';
 import { Stap4FormData, FormState, Stap1FormData, Stap2FormData, Stap3FormData } from '../types/form';
 import { Inschrijving } from '../types/api';
 import StepHeader from '../components/StepHeader';
+import StepSection from '../components/StepSection';
+import StepFooter from '../components/StepFooter';
+import TextAreaField from '../components/TextAreaField';
 
 const mapFormStateToApiData = (state: FormState): Inschrijving => {
   const stap1 = state.stap1 as Stap1FormData;
@@ -18,7 +21,11 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
     naam: stap1.naam,
     email: stap1.email,
     aantalPersonen: stap1.aantalPersonen,
-    relatie: 'change',
+    kindOpSchool: stap1.kindOpSchool,
+    lidVanClub: stap1.lidVanClub,
+    gratisLidmaatschap: stap1.gratisLidmaatschap,
+    adres: stap1.adres,
+    telefoon: stap1.telefoon,
     kinderen: stap2.map(kind => {
       return {
         voornaam: kind.voornaam,
@@ -53,14 +60,12 @@ const Stap4 = (props: RouterProps) => {
           body: JSON.stringify(mapFormStateToApiData({ ...state, stap4: data })),
 
         });
+        
       const responseJson = await response.json();
-      console.log(responseJson);
 
-      const stripe = (window as any).Stripe('pk_test_FbPLI6YGcTMjFEcccJvSi0zm');
+      const stripe = (window as any).Stripe(config.stripe);
       stripe.redirectToCheckout({
         sessionId: responseJson.sessionId
-      }).then((result: any) => {
-        console.log(result);
       });
     } catch (ex) {
       console.log(ex);
@@ -69,10 +74,11 @@ const Stap4 = (props: RouterProps) => {
 
   return <form onSubmit={handleSubmit(onSubmit)}>
     <StepHeader title="Overzicht inschrijving" />
-    <fieldset>
-      <label htmlFor="commentaar">Heeft u nog overige vragen en/of opmerkingen?</label>
-      <textarea name="commentaar" rows={3} ref={register} />
-    </fieldset>
+    <StepSection>
+      <TextAreaField 
+        name="commentaar"
+        label="Heeft u nog overige vragen en/of opmerkingen?"
+        register={register}/>
     <fieldset>
       <legend>Privacyverklaring</legend>
       <p>
@@ -86,7 +92,10 @@ const Stap4 = (props: RouterProps) => {
       />Ik heb de privacyverklaring gelezen</label>
       {errors.privacyverklaring && <p className="error">Accepteer de privacyverklaring</p>}
     </fieldset>
-    <input type="submit" value="Naar betaling" />
+    </StepSection>
+    <StepFooter>
+      <input type="submit" value="Naar betaling" />
+    </StepFooter>
   </form>
 }
 

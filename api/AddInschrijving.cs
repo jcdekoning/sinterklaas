@@ -28,17 +28,26 @@ namespace Sinterklaas.Api
             ILogger log, ExecutionContext context)
         {
             try {
+                log.LogInformation("Add inschrijving triggered");
+
                 var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
                     .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                     .AddEnvironmentVariables()
                     .Build();
 
+                
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                log.LogInformation($"Deserializing inschrijving {requestBody}");
+
                 var inschrijving = JsonConvert.DeserializeObject<InschrijvingViewModel>(requestBody);
+
+                log.LogInformation($"Inschrijving deserialized for {inschrijving.Naam}");
                 
                 StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
 
-                var lineItems = CreateLineItemsFromInschrijving(inschrijving);
+                var lineItems = CreateLineItemsFromInschrijving(inschrijving, log);
+
+                log.LogInformation($"{lineItems.Count()} line items created");
                 
                 var options = new SessionCreateOptions {
                     CustomerEmail = inschrijving.Email,
@@ -51,26 +60,34 @@ namespace Sinterklaas.Api
                     CancelUrl = "https://localhost:3000/cancel", //todo config
                 };
 
+                log.LogInformation("Creating stripe session");
+                
                 var service = new SessionService();
                 Session session = await service.CreateAsync(options);
                 var sessionId = session.Id;
 
+                log.LogInformation($"Stripe session created {sessionId}");
+
+                log.LogInformation("Save inschrijving to database");
                 await inschrijvingenOut.AddAsync(MapToDataModel(inschrijving, sessionId, 
                     options.LineItems.Where(l => l.Amount.HasValue).Sum(l => l.Amount.Value)));
+                log.LogInformation("Inschrijving saved. Returning sessionId to consumer");
 
                 return new JsonResult(new {
                     sessionId = sessionId
                 });
             }
             catch (Exception e) {
-                log.LogError(e, "Something went wrong");
+                log.LogError(e, $"Something went wrong {e.Message}");
                 return new BadRequestResult();
             }
         }
 
-    private static IEnumerable<SessionLineItemOptions> CreateLineItemsFromInschrijving(InschrijvingViewModel inschrijving)
+    private static IEnumerable<SessionLineItemOptions> CreateLineItemsFromInschrijving(InschrijvingViewModel inschrijving, ILogger log)
     {
-      if(inschrijving.Relatie.Equals("NieuwLid", StringComparison.OrdinalIgnoreCase)) {
+      log.LogInformation($"KindOpSchool is {inschrijving.KindOpSchool} and LidVanClub is {inschrijving.LidVanClub}");
+      if(!inschrijving.KindOpSchool && !inschrijving.LidVanClub) {
+        log.LogInformation("Person needs a club subscription. Creating line item");
         yield return new SessionLineItemOptions {
             Name = "Lidmaatschap Nederlandse Club Oslo",
             Description = "2019",
@@ -80,7 +97,10 @@ namespace Sinterklaas.Api
         };
       }
 
+      log.LogInformation($"AantalPersonen is {inschrijving.AantalPersonen}");
+      
       if(inschrijving.AantalPersonen > 2) {
+          log.LogInformation("More then two personen. Creating line item");
           yield return new SessionLineItemOptions {
             Name = "Bijdrage voor extra personen",
             Amount = 5000,
@@ -89,7 +109,10 @@ namespace Sinterklaas.Api
         };
       }
 
+      log.LogInformation($"AantalKinderen is {inschrijving.Kinderen.Count()}");
+
       foreach(var kind in inschrijving.Kinderen) {
+          log.LogInformation("Creating line item for kind");
            yield return new SessionLineItemOptions {
                             Name = "Inschrijving Sinterklaas",
                             Description = kind.Voornaam + " " + kind.Achternaam,
@@ -107,7 +130,11 @@ namespace Sinterklaas.Api
             Naam = inschrijving.Naam,
             Privacyverklaring = inschrijving.Privacyverklaring,
             SessionId = sessionId,
-            Relatie = inschrijving.Relatie,
+            LidVanClub = inschrijving.LidVanClub,
+            KindOpSchool = inschrijving.KindOpSchool,
+            GratisLidmaatschap = inschrijving.GratisLidmaatschap,
+            Adres = inschrijving.Adres,
+            Telefoon = inschrijving.Telefoon,
             Vrijwilliger = inschrijving.Vrijwilliger,
             AantalPersonen = inschrijving.AantalPersonen,
             Kinderen  = inschrijving.Kinderen.Select(k => new KindDataModel{

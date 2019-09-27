@@ -9,8 +9,12 @@ type Kind = {
 export type Inschrijving = {
   naam: string;
   email: string;
+  kindOpSchool: boolean;
+  lidVanClub: boolean;
+  gratisLidmaatschap?: boolean;
+  adres?: string;
+  telefoon?: string;
   aantalPersonen: number;
-  relatie: string;
   kinderen: Kind[];
   vrijwilliger: string;
   commentaar: string;
