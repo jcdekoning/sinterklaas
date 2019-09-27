@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { FormProvider } from './FormContext';
 import ConfigLoader from './ConfigLoader';
 
+import ScrollToTop from './ScrollToTop';
 import Stap1 from './steps/Stap1';
 import Stap2 from './steps/Stap2';
 import Stap3 from './steps/Stap3';
@@ -18,15 +19,17 @@ const App = () => {
     <ConfigLoader>
       <FormProvider>
         <Router>
-          <Header />
-          <Switch>
-            <Route path="/stap2" component={Stap2} />
-            <Route path="/stap3" component={Stap3} />
-            <Route path="/stap4" component={Stap4} />
-            <Route path="/success" component={SuccessPage} />
-            <Route path="/error" component={ErrorPage} />
-            <Route component={Stap1} />
-          </Switch>
+          <ScrollToTop>
+            <Header />
+            <Switch>
+              <Route path="/stap2" component={Stap2} />
+              <Route path="/stap3" component={Stap3} />
+              <Route path="/stap4" component={Stap4} />
+              <Route path="/success" component={SuccessPage} />
+              <Route path="/error" component={ErrorPage} />
+              <Route component={Stap1} />
+            </Switch>
+          </ScrollToTop>
         </Router>
       </FormProvider>
     </ConfigLoader>

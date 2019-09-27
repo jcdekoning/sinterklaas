@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './OverzichtEntreegeld.module.css';
+import { singularOrPlural } from '../utils/text';
 
 type OverzichtEntreegeldProps = {
   aantalKinderen: number;
@@ -17,11 +18,11 @@ const OverzichtEntreegeld = (props: OverzichtEntreegeldProps) => {
     <p>Hier vindt u een overzicht van de totale kosten voor de inschrijving op basis van de keuzes die u hierboven heeft gemaakt.</p>
     <ul>
       {aantalKinderen > 0 && <li>
-        <div>{aantalKinderen} {aantalKinderen === 1 ? 'inschrijving' : 'inschrijvingen'} x 150 NOK</div>
+        <div>{aantalKinderen} {singularOrPlural(aantalKinderen, 'inschrijving', 'inschrijvingen')} x 150 NOK</div>
         <div>{aantalKinderen * 150} NOK</div>
       </li>}
       {aantalExtraPersonen > 0 && <li>
-        <div>{aantalExtraPersonen} extra {aantalExtraPersonen === 1 ? 'persoon' : 'personen'} x 50 NOK</div>
+        <div>{aantalExtraPersonen} extra {singularOrPlural(aantalPersonen, 'persoon', 'personen')} x 50 NOK</div>
         <div>{aantalExtraPersonen * 50} NOK</div>
       </li>}
       {lidmaatschap && <li>
