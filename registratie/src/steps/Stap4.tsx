@@ -118,7 +118,6 @@ const Stap4 = (props: RouterProps) => {
     <StepFooter>
       <button type="button" onClick={goBack}>Terug</button>
       <button type="submit" disabled={isSubmitting}>Naar betalen</button>
-      {isSubmitting && <p>Is submitting</p>}
     </StepFooter>
   </form>
 }
