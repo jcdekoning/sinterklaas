@@ -33,7 +33,6 @@ const Stap1 = (props: RouterProps) => {
   const lidmaatschap = ((kindOpSchool === 'false' && lidVanClub === 'false') || gratisLidmaatschap);
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <Loader />
     <StepHeader title="Algemene gegevens" />
     <StepSection>
       <TextField
