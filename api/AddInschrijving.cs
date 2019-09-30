@@ -1,12 +1,9 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Stripe;
 using Stripe.Checkout;
 using System.Collections.Generic;
@@ -20,7 +17,7 @@ namespace Sinterklaas.Api
     {
         [FunctionName("AddInschrijving")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "inschrijving")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "inschrijving")] InschrijvingViewModel inschrijving,
             [CosmosDB(
                 databaseName: "sinterklaas",
                 collectionName: "inschrijvingen",
@@ -28,20 +25,12 @@ namespace Sinterklaas.Api
             ILogger log, ExecutionContext context)
         {
             try {
-                log.LogInformation("Add inschrijving triggered");
+                log.LogInformation($"Add inschrijving triggered for {inschrijving}");
 
                 var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
                     .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                     .AddEnvironmentVariables()
                     .Build();
-
-                
-                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                log.LogInformation($"Deserializing inschrijving {requestBody}");
-
-                var inschrijving = JsonConvert.DeserializeObject<InschrijvingViewModel>(requestBody);
-
-                log.LogInformation($"Inschrijving deserialized for {inschrijving.Naam}");
                 
                 StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
 

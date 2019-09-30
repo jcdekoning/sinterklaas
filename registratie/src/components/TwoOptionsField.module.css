@@ -40,13 +40,6 @@
   box-shadow: 0 0 0 1px black inset;
 }
 
-.radiogroup input[type=radio]:focus + label {
-  background-color: white;
-  box-shadow: 0px 0px 0px 5px rgba(255,255,255,1); 
-  color: #487D83;
-  border: 1px solid #487D83;
-}
-
 .radiogroup input[type=radio]:checked + label {
   background-color:  #487D83;
   border: 1px solid  #487D83;

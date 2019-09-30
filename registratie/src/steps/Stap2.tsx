@@ -45,7 +45,7 @@ const mapToFormData = (data: Stap2FormData[]): FormData => {
 const Stap2 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext);
   const defaultValues = state.stap2 || [];
-  const { register, errors, handleSubmit, watch } = useForm<FormData>({ defaultValues: mapToFormData(defaultValues) });
+  const { register, errors, handleSubmit, watch, getValues } = useForm<FormData>({ defaultValues: mapToFormData(defaultValues) });
 
   if (!state.stap1) {
     return <Redirect to='/' />
@@ -58,6 +58,12 @@ const Stap2 = (props: RouterProps) => {
     dispatch({ type: 'setStap2FormData', payload: mapToStateData(data) });
     props.history.push('/stap3');
   };
+
+  const goBack = () => {
+    const currentValues = getValues({ nest: true });
+    dispatch({ type: 'setStap2FormData', payload: mapToStateData(currentValues) });
+    props.history.push('/stap1');
+  }
 
   const createArrayWithNumbers = (length: number) => {
     length = length || 1;
@@ -123,7 +129,8 @@ const Stap2 = (props: RouterProps) => {
       })}
     </StepSection>
     <StepFooter>
-      <input type="submit" value="Verder" />
+      <button type="button" onClick={goBack}>Terug</button>
+      <button type="submit">Verder</button>
     </StepFooter>
   </form>
 }

@@ -27,6 +27,8 @@ const reducer = (state: FormState, action: FormAction): FormState => {
       return { ...state, stap2: action.payload };
     case 'setStap3FormData':
       return { ...state, stap3: action.payload };
+    case 'setStap4FormData':
+      return { ...state, stap4: action.payload };
   }
   return state;
 }

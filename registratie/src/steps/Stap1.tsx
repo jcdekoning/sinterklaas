@@ -146,7 +146,8 @@ const Stap1 = (props: RouterProps) => {
         gratisLidmaatschap={gratisLidmaatschap} />
     </StepSection>
     <StepFooter>
-      <input type="submit" value="Verder" />
+      <span />
+      <button type="submit">Verder</button>
     </StepFooter>
   </form>
 }

@@ -2,17 +2,31 @@
   margin: auto;
   max-width: 600px;
   padding: 30px 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.content input[type="submit"] {
+.content button{
   appearance: none;
-  border: none;
-  background-color: #487D83;
-  color: white;
+  border: 1px solid #487D83;
+  color: #487D83;
   padding: 20px;
   border-radius: 5px;
   text-decoration: none;
   width: auto;
   font-size: 18px;
   cursor: pointer;
+  background-color: white;
+}
+
+.content button[type="submit"] {
+  appearance: none;
+  border: none;
+  background-color: #487D83;
+  color: white;
+}
+
+.content button[type="submit"]:disabled {
+  cursor: default;
+  background-color: gray;
 }

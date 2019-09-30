@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useForm from "react-hook-form";
 import { RouterProps, Redirect } from 'react-router';
 import { FormContext } from '../FormContext';
@@ -42,8 +42,9 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
 }
 
 const Stap4 = (props: RouterProps) => {
-  const { state } = React.useContext(FormContext);
-  const { register, errors, handleSubmit } = useForm<Stap4FormData>();
+  const { state, dispatch } = React.useContext(FormContext);
+  const { register, errors, handleSubmit, getValues } = useForm<Stap4FormData>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!state.stap3) {
     return <Redirect to='/stap3' />
@@ -51,6 +52,7 @@ const Stap4 = (props: RouterProps) => {
 
   const onSubmit = async (data: Stap4FormData, e: any) => {
     try {
+      setIsSubmitting(true);
       const response = await fetch(`${config.api}/inschrijving`,
         {
           method: 'POST',
@@ -60,7 +62,7 @@ const Stap4 = (props: RouterProps) => {
           body: JSON.stringify(mapFormStateToApiData({ ...state, stap4: data })),
 
         });
-        
+
       const responseJson = await response.json();
 
       const stripe = (window as any).Stripe(config.stripe);
@@ -69,32 +71,41 @@ const Stap4 = (props: RouterProps) => {
       });
     } catch (ex) {
       console.log(ex);
+      setIsSubmitting(false);
     }
   };
+
+  const goBack = () => {
+    const currentValues = getValues();
+    dispatch({ type: 'setStap4FormData', payload: currentValues });
+    props.history.push('/stap3');
+  }
 
   return <form onSubmit={handleSubmit(onSubmit)}>
     <StepHeader title="Overzicht inschrijving" />
     <StepSection>
-      <TextAreaField 
+      <TextAreaField
         name="commentaar"
         label="Heeft u nog overige vragen en/of opmerkingen?"
-        register={register}/>
-    <fieldset>
-      <legend>Privacyverklaring</legend>
-      <p>
-        Bij aanmelding worden uw persoonsgegevens en de gegevens van uw kind/kinderen bewaard door de Nederlandse Club Oslo. Op https://nederlandsecluboslo.nl/privacy kunt uw lezen waarom dit noodzakelijk is en hoe wij met deze gegevens omgaan.
+        register={register} />
+      <fieldset>
+        <legend>Privacyverklaring</legend>
+        <p>
+          Bij aanmelding worden uw persoonsgegevens en de gegevens van uw kind/kinderen bewaard door de Nederlandse Club Oslo. Op https://nederlandsecluboslo.nl/privacy kunt uw lezen waarom dit noodzakelijk is en hoe wij met deze gegevens omgaan.
       </p>
-      <label><input
-        name="privacyverklaring"
-        type="checkbox"
-        value="akkoord"
-        ref={register({ required: true })}
-      />Ik heb de privacyverklaring gelezen</label>
-      {errors.privacyverklaring && <p className="error">Accepteer de privacyverklaring</p>}
-    </fieldset>
+        <label><input
+          name="privacyverklaring"
+          type="checkbox"
+          value="akkoord"
+          ref={register({ required: true })}
+        />Ik heb de privacyverklaring gelezen</label>
+        {errors.privacyverklaring && <p className="error">Accepteer de privacyverklaring</p>}
+      </fieldset>
     </StepSection>
     <StepFooter>
-      <input type="submit" value="Naar betaling" />
+      <button type="button" onClick={goBack}>Terug</button>
+      <button type="submit" disabled={isSubmitting}>Verder</button>
+      {isSubmitting && <p>Is submitting</p>}
     </StepFooter>
   </form>
 }
