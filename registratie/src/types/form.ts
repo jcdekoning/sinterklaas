@@ -1,3 +1,7 @@
+export type Geslacht =
+  | "Jongen"
+  | "Meisje"
+
 export type Stap1FormData = {
   naam: string;
   email: string;
@@ -14,12 +18,19 @@ export type Stap2FormData = {
   voornaam: string;
   achternaam: string;
   leeftijd: number;
-  geslacht: string;
+  geslacht: Geslacht;
   anekdote: string;
 }
 
+export type Vrijwilliger =
+  | 'uur'
+  | 'dagdeel'
+  | 'dagdeelzonderkind'
+  | 'dag'
+  | 'nee'
+
 export type Stap3FormData = {
-  vrijwilliger: string;
+  vrijwilliger: Vrijwilliger;
 }
 
 export type Stap4FormData = {

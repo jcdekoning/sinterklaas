@@ -77,7 +77,7 @@ const Stap1 = (props: RouterProps) => {
         <TwoOptionsField
           name="gratisLidmaatschap"
           label="Wilt u lid worden van de Nederlandse Club Oslo?"
-          description="Omdat u een of meerdere kinderen op de NTC Het Noorderlicht heeft, is een lidmaatschap van de Nederlandse Club Oslo geen vereiste om deel te nemen aan het Sinterklaasfeest. De Nederlandse Club Oslo biedt u wel een gratis lidmaatschap aan tot eind 2019. Wilt u van dit aanbod gebruik maken?"
+          description="Omdat u een of meerdere kinderen op de NTC Het Noorderlicht heeft, is een lidmaatschap van de Nederlandse Club Oslo geen vereiste om deel te nemen aan het Sinterklaasfeest. De Nederlandse Club Oslo biedt u wel een gratis lidmaatschap aan tot eind 2019. Het lidmaatschap wordt daarna automatisch verlengd. Wilt u van dit aanbod gebruik maken?"
           error={errors.lidVanClub && "Maak een keuze"}
           optionOneLabel="Ja"
           optionOneValue="true"

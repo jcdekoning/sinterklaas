@@ -10,6 +10,11 @@ import StepHeader from '../components/StepHeader';
 import StepSection from '../components/StepSection';
 import StepFooter from '../components/StepFooter';
 import TextAreaField from '../components/TextAreaField';
+import Checkbox from '../components/Checkbox';
+import OverzichtStap1 from '../components/OverzichtStap1';
+import OverzichtStap2 from '../components/OverzichtStap2';
+import OverzichtStap3 from '../components/OverzichtStap3';
+import OverzichtEntreegeld from '../components/OverzichtEntreegeld';
 
 const mapFormStateToApiData = (state: FormState): Inschrijving => {
   const stap1 = state.stap1 as Stap1FormData;
@@ -81,30 +86,38 @@ const Stap4 = (props: RouterProps) => {
     props.history.push('/stap3');
   }
 
+  const stap1FormData = state.stap1 as Stap1FormData;
+  const gratisLidmaatschap = stap1FormData.gratisLidmaatschap ? true : false;
+  const lidmaatschap = ((stap1FormData.kindOpSchool === false && stap1FormData.lidVanClub === false) || gratisLidmaatschap);
+
   return <form onSubmit={handleSubmit(onSubmit)}>
     <StepHeader title="Overzicht inschrijving" />
     <StepSection>
+      <OverzichtStap1 {...stap1FormData} />
+      <OverzichtStap2 kinderen={state.stap2 as Stap2FormData[]} />
+      <OverzichtStap3 vrijwilliger={state.stap3.vrijwilliger} aantalKinderen={(state.stap1 as Stap1FormData).aantalKinderen} />
+      <OverzichtEntreegeld
+        aantalKinderen={stap1FormData.aantalKinderen}
+        aantalPersonen={stap1FormData.aantalPersonen}
+        lidmaatschap={lidmaatschap}
+        gratisLidmaatschap={gratisLidmaatschap} />
+      <h2>Privacyverklaring</h2>
+      <p>
+        Bij aanmelding worden uw persoonsgegevens en de gegevens van uw kind/kinderen bewaard door de Nederlandse Club Oslo. Op <a href="https://nederlandsecluboslo.nl/privacy" target="_blank" rel="noopener noreferrer">https://nederlandsecluboslo.nl/privacy</a> kunt uw lezen waarom dit noodzakelijk is en hoe wij met deze gegevens omgaan.
+      </p>
+      <Checkbox
+        label="Ik heb de privacyverklaring gelezen"
+        name="privacyverklaring"
+        register={register({ required: true })}
+        error={errors.privacyverklaring && "Accepteer de privacyverklaring"} />
       <TextAreaField
         name="commentaar"
         label="Heeft u nog overige vragen en/of opmerkingen?"
         register={register} />
-      <fieldset>
-        <legend>Privacyverklaring</legend>
-        <p>
-          Bij aanmelding worden uw persoonsgegevens en de gegevens van uw kind/kinderen bewaard door de Nederlandse Club Oslo. Op https://nederlandsecluboslo.nl/privacy kunt uw lezen waarom dit noodzakelijk is en hoe wij met deze gegevens omgaan.
-      </p>
-        <label><input
-          name="privacyverklaring"
-          type="checkbox"
-          value="akkoord"
-          ref={register({ required: true })}
-        />Ik heb de privacyverklaring gelezen</label>
-        {errors.privacyverklaring && <p className="error">Accepteer de privacyverklaring</p>}
-      </fieldset>
     </StepSection>
     <StepFooter>
       <button type="button" onClick={goBack}>Terug</button>
-      <button type="submit" disabled={isSubmitting}>Verder</button>
+      <button type="submit" disabled={isSubmitting}>Naar betalen</button>
       {isSubmitting && <p>Is submitting</p>}
     </StepFooter>
   </form>

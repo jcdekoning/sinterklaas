@@ -1,0 +1,63 @@
+.checkbox {
+  margin-bottom: 10px;
+}
+
+.checkbox input[type="checkbox"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+.checkbox label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox label span {
+  position: relative;
+  display: block;
+  padding-left: 10px;
+  cursor: pointer;
+  transition: all 0.25s linear;
+}
+
+.checkbox label:hover {
+  font-weight: bold;
+}
+
+.check {
+  display: block;
+  position: relative;
+  min-width: 25px;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  background: #fff;
+  cursor: pointer;
+  transition: border .25s linear;
+}
+
+.check::before {
+  display: block;
+  position: absolute;
+	content: '';
+  border-radius: 2px;
+  height: 17px;
+  width: 17px;
+  transition: background 0.25s linear;
+  left: 3px;
+  top: 3px;
+}
+
+.checkbox input[type=checkbox]:checked ~ label .check::before{
+  background:#487D83;
+}
+
+.error {
+  color: red;
+  padding-top: 10px;
+}
+

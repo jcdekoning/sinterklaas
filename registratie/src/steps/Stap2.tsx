@@ -3,7 +3,7 @@ import useForm from "react-hook-form";
 import { RouterProps, Redirect } from 'react-router';
 
 import { FormContext } from '../FormContext';
-import { Stap1FormData, Stap2FormData } from '../types/form';
+import { Stap1FormData, Stap2FormData, Geslacht } from '../types/form';
 import StepHeader from '../components/StepHeader';
 import StepSection from '../components/StepSection';
 import StepFooter from '../components/StepFooter';
@@ -26,7 +26,7 @@ const mapToStateData = (data: FormData): Stap2FormData[] => {
       voornaam: data.roepnaamkind[index],
       achternaam: data.achternaamkind[index],
       leeftijd: data.leeftijdkind[index],
-      geslacht: data.geslachtkind[index],
+      geslacht: data.geslachtkind[index] as Geslacht,
       anekdote: data.anekdotekind[index]
     }
   });
@@ -110,9 +110,9 @@ const Stap2 = (props: RouterProps) => {
             label="Geslacht kind"
             error={(errors as any)[`geslachtkind[${number}]`] && "Kies een geslacht"}
             optionOneLabel="Jongen"
-            optionOneValue="jongen"
+            optionOneValue="Jongen"
             optionTwoLabel="Meisje"
-            optionTwoValue="meisje"
+            optionTwoValue="Meisje"
             register={register({ required: true })} />
           <TextAreaField
             name={`anekdotekind[${number}]`}
