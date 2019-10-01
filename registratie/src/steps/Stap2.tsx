@@ -12,6 +12,8 @@ import NumericField from '../components/NumericField';
 import TwoOptionsField from '../components/TwoOptionsField';
 import TextAreaField from '../components/TextAreaField';
 
+import { ReactComponent as BoekSvg } from '../images/boek.svg';
+
 type FormData = {
   roepnaamkind: string[];
   achternaamkind: string[];
@@ -71,7 +73,7 @@ const Stap2 = (props: RouterProps) => {
   }
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Gegevens kinderen" />
+    <StepHeader title="Gegevens kinderen" image={<BoekSvg />} />
     <StepSection>
       {createArrayWithNumbers(aantalKinderen).map(number => {
         return <div key={number}>

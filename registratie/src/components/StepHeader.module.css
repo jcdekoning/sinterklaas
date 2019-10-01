@@ -7,7 +7,6 @@
 .content h1 {
   font-size: 36px;
   font-weight: normal;
-  padding-bottom: 20px;
   color: #C34F4F;
   font-family: 'Noto Sans', sans-serif;
   line-height: 125%;
@@ -19,4 +18,14 @@
   font-size: 24px;
   font-weight: normal;
   font-family: 'Noto Sans', sans-serif;
+}
+
+.subheader {
+  display: flex;
+  align-items: center;
+}
+
+.subheader svg {
+  width: 90px;
+  padding-right: 20px;
 }

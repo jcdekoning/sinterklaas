@@ -14,15 +14,23 @@ import TwoOptionsField from '../components/TwoOptionsField';
 import NumericField from '../components/NumericField';
 import OverzichtEntreegeld from '../components/OverzichtEntreegeld';
 
+import { ReactComponent as SinterklaasSvg } from '../images/sinterklaas.svg';
+
 const Stap1 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext)
   const defaultValues = state.stap1 || {};
-  const { register, errors, handleSubmit, watch } = useForm<Stap1FormData>({ defaultValues });
+  const { register, errors, handleSubmit, watch, getValues } = useForm<Stap1FormData>({ defaultValues });
 
   const onSubmit = (data: Stap1FormData, e: any) => {
     dispatch({ type: 'setStap1FormData', payload: data });
     props.history.push('/stap2');
   };
+
+  const goBack = () => {
+    const currentValues = getValues();
+    dispatch({ type: 'setStap1FormData', payload: currentValues });
+    props.history.push('/');
+  }
 
   const kindOpSchool = watch('kindOpSchool');
   const lidVanClub = watch('lidVanClub');
@@ -33,7 +41,7 @@ const Stap1 = (props: RouterProps) => {
   const lidmaatschap = ((kindOpSchool === 'false' && lidVanClub === 'false') || gratisLidmaatschap);
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Algemene gegevens" />
+    <StepHeader title="Algemene gegevens" image={<SinterklaasSvg />} />
     <StepSection>
       <TextField
         name="naam"
@@ -45,6 +53,7 @@ const Stap1 = (props: RouterProps) => {
         error={errors.naam && errors.naam.message} />
       <TextField
         name="email"
+        type="email"
         label="Uw emailadres"
         description="We gebruiken uw emailadres voor verdere berichtgeving met betrekking tot het Sinterklaasfeest."
         register={register({
@@ -98,6 +107,7 @@ const Stap1 = (props: RouterProps) => {
             error={errors.adres && errors.adres.message} />
           <TextField
             name="telefoon"
+            type="tel"
             label="Uw telefoonnummer"
             register={register({
               required: "Vul uw telefoonnummer in"
@@ -146,7 +156,7 @@ const Stap1 = (props: RouterProps) => {
         gratisLidmaatschap={gratisLidmaatschap} />
     </StepSection>
     <StepFooter>
-      <span />
+      <button type="button" onClick={goBack}>Terug</button>
       <button type="submit">Verder</button>
     </StepFooter>
   </form>

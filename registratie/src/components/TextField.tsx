@@ -7,13 +7,14 @@ type TextFieldProps = {
   description?: string;
   register: any;
   error?: string;
+  type?: string;
 }
 
 const TextField = (props: TextFieldProps) => {
   return <fieldset className={styles.textfield}>
     <label htmlFor={props.name}>{props.label}</label>
     {props.description && <p className={styles.description}>{props.description}</p>}
-    <input name={props.name} ref={props.register} />
+    <input type={props.type || "text"} name={props.name} ref={props.register} autoCapitalize="none" />
     {props.error && <div className={styles.error}>{props.error}</div>}
   </fieldset>
 }

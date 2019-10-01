@@ -4,6 +4,7 @@ import { FormProvider } from './FormContext';
 import ConfigLoader from './ConfigLoader';
 
 import ScrollToTop from './ScrollToTop';
+import Intro from './steps/Intro';
 import Stap1 from './steps/Stap1';
 import Stap2 from './steps/Stap2';
 import Stap3 from './steps/Stap3';
@@ -22,12 +23,13 @@ const App = () => {
           <ScrollToTop>
             <Header />
             <Switch>
+              <Route path="/stap1" component={Stap1} />
               <Route path="/stap2" component={Stap2} />
               <Route path="/stap3" component={Stap3} />
               <Route path="/stap4" component={Stap4} />
               <Route path="/success" component={SuccessPage} />
               <Route path="/error" component={ErrorPage} />
-              <Route component={Stap1} />
+              <Route component={Intro} />
             </Switch>
           </ScrollToTop>
         </Router>

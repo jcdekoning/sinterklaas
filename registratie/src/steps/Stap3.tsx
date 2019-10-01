@@ -10,6 +10,8 @@ import StepFooter from '../components/StepFooter';
 import { singularOrPlural } from '../utils/text';
 import RadioGroup from '../components/RadioGroup';
 
+import { ReactComponent as PaardSvg } from '../images/paard.svg';
+
 const Stap3 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext);
   const defaultValues = state.stap1 || {};
@@ -34,7 +36,7 @@ const Stap3 = (props: RouterProps) => {
   }
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Opgeven als vrijwilliger" />
+    <StepHeader title="Opgeven als vrijwilliger" image={<PaardSvg />} />
     <StepSection>
       <p>We hebben uw hulp hard nodig op zaterdag 24 november, want zonder vrijwilligers is het onmogelijk om het Sinterklaasfeest te organiseren. We hopen dat we op uw inzet kunnen rekenen!<br /><br /></p>
 

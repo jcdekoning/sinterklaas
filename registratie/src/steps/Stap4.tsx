@@ -16,6 +16,8 @@ import OverzichtStap2 from '../components/OverzichtStap2';
 import OverzichtStap3 from '../components/OverzichtStap3';
 import OverzichtEntreegeld from '../components/OverzichtEntreegeld';
 
+import { ReactComponent as KlompSvg } from '../images/klomp.svg';
+
 const mapFormStateToApiData = (state: FormState): Inschrijving => {
   const stap1 = state.stap1 as Stap1FormData;
   const stap2 = state.stap2 as Stap2FormData[];
@@ -92,7 +94,7 @@ const Stap4 = (props: RouterProps) => {
   const lidmaatschap = ((stap1FormData.kindOpSchool === false && stap1FormData.lidVanClub === false) || gratisLidmaatschap);
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Overzicht inschrijving" />
+    <StepHeader title="Overzicht inschrijving" image={<KlompSvg />} />
     <StepSection>
       <OverzichtStap1 {...stap1FormData} />
       <OverzichtStap2 kinderen={state.stap2 as Stap2FormData[]} />

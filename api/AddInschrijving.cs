@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using System.Linq;
 using Sinterklaas.Api.Models;
 using Newtonsoft.Json;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Sinterklaas.Api
 {
@@ -18,7 +20,7 @@ namespace Sinterklaas.Api
     {
         [FunctionName("AddInschrijving")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "inschrijving")] InschrijvingViewModel inschrijving,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "inschrijving")] HttpRequest req,
             [CosmosDB(
                 databaseName: "sinterklaas",
                 collectionName: "inschrijvingen",
@@ -26,12 +28,18 @@ namespace Sinterklaas.Api
             ILogger log, ExecutionContext context)
         {
             try {
-                log.LogInformation($"Add inschrijving triggered for {JsonConvert.SerializeObject(inschrijving)}");
+                log.LogInformation($"Add inschrijving triggered");
 
                 var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
                     .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                     .AddEnvironmentVariables()
                     .Build();
+
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                log.LogInformation($"Deserializing inschrijving {requestBody}");
+
+                var inschrijving = JsonConvert.DeserializeObject<InschrijvingViewModel>(requestBody);
+                log.LogInformation($"Inschrijving deserialized for {inschrijving.Naam}");
                 
                 StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
 
