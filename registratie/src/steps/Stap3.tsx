@@ -14,7 +14,7 @@ import { ReactComponent as PaardSvg } from '../images/paard.svg';
 
 const Stap3 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext);
-  const defaultValues = state.stap1 || {};
+  const defaultValues = state.stap3 || {};
   const { register, errors, handleSubmit, getValues } = useForm<Stap3FormData>({ defaultValues });
 
   if (!state.stap2) {
