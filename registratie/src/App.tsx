@@ -31,6 +31,7 @@ const App = () => {
               <Route path="/error" component={ErrorPage} />
               <Route component={Intro} />
             </Switch>
+            <p style={{ textAlign: "center", fontSize: '12px' }}>Afbeeldingen gemaakt door: <a href="https://www.vecteezy.com" target="_blank" rel="noopener noreferrer">Vecteezy!</a></p>
           </ScrollToTop>
         </Router>
       </FormProvider>

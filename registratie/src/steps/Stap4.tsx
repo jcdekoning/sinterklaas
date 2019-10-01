@@ -44,7 +44,7 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
     }),
     vrijwilliger: stap3.vrijwilliger,
     commentaar: stap4.commentaar,
-    privacyverklaring: stap4.privacyverklaring === "akkoord"
+    privacyverklaring: stap4.privacyverklaring === "true"
   }
 }
 
