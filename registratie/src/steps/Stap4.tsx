@@ -69,6 +69,7 @@ const Stap4 = (props: RouterProps) => {
         });
 
       const responseJson = await response.json();
+      console.log(responseJson);
 
       const stripe = (window as any).Stripe(config.stripe);
       stripe.redirectToCheckout({
@@ -117,7 +118,7 @@ const Stap4 = (props: RouterProps) => {
     </StepSection>
     <StepFooter>
       <button type="button" onClick={goBack}>Terug</button>
-      <button type="submit" disabled={isSubmitting}>Naar betalen</button>
+      <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Een ogenblik geduld" : "Naar betalen"}</button>
     </StepFooter>
   </form>
 }

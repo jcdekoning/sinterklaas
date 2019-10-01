@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using Sinterklaas.Api.Models;
+using Newtonsoft.Json;
 
 namespace Sinterklaas.Api
 {
@@ -25,7 +26,7 @@ namespace Sinterklaas.Api
             ILogger log, ExecutionContext context)
         {
             try {
-                log.LogInformation($"Add inschrijving triggered for {inschrijving}");
+                log.LogInformation($"Add inschrijving triggered for {JsonConvert.SerializeObject(inschrijving)}");
 
                 var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
                     .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
@@ -38,6 +39,8 @@ namespace Sinterklaas.Api
 
                 log.LogInformation($"{lineItems.Count()} line items created");
                 
+                var frontendUrl = config["FrontendUrl"];
+
                 var options = new SessionCreateOptions {
                     CustomerEmail = inschrijving.Email,
                     Locale = "nl",
@@ -45,8 +48,8 @@ namespace Sinterklaas.Api
                         "card",
                     },
                     LineItems = lineItems.ToList(),
-                    SuccessUrl = "https://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
-                    CancelUrl = "https://localhost:3000/cancel", //todo config
+                    SuccessUrl = $"{frontendUrl}/success?session_id={{CHECKOUT_SESSION_ID}}",
+                    CancelUrl = $"{frontendUrl}/cancel"
                 };
 
                 log.LogInformation("Creating stripe session");
@@ -68,7 +71,11 @@ namespace Sinterklaas.Api
             }
             catch (Exception e) {
                 log.LogError(e, $"Something went wrong {e.Message}");
-                return new BadRequestResult();
+                return new BadRequestObjectResult(
+                    new {
+                        InvocationId = context.InvocationId
+                    }
+                );
             }
         }
 
