@@ -3,6 +3,10 @@ import { Stap1FormData } from '../types/form';
 import styles from './OverzichtStap.module.css';
 
 const OverzichtStap1 = (props: Stap1FormData) => {
+  const kindOpSchoolAsBool = props.kindOpSchool === "true";
+  const lidVanClubAsBool = props.lidVanClub === "true";
+  const gratisLidmaatschapAsBool = props.gratisLidmaatschap === "true";
+
   return <div className={styles.overzicht}>
     <h2>Algemene gegevens</h2>
     <ul>
@@ -11,16 +15,16 @@ const OverzichtStap1 = (props: Stap1FormData) => {
       <li className={styles.label}>Uw emailadres</li>
       <li>{props.email}</li>
       <li className={styles.label}>Heeft uw kinderen op de NTC Het Noorderlicht?</li>
-      <li>{props.kindOpSchool ? "Ja" : "Nee"}</li>
+      <li>{kindOpSchoolAsBool ? "Ja" : "Nee"}</li>
       <li className={styles.label}>Bent u lid van de Nederlandse Club Oslo?</li>
-      <li>{props.lidVanClub ? "Ja" : "Nee"}</li>
+      <li>{lidVanClubAsBool ? "Ja" : "Nee"}</li>
       <li className={styles.label}>Aantal kinderen tussen de 0 en 10 jaar</li>
       <li>{props.aantalKinderen}</li>
       <li className={styles.label}>Aantal kinderen boven de 10 jaar/volwassenen</li>
       <li>{props.aantalPersonen}</li>
     </ul>
-    {((!props.kindOpSchool && !props.lidVanClub) || props.gratisLidmaatschap) && <>
-      <p>{!props.kindOpSchool && !props.lidVanClub ?
+    {((!kindOpSchoolAsBool && !lidVanClubAsBool) || gratisLidmaatschapAsBool) && <>
+      <p>{!kindOpSchoolAsBool && !lidVanClubAsBool ?
         "Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap een vereiste om deel te nemen aan het Sinterklaasfeest." :
         "U wilt gebruik maken van het van het gratis lidmaatschap tot eind 2019. Daarna wordt het lidmaatschap automatisch verlengd."}</p>
       <ul>

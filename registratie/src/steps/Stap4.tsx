@@ -28,9 +28,9 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
     naam: stap1.naam,
     email: stap1.email,
     aantalPersonen: stap1.aantalPersonen,
-    kindOpSchool: stap1.kindOpSchool,
-    lidVanClub: stap1.lidVanClub,
-    gratisLidmaatschap: stap1.gratisLidmaatschap,
+    kindOpSchool: stap1.kindOpSchool === "true",
+    lidVanClub: stap1.lidVanClub === "true",
+    gratisLidmaatschap: stap1.gratisLidmaatschap === "true",
     adres: stap1.adres,
     telefoon: stap1.telefoon,
     kinderen: stap2.map(kind => {
@@ -52,6 +52,7 @@ const Stap4 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext);
   const { register, errors, handleSubmit, getValues } = useForm<Stap4FormData>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string>();
 
   if (!state.stap3) {
     return <Redirect to='/stap3' />
@@ -59,6 +60,7 @@ const Stap4 = (props: RouterProps) => {
 
   const onSubmit = async (data: Stap4FormData, e: any) => {
     try {
+      setSubmitError(undefined);
       setIsSubmitting(true);
       const response = await fetch(`${config.api}/inschrijving`,
         {
@@ -70,15 +72,22 @@ const Stap4 = (props: RouterProps) => {
 
         });
 
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
       const responseJson = await response.json();
-      console.log(responseJson);
 
       const stripe = (window as any).Stripe(config.stripe);
       stripe.redirectToCheckout({
         sessionId: responseJson.sessionId
       });
-    } catch (ex) {
-      console.log(ex);
+    } catch (e) {
+      if (e instanceof Error) {
+        setSubmitError((e as Error).message);
+      } else {
+        setSubmitError("Onbekende fout");
+      }
       setIsSubmitting(false);
     }
   };
@@ -91,7 +100,7 @@ const Stap4 = (props: RouterProps) => {
 
   const stap1FormData = state.stap1 as Stap1FormData;
   const gratisLidmaatschap = stap1FormData.gratisLidmaatschap ? true : false;
-  const lidmaatschap = ((stap1FormData.kindOpSchool === false && stap1FormData.lidVanClub === false) || gratisLidmaatschap);
+  const lidmaatschap = ((stap1FormData.kindOpSchool === "false" && stap1FormData.lidVanClub === "false") || gratisLidmaatschap);
 
   return <form onSubmit={handleSubmit(onSubmit)}>
     <StepHeader title="Overzicht inschrijving" image={<KlompSvg />} />
@@ -117,6 +126,7 @@ const Stap4 = (props: RouterProps) => {
         name="commentaar"
         label="Heeft u nog overige vragen en/of opmerkingen?"
         register={register} />
+      {submitError && <p>Er is iets mis {submitError}</p>}
     </StepSection>
     <StepFooter>
       <button type="button" onClick={goBack}>Terug</button>

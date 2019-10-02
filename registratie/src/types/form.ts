@@ -5,11 +5,11 @@ export type Geslacht =
 export type Stap1FormData = {
   naam: string;
   email: string;
-  kindOpSchool: boolean;
-  lidVanClub: boolean;
+  kindOpSchool: string;
+  lidVanClub: string;
   aantalKinderen: number;
   aantalPersonen: number;
-  gratisLidmaatschap?: boolean;
+  gratisLidmaatschap?: string;
   adres?: string;
   telefoon?: string;
 }
