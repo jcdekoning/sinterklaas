@@ -7,10 +7,10 @@ import { Stap3FormData, Stap1FormData } from '../types/form';
 import StepHeader from '../components/StepHeader';
 import StepSection from '../components/StepSection';
 import StepFooter from '../components/StepFooter';
-import { singularOrPlural } from '../utils/text';
 import RadioGroup from '../components/RadioGroup';
 
 import { ReactComponent as PaardSvg } from '../images/paard.svg';
+import text from '../text';
 
 const Stap3 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext);
@@ -36,27 +36,25 @@ const Stap3 = (props: RouterProps) => {
   }
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Opgeven als vrijwilliger" image={<PaardSvg />} />
+    <StepHeader title={text.stap3.title} image={<PaardSvg />} />
     <StepSection>
-      <p>We hebben uw hulp hard nodig op zaterdag 24 november, want zonder vrijwilligers is het onmogelijk om het Sinterklaasfeest te organiseren. We hopen dat we op uw inzet kunnen rekenen!<br /><br /></p>
-
-      <p>Let op! Bij het inplannen van de vrijwilligers wordt rekening gehouden met de audiëntie van uw {singularOrPlural(aantalKinderen, 'kind', 'kinderen')} aan Sinterklaas. U kunt deze samen met uw {singularOrPlural(aantalKinderen, 'kind', 'kinderen')} bezoeken. Dit geldt ook voor het ontvangst van Sinterklaas. </p>
+      {text.stap3.description(aantalKinderen)}
       <RadioGroup
-        label="Wilt u zich aanmelden als vrijwilliger?"
+        label={text.stap3.vrijwilliger.label}
         name="vrijwilliger"
         options={[
-          { value: 'uur', label: 'Ja, voor 1 uur' },
-          { value: 'dagdeel', label: `Ja, voor een dagdeel (ochtend- of middagsessie) waar mijn ${singularOrPlural(aantalKinderen, 'kind', 'kinderen')} bij aanwezig ${singularOrPlural(aantalKinderen, 'is', 'zijn')}` },
-          { value: 'dagdeelzonderkind', label: `Ja, voor een dagdeel waar mijn ${singularOrPlural(aantalKinderen, 'kind', 'kinderen')} NIET bij aanwezig ${singularOrPlural(aantalKinderen, 'is', 'zijn')}` },
-          { value: 'dag', label: 'Ja, voor de gehele dag' },
-          { value: 'nee', label: 'Nee' },
+          { value: 'uur', label: text.stap3.vrijwilliger.optionUur },
+          { value: 'dagdeel', label: text.stap3.vrijwilliger.optionDagdeel(aantalKinderen) },
+          { value: 'dagdeelzonderkind', label: text.stap3.vrijwilliger.optionDagdeelZonderKind(aantalKinderen) },
+          { value: 'dag', label: text.stap3.vrijwilliger.optionDag },
+          { value: 'nee', label: text.stap3.vrijwilliger.optionNee },
         ]}
         register={register({ required: true })}
-        error={errors.vrijwilliger && "Maak een keuze"} />
+        error={errors.vrijwilliger && text.stap3.vrijwilliger.error} />
     </StepSection>
     <StepFooter>
-      <button type="button" onClick={goBack}>Terug</button>
-      <button type="submit">Verder</button>
+      <button type="button" onClick={goBack}>{text.buttonBack}</button>
+      <button type="submit">{text.buttonNext}</button>
     </StepFooter>
   </form>
 }

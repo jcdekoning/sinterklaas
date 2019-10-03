@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stap1FormData } from '../types/form';
 import styles from './OverzichtStap.module.css';
+import text from '../text';
 
 const OverzichtStap1 = (props: Stap1FormData) => {
   const kindOpSchoolAsBool = props.kindOpSchool === "true";
@@ -8,16 +9,16 @@ const OverzichtStap1 = (props: Stap1FormData) => {
   const gratisLidmaatschapAsBool = props.gratisLidmaatschap === "true";
 
   return <div className={styles.overzicht}>
-    <h2>Algemene gegevens</h2>
+    <h2>{text.stap1.title}</h2>
     <ul>
-      <li className={styles.label}>Uw naam</li>
+      <li className={styles.label}>{text.stap1.naam.label}</li>
       <li>{props.naam}</li>
-      <li className={styles.label}>Uw emailadres</li>
+      <li className={styles.label}>{text.stap1.email.label}</li>
       <li>{props.email}</li>
-      <li className={styles.label}>Heeft uw kinderen op de NTC Het Noorderlicht?</li>
-      <li>{kindOpSchoolAsBool ? "Ja" : "Nee"}</li>
-      <li className={styles.label}>Bent u lid van de Nederlandse Club Oslo?</li>
-      <li>{lidVanClubAsBool ? "Ja" : "Nee"}</li>
+      <li className={styles.label}>{text.stap1.kindOpSchool.label}</li>
+      <li>{kindOpSchoolAsBool ? text.labelYes : text.labelNo}</li>
+      <li className={styles.label}>{text.stap1.lidVanClub.label}</li>
+      <li>{lidVanClubAsBool ? text.labelYes : text.labelNo}</li>
       <li className={styles.label}>Aantal kinderen tussen de 0 en 10 jaar</li>
       <li>{props.aantalKinderen}</li>
       <li className={styles.label}>Aantal kinderen boven de 10 jaar/volwassenen</li>

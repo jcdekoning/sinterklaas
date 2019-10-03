@@ -3,12 +3,13 @@ import StepHeader from "./components/StepHeader";
 import StepSection from "./components/StepSection";
 
 import { ReactComponent as CadeauSvg } from './images/cadeau.svg';
+import text from "./text";
 
 const SuccessPage = () => {
   return (<>
-    <StepHeader title="Inschrijving ontvangen" image={<CadeauSvg />} />
+    <StepHeader title={text.success.title} image={<CadeauSvg />} />
     <StepSection>
-      <p>Bedankt voor uw inschrijving.</p>
+      {text.success.description}
     </StepSection>
   </>)
 };

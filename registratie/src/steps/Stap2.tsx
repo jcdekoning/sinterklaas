@@ -13,6 +13,7 @@ import TwoOptionsField from '../components/TwoOptionsField';
 import TextAreaField from '../components/TextAreaField';
 
 import { ReactComponent as BoekSvg } from '../images/boek.svg';
+import text from '../text';
 
 type FormData = {
   roepnaamkind: string[];
@@ -73,66 +74,66 @@ const Stap2 = (props: RouterProps) => {
   }
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Gegevens kinderen" image={<BoekSvg />} />
+    <StepHeader title={text.stap2.title} image={<BoekSvg />} />
     <StepSection>
       {createArrayWithNumbers(aantalKinderen).map(number => {
         return <div key={number}>
-          <h2>Gegevens kind {number + 1}</h2>
+          <h2>{text.stap2.gegevensKind} {number + 1}</h2>
           <TextField
-            label="Roepnaam kind"
+            label={text.stap2.roepnaamKind.label}
             name={`roepnaamkind[${number}]`}
             register={register({
-              required: "Vul de roepnaam van uw kind in"
+              required: text.stap2.roepnaamKind.error
             })}
             error={(errors as any)[`roepnaamkind[${number}]`] && (errors as any)[`roepnaamkind[${number}]`].message} />
           <TextField
-            label="Achternaam kind"
+            label={text.stap2.achternaamKind.label}
             name={`achternaamkind[${number}]`}
             register={register({
-              required: "Vul de achternaam van uw kind in"
+              required: text.stap2.achternaamKind.error
             })}
             error={(errors as any)[`achternaamkind[${number}]`] && (errors as any)[`achternaamkind[${number}]`].message} />
           <NumericField
-            label="Leeftijd kind"
+            label={text.stap2.leeftijdKind.label}
             name={`leeftijdkind[${number}]`}
             register={register({
-              required: "Vul de leeftijd van uw kind in",
+              required: text.stap2.leeftijdKind.error.required,
               min: {
                 value: 0,
-                message: 'Leeftijd kan niet negatief zijn'
+                message: text.stap2.leeftijdKind.error.min
               },
               max: {
                 value: 10,
-                message: 'De maximale leeftijd is 10 jaar'
+                message: text.stap2.leeftijdKind.error.max
               }
             })}
             error={(errors as any)[`leeftijdkind[${number}]`] && (errors as any)[`leeftijdkind[${number}]`].message} />
           <TwoOptionsField
             name={`geslachtkind[${number}]`}
-            label="Geslacht kind"
-            error={(errors as any)[`geslachtkind[${number}]`] && "Kies een geslacht"}
-            optionOneLabel="Jongen"
+            label={text.stap2.geslachtKind.label}
+            error={(errors as any)[`geslachtkind[${number}]`] && text.stap2.geslachtKind.error}
+            optionOneLabel={text.stap2.geslachtKind.optionJongen}
             optionOneValue="Jongen"
-            optionTwoLabel="Meisje"
+            optionTwoLabel={text.stap2.geslachtKind.optionMeisje}
             optionTwoValue="Meisje"
             register={register({ required: true })} />
           <TextAreaField
             name={`anekdotekind[${number}]`}
-            label="Anekdote kind"
-            description="Enkel voor kinderen die 3 jaar of ouder zijn"
+            label={text.stap2.anekdoteKind.label}
+            description={text.stap2.anekdoteKind.description}
             register={register({
               validate: (value: any) => {
                 const leeftijd = watch(`leeftijdkind[${number}]`);
                 return ((!value || /^\s*$/.test(value)) && leeftijd) > 2 ? false : true;
               }
             })}
-            error={(errors as any)[`anekdotekind[${number}]`] && "Vul een anekdote in"} />
+            error={(errors as any)[`anekdotekind[${number}]`] && text.stap2.anekdoteKind.error} />
         </div>
       })}
     </StepSection>
     <StepFooter>
-      <button type="button" onClick={goBack}>Terug</button>
-      <button type="submit">Verder</button>
+      <button type="button" onClick={goBack}>{text.buttonBack}</button>
+      <button type="submit">{text.buttonNext}</button>
     </StepFooter>
   </form>
 }

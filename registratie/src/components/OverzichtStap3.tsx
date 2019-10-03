@@ -1,20 +1,20 @@
 import React from 'react';
 import { Vrijwilliger } from '../types/form';
 import styles from './OverzichtStap.module.css';
-import { singularOrPlural } from '../utils/text';
+import text from '../text';
 
 const getVrijwilligerText = (keuze: Vrijwilliger, aantalKinderen: number) => {
   switch (keuze) {
     case 'uur':
-      return 'Ja, voor 1 uur';
+      return text.stap3.vrijwilliger.optionUur;
     case 'dagdeel':
-      return `Ja, voor een dagdeel (ochtend- of middagsessie) waar mijn ${singularOrPlural(aantalKinderen, 'kind', 'kinderen')} bij aanwezig ${singularOrPlural(aantalKinderen, 'is', 'zijn')}`
+      return text.stap3.vrijwilliger.optionDagdeel(aantalKinderen);
     case 'dagdeelzonderkind':
-      return `Ja, voor een dagdeel waar mijn ${singularOrPlural(aantalKinderen, 'kind', 'kinderen')} NIET bij aanwezig ${singularOrPlural(aantalKinderen, 'is', 'zijn')}`;
+      return text.stap3.vrijwilliger.optionDagdeelZonderKind(aantalKinderen);
     case 'dag':
-      return 'Ja, voor de gehele dag'
+      return text.stap3.vrijwilliger.optionDag;
     default:
-      return 'Nee'
+      return text.stap3.vrijwilliger.optionNee
 
   }
 }
@@ -26,9 +26,9 @@ type OverzichtStap3Props = {
 
 const OverzichtStap3 = (props: OverzichtStap3Props) => {
   return <div className={styles.overzicht}>
-    <h2>Opgeven als vrijwilliger</h2>
+    <h2>{text.stap3.title}</h2>
     <ul>
-      <li className={styles.label}>Wilt u zich aanmelden als vrijwilliger?</li>
+      <li className={styles.label}>{text.stap3.vrijwilliger.label}</li>
       <li>{getVrijwilligerText(props.vrijwilliger, props.aantalKinderen)}</li>
     </ul>
   </div>

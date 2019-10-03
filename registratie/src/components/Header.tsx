@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './Header.module.css';
+import text from '../text';
 
 const Header = () => {
   return (
     <header className={styles.header}>
-      <h1>Sinterklaas 2019</h1>
-      <h2>Nederlandse club Oslo - NTC het Noorderlicht</h2>
+      <h1>{text.header.title}</h1>
+      <h2>{text.header.subheader}</h2>
     </header>
   )
 }

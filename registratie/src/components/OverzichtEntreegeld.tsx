@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './OverzichtEntreegeld.module.css';
-import { singularOrPlural } from '../utils/text';
+import text from '../text';
 
 type OverzichtEntreegeldProps = {
   aantalKinderen: number;
@@ -14,24 +14,24 @@ const OverzichtEntreegeld = (props: OverzichtEntreegeldProps) => {
 
   const aantalExtraPersonen = Math.max(aantalPersonen - 2, 0);
 
-  return <div className={styles.overzicht}><h2>Overzicht entreegeld</h2>
-    <p>Hier vindt u een overzicht van de totale kosten voor de inschrijving op basis van de keuzes die u hierboven heeft gemaakt.</p>
+  return <div className={styles.overzicht}><h2>{text.overzichtEntreegeld.title}</h2>
+    <p>{text.overzichtEntreegeld.description}</p>
     <ul>
       {aantalKinderen > 0 && <li>
-        <div>{aantalKinderen} {singularOrPlural(aantalKinderen, 'inschrijving', 'inschrijvingen')} x 150 NOK</div>
-        <div>{aantalKinderen * 150} NOK</div>
+        <div>{text.overzichtEntreegeld.aantalInschrijvingen(aantalKinderen)}</div>
+        <div>{aantalKinderen * 150} {text.overzichtEntreegeld.valuta}</div>
       </li>}
       {aantalExtraPersonen > 0 && <li>
-        <div>{aantalExtraPersonen} extra {singularOrPlural(aantalPersonen, 'persoon', 'personen')} x 50 NOK</div>
-        <div>{aantalExtraPersonen * 50} NOK</div>
+        <div>{text.overzichtEntreegeld.aantalExtraPersonen(aantalExtraPersonen)}</div>
+        <div>{aantalExtraPersonen * 50} {text.overzichtEntreegeld.valuta}</div>
       </li>}
       {lidmaatschap && <li>
-        <div>Lidmaatschap t/m eind 2019</div>
-        <div>{gratisLidmaatschap ? 0 : 175} NOK</div>
+        <div>{text.overzichtEntreegeld.lidmaatschap}</div>
+        <div>{gratisLidmaatschap ? 0 : 175} {text.overzichtEntreegeld.valuta}</div>
       </li>}
       <li className={styles.totaal}>
-        <div>Totaal</div>
-        <div>{(Math.max(aantalKinderen, 0) * 150) + (aantalExtraPersonen * 50) + ((lidmaatschap && !gratisLidmaatschap) ? 175 : 0)} NOK</div>
+        <div>{text.overzichtEntreegeld.totaal}</div>
+        <div>{(Math.max(aantalKinderen, 0) * 150) + (aantalExtraPersonen * 50) + ((lidmaatschap && !gratisLidmaatschap) ? 175 : 0)} {text.overzichtEntreegeld.valuta}</div>
       </li>
     </ul></div>;
 }

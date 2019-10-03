@@ -17,6 +17,7 @@ import OverzichtStap3 from '../components/OverzichtStap3';
 import OverzichtEntreegeld from '../components/OverzichtEntreegeld';
 
 import { ReactComponent as KlompSvg } from '../images/klomp.svg';
+import text from '../text';
 
 const mapFormStateToApiData = (state: FormState): Inschrijving => {
   const stap1 = state.stap1 as Stap1FormData;
@@ -103,7 +104,7 @@ const Stap4 = (props: RouterProps) => {
   const lidmaatschap = ((stap1FormData.kindOpSchool === "false" && stap1FormData.lidVanClub === "false") || gratisLidmaatschap);
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Overzicht inschrijving" image={<KlompSvg />} />
+    <StepHeader title={text.stap4.title} image={<KlompSvg />} />
     <StepSection>
       <OverzichtStap1 {...stap1FormData} />
       <OverzichtStap2 kinderen={state.stap2 as Stap2FormData[]} />
@@ -113,24 +114,22 @@ const Stap4 = (props: RouterProps) => {
         aantalPersonen={stap1FormData.aantalPersonen}
         lidmaatschap={lidmaatschap}
         gratisLidmaatschap={gratisLidmaatschap} />
-      <h2>Privacyverklaring</h2>
-      <p>
-        Bij aanmelding worden uw persoonsgegevens en de gegevens van uw kind/kinderen bewaard door de Nederlandse Club Oslo. Op <a href="https://nederlandsecluboslo.nl/privacy" target="_blank" rel="noopener noreferrer">https://nederlandsecluboslo.nl/privacy</a> kunt uw lezen waarom dit noodzakelijk is en hoe wij met deze gegevens omgaan.
-      </p>
+      <h2>{text.stap4.privacyverklaring.title}</h2>
+      {text.stap4.privacyverklaring.description}
       <Checkbox
-        label="Ik heb de privacyverklaring gelezen"
+        label={text.stap4.privacyverklaring.label}
         name="privacyverklaring"
         register={register({ required: true })}
-        error={errors.privacyverklaring && "Accepteer de privacyverklaring"} />
+        error={errors.privacyverklaring && text.stap4.privacyverklaring.error} />
       <TextAreaField
         name="commentaar"
-        label="Heeft u nog overige vragen en/of opmerkingen?"
+        label={text.stap4.commentaar.label}
         register={register} />
-      {submitError && <p>Er is iets mis {submitError}</p>}
+      {submitError && <p>{text.submitError(submitError)}</p>}
     </StepSection>
     <StepFooter>
-      <button type="button" onClick={goBack}>Terug</button>
-      <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Een ogenblik geduld" : "Naar betalen"}</button>
+      <button type="button" onClick={goBack}>{text.buttonBack}</button>
+      <button type="submit" disabled={isSubmitting}>{isSubmitting ? text.buttonWait : text.buttonPayment}</button>
     </StepFooter>
   </form>
 }

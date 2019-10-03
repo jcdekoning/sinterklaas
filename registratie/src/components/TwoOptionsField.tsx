@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styles from './TwoOptionsField.module.css';
 
 type TwoOptionsFieldProps = {
   name: string;
   label: string;
-  description?: string;
+  description?: string | ReactElement
   error?: string;
   register: any;
   optionOneValue: string;

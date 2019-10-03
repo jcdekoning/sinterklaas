@@ -15,6 +15,7 @@ import NumericField from '../components/NumericField';
 import OverzichtEntreegeld from '../components/OverzichtEntreegeld';
 
 import { ReactComponent as SinterklaasSvg } from '../images/sinterklaas.svg';
+import text from '../text';
 
 const Stap1 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext)
@@ -41,111 +42,105 @@ const Stap1 = (props: RouterProps) => {
   const lidmaatschap = ((kindOpSchool === 'false' && lidVanClub === 'false') || gratisLidmaatschap);
 
   return <form onSubmit={handleSubmit(onSubmit)}>
-    <StepHeader title="Algemene gegevens" image={<SinterklaasSvg />} />
+    <StepHeader title={text.stap1.title} image={<SinterklaasSvg />} />
     <StepSection>
       <TextField
         name="naam"
-        label="Uw naam"
-        description="Vul uw voornaam en achternaam in."
-        register={register({
-          required: "Vul uw naam in"
-        })}
-        error={errors.naam && errors.naam.message} />
+        label={text.stap1.naam.label}
+        description={text.stap1.naam.description}
+        register={register({ required: true })}
+        error={errors.naam && text.stap1.naam.error} />
       <TextField
         name="email"
         type="email"
-        label="Uw emailadres"
-        description="We gebruiken uw emailadres voor verdere berichtgeving met betrekking tot het Sinterklaasfeest."
+        label={text.stap1.email.label}
+        description={text.stap1.email.description}
         register={register({
-          required: "Vul uw emailadres in",
+          required: text.stap1.email.error.required,
           pattern: {
             value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            message: "Het formaat van het ingevulde emailadres is ongeldig"
+            message: text.stap1.email.error.invalid
           }
         })}
         error={errors.email && errors.email.message} />
       <TwoOptionsField
         name="kindOpSchool"
-        label="Heeft uw kinderen op de NTC Het Noorderlicht?"
-        error={errors.kindOpSchool && "Maak een keuze"}
-        optionOneLabel="Ja"
+        label={text.stap1.kindOpSchool.label}
+        error={errors.kindOpSchool && text.stap1.kindOpSchool.error}
+        optionOneLabel={text.labelYes}
         optionOneValue="true"
-        optionTwoLabel="Nee"
+        optionTwoLabel={text.labelNo}
         optionTwoValue="false"
         register={register({ required: true })} />
       <TwoOptionsField
         name="lidVanClub"
-        label="Bent u lid van de Nederlandse Club Oslo?"
-        error={errors.lidVanClub && "Maak een keuze"}
-        optionOneLabel="Ja"
+        label={text.stap1.lidVanClub.label}
+        error={errors.lidVanClub && text.stap1.lidVanClub.error}
+        optionOneLabel={text.labelYes}
         optionOneValue="true"
-        optionTwoLabel="Nee"
+        optionTwoLabel={text.labelNo}
         optionTwoValue="false"
         register={register({ required: true })} />
       {kindOpSchool === 'true' && lidVanClub === 'false' &&
         <TwoOptionsField
           name="gratisLidmaatschap"
-          label="Wilt u lid worden van de Nederlandse Club Oslo?"
-          description="Omdat u een of meerdere kinderen op de NTC Het Noorderlicht heeft, is een lidmaatschap van de Nederlandse Club Oslo geen vereiste om deel te nemen aan het Sinterklaasfeest. De Nederlandse Club Oslo biedt u wel een gratis lidmaatschap aan tot eind 2019. Het lidmaatschap wordt daarna automatisch verlengd. Wilt u van dit aanbod gebruik maken?"
-          error={errors.lidVanClub && "Maak een keuze"}
-          optionOneLabel="Ja"
+          label={text.stap1.gratisLidmaatschap.label}
+          description={text.stap1.gratisLidmaatschap.description}
+          error={errors.lidVanClub && text.stap1.gratisLidmaatschap.error}
+          optionOneLabel={text.labelYes}
           optionOneValue="true"
-          optionTwoLabel="Nee"
+          optionTwoLabel={text.labelNo}
           optionTwoValue="false"
           register={register({ required: true })} />
       }
       {lidmaatschap &&
         <>
-          <h2>Lidmaatschap Nederlandse Club Oslo</h2>
-          <p>{gratisLidmaatschap ? 'Voor het gratis lidmaatschap tot eind 2019 hebben we enkele extra gegevens nodig.' : 'Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap een vereiste om deel te nemen aan het Sinterklaasfeest. Vul hieronder de extra gegevens in voor het lidmaatschap.'}</p>
+          <h2>{text.stap1.lidmaatschap.label}</h2>
+          <p>{gratisLidmaatschap ? text.stap1.lidmaatschap.descriptionGratis : text.stap1.lidmaatschap.descriptionVerplicht}</p>
           <TextField
             name="adres"
-            label="Uw adres"
-            register={register({
-              required: "Vul uw adres in"
-            })}
-            error={errors.adres && errors.adres.message} />
+            label={text.stap1.adres.label}
+            register={register({ required: true })}
+            error={errors.adres && text.stap1.adres.error} />
           <TextField
             name="telefoon"
             type="tel"
-            label="Uw telefoonnummer"
-            register={register({
-              required: "Vul uw telefoonnummer in"
-            })}
-            error={errors.telefoon && errors.telefoon.message} />
+            label={text.stap1.telefoon.label}
+            register={register({ required: true })}
+            error={errors.telefoon && text.stap1.telefoon.error} />
         </>
       }
-      <h2>Wie komen er naar het Sinterklaasfeest?</h2>
-      <p>Geef hieronder aan wie er mee komen naar het Sinterklaasfeest.</p>
+      <h2>{text.stap1.deelnemers.title}</h2>
+      <p>{text.stap1.deelnemers.description}</p>
       <NumericField
         name="aantalKinderen"
-        label="Aantal kinderen tussen de 0 en 10 jaar."
-        description="Alle kinderen (0-10 jaar) mogen op audiëntie en ontvangen een cadeautje van Sinterklaas. Daarnaast zijn er verschillende gezellige Sinterklaasactiviteiten."
+        label={text.stap1.aantalKinderen.label}
+        description={text.stap1.aantalKinderen.description}
         register={register({
-          required: "Vul het aantal kinderen in",
+          required: text.stap1.aantalKinderen.error.required,
           min: {
             value: 1,
-            message: 'Minimaal aantal kinderen moet 1 zijn'
+            message: text.stap1.aantalKinderen.error.min
           },
           max: {
             value: 5,
-            message: 'Er kunnen maximaal 5 kinderen worden ingeschreven. Wilt u meer kinderen aanmelden neem dan contact op via sinterklaas@nederlandsecluboslo.nl'
+            message: text.stap1.aantalKinderen.error.max
           }
         })}
         error={errors.aantalKinderen && errors.aantalKinderen.message} />
       <NumericField
         name="aantalPersonen"
-        label="Aantal kinderen boven de 10 jaar/volwassenen"
-        description="Per gezin hebben twee personen (boven de 10 jaar) gratis toegang tot het feest. Voor elke extra persoon boven de 10 jaar vragen we een vergoeding."
+        label={text.stap1.aantalPersonen.label}
+        description={text.stap1.aantalPersonen.description}
         register={register({
-          required: "Vul het aantal kinderen boven de 10 jaar/volwassenen in",
+          required: text.stap1.aantalPersonen.error.required,
           min: {
             value: 1,
-            message: 'Minimaal aantal volwassenen moet 1 zijn'
+            message: text.stap1.aantalPersonen.error.min
           },
           max: {
             value: 10,
-            message: 'Er kunnen maximaal 10 personen mee. Wilt u meer personen meenemen, neem dan contact op via sinterklaas@nederlandsecluboslo.nl'
+            message: text.stap1.aantalPersonen.error.max
           }
         })}
         error={errors.aantalPersonen && errors.aantalPersonen.message} />
@@ -156,8 +151,8 @@ const Stap1 = (props: RouterProps) => {
         gratisLidmaatschap={gratisLidmaatschap} />
     </StepSection>
     <StepFooter>
-      <button type="button" onClick={goBack}>Terug</button>
-      <button type="submit">Verder</button>
+      <button type="button" onClick={goBack}>{text.buttonBack}</button>
+      <button type="submit">{text.buttonNext}</button>
     </StepFooter>
   </form>
 }
