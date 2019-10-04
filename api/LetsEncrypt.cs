@@ -13,7 +13,7 @@ namespace Sinterklaas.Api
     {
         [FunctionName("LetsEncrypt")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "letsencrypt/{code}")] string code,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "letsencrypt/{code}")]HttpRequest req, string code,
             ILogger log)
         {
             log.LogInformation($"Let's encrypt triggered with {code}");
