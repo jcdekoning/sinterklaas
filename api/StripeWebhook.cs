@@ -64,8 +64,12 @@ namespace Sinterklaas.Api
                     var mailClient = new SendGridClient(sendGridApiKey);
 
                     var confirmEmail = ConstructConfirmEmail(inschrijving, config.GetSection("ConfirmEmail"));
-
                     await mailClient.SendEmailAsync(confirmEmail);
+
+                    if((!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap){
+                        var membershipEmail = ConstructMembershipEmail(inschrijving, config.GetSection("MembershipEmail"));
+                        await mailClient.SendEmailAsync(membershipEmail);
+                    }
                 }
 
             }
@@ -99,7 +103,7 @@ namespace Sinterklaas.Api
                 GratisLidmaatschap = inschrijving.GratisLidmaatschap,
                 Adres = inschrijving.Adres,
                 Telefoon = inschrijving.Telefoon,
-                AantalKinderen = inschrijving.Kinderen.Length + 1,
+                AantalKinderen = inschrijving.Kinderen.Length,
                 AantalPersonen = inschrijving.AantalPersonen,
                 Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
                     Roepnaam = k.Voornaam,
@@ -115,6 +119,27 @@ namespace Sinterklaas.Api
                     Dag = inschrijving.Vrijwilliger == "dag"
                 },
                 Commentaar = inschrijving.Commentaar
+            });
+
+            return message;
+        }
+
+        private static SendGridMessage ConstructMembershipEmail(InschrijvingDataModel inschrijving, IConfigurationSection config){
+            var fromEmail = config["FromEmail"];
+            var toEmail = config["ToEmail"];
+            var templateId = config["TemplateId"];
+
+            var message = new SendGridMessage();
+            message.SetFrom(fromEmail);
+            message.AddTo(toEmail);
+            
+            message.SetTemplateId(templateId);
+            message.SetTemplateData(new LidmaatschapEmailViewModel{
+                Naam = inschrijving.Naam,
+                Email = inschrijving.Email,
+                GratisLidmaatschap = inschrijving.GratisLidmaatschap,
+                Adres = inschrijving.Adres,
+                Telefoon = inschrijving.Telefoon
             });
 
             return message;

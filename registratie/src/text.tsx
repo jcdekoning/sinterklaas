@@ -127,7 +127,7 @@ export default {
     title: 'Opgeven als vrijwilliger',
     description: (aantalKinderen: number) => <><p>We hebben uw hulp hard nodig op {longDateEvent}, want zonder vrijwilligers is het onmogelijk om het Sinterklaasfeest te organiseren. We hopen dat we op uw inzet kunnen rekenen!<br /><br /></p>
 
-      <p>Let op! Bij het inplannen van de vrijwilligers wordt rekening gehouden met de audiëntie van uw {singularOrPlural(aantalKinderen, 'kind', 'kinderen')} aan Sinterklaas. U kunt deze samen met uw {singularOrPlural(aantalKinderen, 'kind', 'kinderen')} bezoeken. Dit geldt ook voor het ontvangst van Sinterklaas. </p></>,
+      <p>Let op! Bij het inplannen van de vrijwilligers, ook voor degene die een dagdeel of de gehele dag willen meehelpen, wordt rekening gehouden met de audiëntie van uw {singularOrPlural(aantalKinderen, 'kind', 'kinderen')} aan Sinterklaas. U kunt deze samen met uw {singularOrPlural(aantalKinderen, 'kind', 'kinderen')} bezoeken. Dit geldt ook voor het ontvangst van Sinterklaas.</p></>,
     vrijwilliger: {
       label: 'Wilt u zich aanmelden als vrijwilliger?',
       optionUur: 'Ja, voor 1 uur',
@@ -168,7 +168,7 @@ export default {
     description: <><p>Bedankt voor uw inschrijving en betaling. U ontvangt een bevesting van uw inschrijving per email.</p>
       <p>Rond 11 november ontvangt u informatie met betrekking tot de groepsindeling. </p>
       <p>Mocht u vragen hebben dan kunt u contact opnemen via <a href="mailto:sinterklaas@nederlandsecluboslo.nl">sinterklaas@nederlandsecluboslo.nl</a></p>
-      <p>We zien jullie graag op {longDateEvent} zodat we er samen een geslaagd Sinterklaasfeest van zullen maken.</p>
+      <p>We zien jullie graag op {longDateEvent} om er gezamelijk een onvergetelijke dag van te maken!</p>
       <p>Met vriendelijke groet,</p>
       <p>De Hulppieten van de Nederlandse Club Oslo en de Nederlandse School NTC Het Noorderlicht</p></>
   }
