@@ -26,7 +26,7 @@ export default {
     stap2: 'Per kind (0-10 jaar) wordt gevraagd om de gegevens in te vullen voor in het grote boek van Sinterklaas.',
     stap3: 'Het Sinterklaasfeest valt of staat met de hulp van vrijwilligers. In deze stap vragen wij of we ook op uw hulp kunnen rekenen.',
     stap4: 'De ingevulde informatie uit de voorgaande stappen wordt hier ter controle getoond. Het totaal entreebedrag wordt hier ook getoond.',
-    stap5: 'Nadat u de inschrijving hebt gecontroleerd gaat uw over tot betaling met behulp van uw bankpas/creditcard. De betaling zelf wordt afgehandeld door een externe partij. Uw betaalgegevens worden daar met de grootst mogelijke zorg behandeld en worden niet opgeslagen bij de Nederlandse Club Oslo'
+    stap5: 'Nadat u de inschrijving hebt gecontroleerd gaat u over tot betaling met behulp van uw bankpas/creditcard. De betaling zelf wordt afgehandeld door een externe partij. Uw betaalgegevens worden daarbij met de grootst mogelijke zorg behandeld en worden niet opgeslagen bij de Nederlandse Club Oslo'
   },
   stap1: {
     title: 'Algemene gegevens',
@@ -44,7 +44,7 @@ export default {
       }
     },
     kindOpSchool: {
-      label: 'Heeft uw kinderen op de NTC Het Noorderlicht?',
+      label: 'Heeft u kinderen op de NTC Het Noorderlicht?',
       error: 'Maak een keuze'
     },
     lidVanClub: {
@@ -143,7 +143,7 @@ export default {
     privacyverklaring: {
       title: 'Privacyverklaring',
       description: <p>
-        Bij aanmelding worden uw persoonsgegevens en de gegevens van uw kind/kinderen bewaard door de Nederlandse Club Oslo. Op <a href="https://nederlandsecluboslo.nl/privacy" target="_blank" rel="noopener noreferrer">https://nederlandsecluboslo.nl/privacy</a> kunt uw lezen waarom dit noodzakelijk is en hoe wij met deze gegevens omgaan.</p>,
+        Bij aanmelding worden uw persoonsgegevens en de gegevens van uw kind/kinderen bewaard door de Nederlandse Club Oslo. Op <a href="https://nederlandsecluboslo.nl/privacy" target="_blank" rel="noopener noreferrer">https://nederlandsecluboslo.nl/privacy</a> kunt u lezen waarom dit noodzakelijk is en hoe wij met deze gegevens omgaan.</p>,
       label: 'Ik heb de privacyverklaring gelezen',
       error: 'Accepteer de privacyverklaring'
     },

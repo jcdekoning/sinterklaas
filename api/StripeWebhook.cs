@@ -13,6 +13,7 @@ using Microsoft.Azure.Documents.Client;
 using Sinterklaas.Api.Models;
 using System.Linq;
 using SendGrid.Helpers.Mail;
+using SendGrid;
 
 namespace Sinterklaas.Api
 {
@@ -22,7 +23,6 @@ namespace Sinterklaas.Api
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "stripe")] HttpRequest req,
             [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")] IDocumentClient client,
-            [SendGrid(From = "sinterklaas@nederlandsecluboslo.nl")] IAsyncCollector<SendGridMessage> messageCollector,
             ILogger log, ExecutionContext context)
         {
             var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory)
@@ -60,12 +60,12 @@ namespace Sinterklaas.Api
                     inschrijving.BetaaldOpUtc = DateTime.UtcNow;
                     await client.ReplaceDocumentAsync(inschrijving._self, inschrijving);
 
-                    var message = new SendGridMessage();
-                    message.AddTo(inschrijving.Email);
-                    message.AddContent("text/html", "<h1>Test email</h1>");
-                    message.SetSubject("Inschrijving Sinterklaas");
+                    var sendGridApiKey = config["SendGridApiKey"];
+                    var mailClient = new SendGridClient(sendGridApiKey);
 
-                    await messageCollector.AddAsync(message);
+                    var confirmEmail = ConstructConfirmEmail(inschrijving, config.GetSection("ConfirmEmail"));
+
+                    await mailClient.SendEmailAsync(confirmEmail);
                 }
 
             }
@@ -77,5 +77,47 @@ namespace Sinterklaas.Api
 
             return new OkResult();
         }
-    }
+
+        private static SendGridMessage ConstructConfirmEmail(InschrijvingDataModel inschrijving, IConfigurationSection config){
+            var fromEmail = config["FromEmail"];
+            var fromName = config["FromName"];
+            var bcc = config["Bcc"];
+            var templateId = config["TemplateId"];
+
+            var message = new SendGridMessage();
+            message.SetFrom(fromEmail, fromName);
+            message.AddTo(inschrijving.Email, inschrijving.Naam);
+            message.AddBcc(bcc);
+            
+            message.SetTemplateId(templateId);
+            message.SetTemplateData(new InschrijvingEmailModel{
+                Naam = inschrijving.Naam,
+                Email = inschrijving.Email,
+                KindOpSchool = inschrijving.KindOpSchool,
+                LidVanClub = inschrijving.LidVanClub,
+                Lidmaatschap = (!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap,
+                GratisLidmaatschap = inschrijving.GratisLidmaatschap,
+                Adres = inschrijving.Adres,
+                Telefoon = inschrijving.Telefoon,
+                AantalKinderen = inschrijving.Kinderen.Length + 1,
+                AantalPersonen = inschrijving.AantalPersonen,
+                Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
+                    Roepnaam = k.Voornaam,
+                    Achternaam = k.Achternaam,
+                    Leeftijd = k.Leeftijd,
+                    Geslacht = k.Geslacht,
+                    Anekdote = k.Anekdote
+                }).ToArray(),
+                Vrijwilliger = new VrijwilligerEmailModel{
+                    Uur = inschrijving.Vrijwilliger == "uur",
+                    Dagdeel = inschrijving.Vrijwilliger == "dagdeel",
+                    DagdeelZonderKind = inschrijving.Vrijwilliger == "dagdeelzonderkind",
+                    Dag = inschrijving.Vrijwilliger == "dag"
+                },
+                Commentaar = inschrijving.Commentaar
+            });
+
+            return message;
+        }
+    }    
 }
