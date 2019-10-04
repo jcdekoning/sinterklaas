@@ -8,9 +8,7 @@ const getVrijwilligerText = (keuze: Vrijwilliger, aantalKinderen: number) => {
     case 'uur':
       return text.stap3.vrijwilliger.optionUur;
     case 'dagdeel':
-      return text.stap3.vrijwilliger.optionDagdeel(aantalKinderen);
-    case 'dagdeelzonderkind':
-      return text.stap3.vrijwilliger.optionDagdeelZonderKind(aantalKinderen);
+      return text.stap3.vrijwilliger.optionDagdeel;
     case 'dag':
       return text.stap3.vrijwilliger.optionDag;
     default:

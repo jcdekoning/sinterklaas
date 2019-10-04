@@ -131,8 +131,7 @@ export default {
     vrijwilliger: {
       label: 'Wilt u zich aanmelden als vrijwilliger?',
       optionUur: 'Ja, voor 1 uur',
-      optionDagdeel: (aantalKinderen: number) => `Ja, voor een dagdeel (ochtend- of middagsessie) waar mijn ${singularOrPlural(aantalKinderen, 'kind', 'kinderen')} bij aanwezig ${singularOrPlural(aantalKinderen, 'is', 'zijn')}`,
-      optionDagdeelZonderKind: (aantalKinderen: number) => `Ja, voor een dagdeel waar mijn ${singularOrPlural(aantalKinderen, 'kind', 'kinderen')} NIET bij aanwezig ${singularOrPlural(aantalKinderen, 'is', 'zijn')}`,
+      optionDagdeel: 'Ja, voor een dagdeel (ochtend- of middagsessie)',
       optionDag: 'Ja, voor de gehele dag',
       optionNee: 'Nee',
       error: 'Maak een keuze'

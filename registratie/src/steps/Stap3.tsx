@@ -44,8 +44,7 @@ const Stap3 = (props: RouterProps) => {
         name="vrijwilliger"
         options={[
           { value: 'uur', label: text.stap3.vrijwilliger.optionUur },
-          { value: 'dagdeel', label: text.stap3.vrijwilliger.optionDagdeel(aantalKinderen) },
-          { value: 'dagdeelzonderkind', label: text.stap3.vrijwilliger.optionDagdeelZonderKind(aantalKinderen) },
+          { value: 'dagdeel', label: text.stap3.vrijwilliger.optionDagdeel },
           { value: 'dag', label: text.stap3.vrijwilliger.optionDag },
           { value: 'nee', label: text.stap3.vrijwilliger.optionNee },
         ]}
