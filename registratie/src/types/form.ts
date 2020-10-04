@@ -1,6 +1,4 @@
-export type Geslacht =
-  | "Jongen"
-  | "Meisje"
+export type Geslacht = 'Jongen' | 'Meisje';
 
 export type Stap1FormData = {
   naam: string;
@@ -8,11 +6,12 @@ export type Stap1FormData = {
   kindOpSchool: string;
   lidVanClub: string;
   aantalKinderen: number;
-  aantalPersonen: number;
   gratisLidmaatschap?: string;
-  adres?: string;
-  telefoon?: string;
-}
+  straatnaam: string;
+  postcode: string;
+  plaats: string;
+  telefoon: string;
+};
 
 export type Stap2FormData = {
   voornaam: string;
@@ -20,27 +19,27 @@ export type Stap2FormData = {
   leeftijd: number;
   geslacht: Geslacht;
   anekdote: string;
-}
+};
 
 export type Vrijwilliger =
   | 'uur'
   | 'dagdeel'
   | 'dagdeelzonderkind'
   | 'dag'
-  | 'nee'
+  | 'nee';
 
 export type Stap3FormData = {
   vrijwilliger: Vrijwilliger;
-}
+};
 
 export type Stap4FormData = {
   commentaar: string;
   privacyverklaring: string;
-}
+};
 
 export type FormState = {
-  stap1?: Stap1FormData,
-  stap2?: Stap2FormData[],
-  stap3?: Stap3FormData
-  stap4?: Stap4FormData
-}
+  stap1?: Stap1FormData;
+  stap2?: Stap2FormData[];
+  stap3?: Stap3FormData;
+  stap4?: Stap4FormData;
+};

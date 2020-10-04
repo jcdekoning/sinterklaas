@@ -4,7 +4,7 @@ type Kind = {
   leeftijd: number;
   geslacht: string;
   anekdote: string;
-}
+};
 
 export type Inschrijving = {
   naam: string;
@@ -12,11 +12,12 @@ export type Inschrijving = {
   kindOpSchool: boolean;
   lidVanClub: boolean;
   gratisLidmaatschap?: boolean;
-  adres?: string;
-  telefoon?: string;
-  aantalPersonen: number;
+  straatnaam: string;
+  postcode: string;
+  plaats: string;
+  telefoon: string;
   kinderen: Kind[];
   vrijwilliger: string;
   commentaar: string;
   privacyverklaring: boolean;
-}
+};
