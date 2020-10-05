@@ -101,10 +101,11 @@ namespace Sinterklaas.Api
                 LidVanClub = inschrijving.LidVanClub,
                 Lidmaatschap = (!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap,
                 GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-                Adres = inschrijving.Adres,
+                Straatnaam = inschrijving.Straatnaam,
+                Postcode = inschrijving.Postcode,
+                Plaats = inschrijving.Plaats,
                 Telefoon = inschrijving.Telefoon,
                 AantalKinderen = inschrijving.Kinderen.Length,
-                AantalPersonen = inschrijving.AantalPersonen,
                 Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
                     Roepnaam = k.Voornaam,
                     Achternaam = k.Achternaam,
@@ -112,12 +113,6 @@ namespace Sinterklaas.Api
                     Geslacht = k.Geslacht,
                     Anekdote = k.Anekdote
                 }).ToArray(),
-                Vrijwilliger = new VrijwilligerEmailModel{
-                    Uur = inschrijving.Vrijwilliger == "uur",
-                    Dagdeel = inschrijving.Vrijwilliger == "dagdeel",
-                    DagdeelZonderKind = inschrijving.Vrijwilliger == "dagdeelzonderkind",
-                    Dag = inschrijving.Vrijwilliger == "dag"
-                },
                 Commentaar = inschrijving.Commentaar
             });
 

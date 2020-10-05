@@ -94,22 +94,10 @@ namespace Sinterklaas.Api
         log.LogInformation("Person needs a club subscription. Creating line item");
         yield return new SessionLineItemOptions {
             Name = "Lidmaatschap Nederlandse Club Oslo",
-            Description = "2019",
+            Description = "2020",
             Amount = 17500,
             Currency = "nok",
             Quantity = 1
-        };
-      }
-
-      log.LogInformation($"AantalPersonen is {inschrijving.AantalPersonen}");
-      
-      if(inschrijving.AantalPersonen > 2) {
-          log.LogInformation("More then two personen. Creating line item");
-          yield return new SessionLineItemOptions {
-            Name = "Bijdrage voor extra personen",
-            Amount = 5000,
-            Currency = "nok",
-            Quantity = inschrijving.AantalPersonen - 2
         };
       }
 
@@ -120,7 +108,7 @@ namespace Sinterklaas.Api
            yield return new SessionLineItemOptions {
                             Name = "Inschrijving Sinterklaas",
                             Description = kind.Voornaam + " " + kind.Achternaam,
-                            Amount = 15000,
+                            Amount = 10000,
                             Currency = "nok",
                             Quantity = 1
            };
@@ -137,10 +125,10 @@ namespace Sinterklaas.Api
             LidVanClub = inschrijving.LidVanClub,
             KindOpSchool = inschrijving.KindOpSchool,
             GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-            Adres = inschrijving.Adres,
+            Staatnaam = inschrijving.Straatnaam,
+            Postcode = inschrijving.Postcode,
+            Plaats = inschrijving.Plaats,
             Telefoon = inschrijving.Telefoon,
-            Vrijwilliger = inschrijving.Vrijwilliger,
-            AantalPersonen = inschrijving.AantalPersonen,
             Kinderen  = inschrijving.Kinderen.Select(k => new KindDataModel{
                 Achternaam = k.Achternaam,
                 Anekdote = k.Anekdote,

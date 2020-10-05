@@ -19,7 +19,6 @@ import TextAreaField from '../components/TextAreaField';
 import Checkbox from '../components/Checkbox';
 import OverzichtStap1 from '../components/OverzichtStap1';
 import OverzichtStap2 from '../components/OverzichtStap2';
-import OverzichtStap3 from '../components/OverzichtStap3';
 import OverzichtEntreegeld from '../components/OverzichtEntreegeld';
 
 import { ReactComponent as KlompSvg } from '../images/klomp.svg';
@@ -28,7 +27,6 @@ import text from '../text';
 const mapFormStateToApiData = (state: FormState): Inschrijving => {
   const stap1 = state.stap1 as Stap1FormData;
   const stap2 = state.stap2 as Stap2FormData[];
-  const stap3 = state.stap3 as Stap3FormData;
   const stap4 = state.stap4 as Stap4FormData;
 
   return {
@@ -50,7 +48,6 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
         anekdote: kind.anekdote,
       };
     }),
-    vrijwilliger: stap3.vrijwilliger,
     commentaar: stap4.commentaar,
     privacyverklaring: stap4.privacyverklaring === 'true',
   };

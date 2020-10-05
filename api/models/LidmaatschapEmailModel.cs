@@ -8,8 +8,12 @@ namespace Sinterklaas.Api.Models
     public string Naam {get; set;}
     [JsonProperty("email")]
     public string Email {get;set;}
-    [JsonProperty("adres")]
-    public string Adres {get; set;}
+    [JsonProperty("straatnaam")]
+    public string Straatnaam {get; set;}
+    [JsonProperty("postcode")]
+    public string Postcode {get; set;}
+    [JsonProperty("plaats")]
+    public string Plaats {get; set;}
     [JsonProperty("telefoon")]
     public string Telefoon {get; set;}
     [JsonProperty("gratisLidmaatschap")]

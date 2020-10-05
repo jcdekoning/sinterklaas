@@ -97,19 +97,19 @@ export default {
       description: '',
     },
     straatnaam: {
-      label: 'Uw straatnaam met huisnummer',
+      label: 'Straatnaam met huisnummer',
       error: 'Vul uw straatnaam en huisnummer in',
     },
     postcode: {
-      label: 'Uw postcode',
+      label: 'Postcode',
       error: 'Vul uw postcode in',
     },
     plaats: {
-      label: 'Uw plaats',
+      label: 'Plaatsnaam',
       error: 'Vul uw plaats in',
     },
     telefoon: {
-      label: 'Uw telefoonnummer',
+      label: 'Telefoonnummer',
       error: 'Vul uw telefoonnummer in',
     },
     deelnemers: {

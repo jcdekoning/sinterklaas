@@ -39,21 +39,21 @@ namespace Sinterklaas.Api.Models
     public bool LidVanClub {get; set;}
     [JsonProperty("aantalKinderen")]
     public int AantalKinderen {get; set;}
-    [JsonProperty("aantalPersonen")]
-    public int AantalPersonen {get; set;}
     [JsonProperty("lidmaatschap")]
     public bool Lidmaatschap {get; set;}
     [JsonProperty("gratisLidmaatschap")]
     public bool GratisLidmaatschap {get; set;}
-    [JsonProperty("adres")]
-    public string Adres {get; set;}
+    [JsonProperty("straatnaam")]
+    public string Straatnaam {get; set;}
+    [JsonProperty("postcode")]
+    public string Postcode {get; set;}
+    [JsonProperty("plaats")]
+    public string Plaats {get; set;}
     [JsonProperty("telefoon")]
     public string Telefoon {get; set;}
 
     [JsonProperty("kinderen")]
     public KindEmailModel[] Kinderen {get; set;}
-    [JsonProperty("vrijwilliger")]
-    public VrijwilligerEmailModel Vrijwilliger {get; set;}
      [JsonProperty("commentaar")]
      public string Commentaar {get; set;}
   }

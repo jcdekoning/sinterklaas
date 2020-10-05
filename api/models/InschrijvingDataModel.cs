@@ -14,14 +14,14 @@ namespace Sinterklaas.Api.Models
   public class InschrijvingDataModel {
     public string Naam { get; set; }
     public string Email { get; set; }
-    public int AantalPersonen { get; set; }
     public bool KindOpSchool { get; set; }
     public bool LidVanClub { get; set; }
     public bool GratisLidmaatschap {get; set;}
-    public string Adres {get; set;}
+    public string Straatnaam {get; set;}
+    public string Postcode {get; set;}
+    public string Plaats {get; set;}
     public string Telefoon {get; set;}
     public KindDataModel[] Kinderen { get; set; }
-    public string Vrijwilliger { get; set; }
     public string Commentaar { get; set; }
     public bool Privacyverklaring { get; set; }
     public string SessionId { get; set; }

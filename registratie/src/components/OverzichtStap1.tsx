@@ -22,13 +22,13 @@ const OverzichtStap1 = (props: Stap1FormData) => {
         <li>{lidVanClubAsBool ? text.labelYes : text.labelNo}</li>
         <li className={styles.label}>{text.stap1.aantalKinderen.label}</li>
         <li>{props.aantalKinderen}</li>
-        <li className={styles.label}>Uw straatnaam</li>
+        <li className={styles.label}>{text.stap1.straatnaam.label}</li>
         <li>{props.straatnaam}</li>
-        <li className={styles.label}>Uw postcode</li>
+        <li className={styles.label}>{text.stap1.postcode.label}</li>
         <li>{props.postcode}</li>
-        <li className={styles.label}>Uw plaats</li>
+        <li className={styles.label}>{text.stap1.plaats.label}s</li>
         <li>{props.plaats}</li>
-        <li className={styles.label}>Uw telefoonnummer</li>
+        <li className={styles.label}>{text.stap1.telefoon.label}</li>
         <li>{props.telefoon}</li>
       </ul>
       {((!kindOpSchoolAsBool && !lidVanClubAsBool) ||

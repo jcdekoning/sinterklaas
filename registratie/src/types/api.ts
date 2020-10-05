@@ -17,7 +17,6 @@ export type Inschrijving = {
   plaats: string;
   telefoon: string;
   kinderen: Kind[];
-  vrijwilliger: string;
   commentaar: string;
   privacyverklaring: boolean;
 };
