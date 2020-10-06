@@ -94,7 +94,8 @@ export default {
     },
     adresgegevens: {
       title: 'Adresgegevens',
-      description: '',
+      description:
+        'Uw adresgegevens en telefoonnummer zijn noodzakelijk voor verzending van het cadeautje en het snoepgoed.',
     },
     straatnaam: {
       label: 'Straatnaam met huisnummer',
