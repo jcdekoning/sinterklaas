@@ -133,7 +133,9 @@ namespace Sinterklaas.Api
                 Naam = inschrijving.Naam,
                 Email = inschrijving.Email,
                 GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-                Adres = inschrijving.Adres,
+                Straatnaam = inschrijving.Straatnaam,
+                Postcode = inschrijving.Postcode,
+                Plaats = inschrijving.Plaats,
                 Telefoon = inschrijving.Telefoon
             });
 

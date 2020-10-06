@@ -125,7 +125,7 @@ namespace Sinterklaas.Api
             LidVanClub = inschrijving.LidVanClub,
             KindOpSchool = inschrijving.KindOpSchool,
             GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-            Staatnaam = inschrijving.Straatnaam,
+            Straatnaam = inschrijving.Straatnaam,
             Postcode = inschrijving.Postcode,
             Plaats = inschrijving.Plaats,
             Telefoon = inschrijving.Telefoon,
