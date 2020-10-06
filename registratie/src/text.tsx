@@ -88,9 +88,9 @@ export default {
     lidmaatschap: {
       label: 'Lidmaatschap Nederlandse Club Oslo',
       descriptionGratis:
-        'Voor het gratis lidmaatschap tot eind 2020 hebben we enkele extra gegevens nodig.',
+        'U geeft aan gebruikt te willen maken van het gratis lidmaatschap tot eind 2002.',
       descriptionVerplicht:
-        'Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap een vereiste om deel te nemen aan het Sinterklaasfeest. Hiervoor hebben we enkele extra gegevens nodig',
+        'Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap een vereiste om deel te nemen aan het Sinterklaasfeest. Het lidmaatschap t/m eind 2020 bedraagt 175 nok.',
     },
     adresgegevens: {
       title: 'Adresgegevens',
@@ -261,7 +261,7 @@ export default {
           uw inschrijving per email.
         </p>
         <p>
-          Rond 11 november ontvangt u informatie met betrekking tot de
+          Rond 9 november ontvangt u informatie met betrekking tot de
           groepsindeling.{' '}
         </p>
         <p>
