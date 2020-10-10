@@ -74,7 +74,7 @@ namespace Sinterklaas.Api
 
                     var mailGunApiKey = config["MailgunApiKey"];
 
-                    using (var mailClient = new HttpClient { BaseAddress = new Uri("https://api.mailgun.net") })
+                    using (var mailClient = new HttpClient { BaseAddress = new Uri("https://api.eu.mailgun.net") })
                     {
                         mailClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
                             Convert.ToBase64String(Encoding.ASCII.GetBytes($"api:{mailGunApiKey}")));
