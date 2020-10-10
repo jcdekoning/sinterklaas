@@ -85,8 +85,8 @@ namespace Sinterklaas.Api
             
                         var content = new FormUrlEncodedContent(new[]
                         {
-                            new KeyValuePair<string, string>("from", $"{fromName} {fromEmail}"),
-                            new KeyValuePair<string, string>("to", $"{inschrijving.Naam} {inschrijving.Email}"),
+                            new KeyValuePair<string, string>("from", $"{fromName} <{fromEmail}>"),
+                            new KeyValuePair<string, string>("to", $"{inschrijving.Naam} <{inschrijving.Email}>"),
                             new KeyValuePair<string, string>("bcc", bcc),
                             new KeyValuePair<string, string>("subject", "Bevestiging inschrijving Sinterklaas 2020"),
                             new KeyValuePair<string, string>("template", "inschrijving_sinterklaas_2020"),
