@@ -79,9 +79,10 @@ namespace Sinterklaas.Api
                         mailClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
                             Convert.ToBase64String(Encoding.ASCII.GetBytes($"api:{mailGunApiKey}")));
 
-                        var fromEmail = config["FromEmail"];
-                        var fromName = config["FromName"];
-                        var bcc = config["Bcc"];
+                        var mailConfig = config.GetSection("ConfirmEmail");
+                        var fromEmail = mailConfig["FromEmail"];
+                        var fromName = mailConfig["FromName"];
+                        var bcc = mailConfig["Bcc"];
             
                         var content = new FormUrlEncodedContent(new[]
                         {
