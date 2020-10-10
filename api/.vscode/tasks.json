@@ -35,9 +35,9 @@
       "type": "func",
       "dependsOn": "build",
       "options": {
-        "cwd": "${workspaceFolder}/bin/Debug/netcoreapp2.1"
+        "cwd": "${workspaceFolder}/bin/Debug/netcoreapp3.1"
       },
-      "command": "host start --port 4000", //--useHttps --cert development.pfx --password sinterklaas"
+      "command": "host start --port 4000",
       "isBackground": true,
       "problemMatcher": "$func-watch"
     }

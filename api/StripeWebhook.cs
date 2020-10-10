@@ -14,6 +14,11 @@ using Sinterklaas.Api.Models;
 using System.Linq;
 using SendGrid.Helpers.Mail;
 using SendGrid;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Sinterklaas.Api
 {
@@ -60,15 +65,61 @@ namespace Sinterklaas.Api
                     inschrijving.BetaaldOpUtc = DateTime.UtcNow;
                     await client.ReplaceDocumentAsync(inschrijving._self, inschrijving);
 
-                    var sendGridApiKey = config["SendGridApiKey"];
-                    var mailClient = new SendGridClient(sendGridApiKey);
+                    //var sendGridApiKey = config["SendGridApiKey"];
 
-                    var confirmEmail = ConstructConfirmEmail(inschrijving, config.GetSection("ConfirmEmail"));
-                    await mailClient.SendEmailAsync(confirmEmail);
+                    //var mailClient = new SendGridClient(sendGridApiKey);
+
+                    //var confirmEmail = ConstructConfirmEmail(inschrijving, config.GetSection("ConfirmEmail"));
+                    //await mailClient.SendEmailAsync(confirmEmail);
+
+                    var mailGunApiKey = config["MailgunApiKey"];
+
+                    using (var mailClient = new HttpClient { BaseAddress = new Uri("https://api.mailgun.net") })
+                    {
+                        mailClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+                            Convert.ToBase64String(Encoding.ASCII.GetBytes($"api:{mailGunApiKey}")));
+
+                        var fromEmail = config["FromEmail"];
+                        var fromName = config["FromName"];
+                        var bcc = config["Bcc"];
+            
+                        var content = new FormUrlEncodedContent(new[]
+                        {
+                            new KeyValuePair<string, string>("from", $"{fromName} {fromEmail}"),
+                            new KeyValuePair<string, string>("to", $"{inschrijving.Naam} {inschrijving.Email}"),
+                            new KeyValuePair<string, string>("bcc", bcc),
+                            new KeyValuePair<string, string>("subject", "Bevestiging inschrijving Sinterklaas 2020"),
+                            new KeyValuePair<string, string>("template", "inschrijving_sinterklaas_2020"),
+                            new KeyValuePair<string, string>("h:X-Mailgun-Variables", JsonConvert.SerializeObject(new InschrijvingEmailModel{
+                                Naam = inschrijving.Naam,
+                                Email = inschrijving.Email,
+                                KindOpSchool = inschrijving.KindOpSchool,
+                                LidVanClub = inschrijving.LidVanClub,
+                                Lidmaatschap = (!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap,
+                                GratisLidmaatschap = inschrijving.GratisLidmaatschap,
+                                Straatnaam = inschrijving.Straatnaam,
+                                Postcode = inschrijving.Postcode,
+                                Plaats = inschrijving.Plaats,
+                                Telefoon = inschrijving.Telefoon,
+                                AantalKinderen = inschrijving.Kinderen.Length,
+                                Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
+                                    Roepnaam = k.Voornaam,
+                                    Achternaam = k.Achternaam,
+                                    Leeftijd = k.Leeftijd,
+                                    Geslacht = k.Geslacht,
+                                    Anekdote = k.Anekdote
+                                }).ToArray(),
+                                Commentaar = inschrijving.Commentaar
+                            }))
+                        });
+
+                        await mailClient.PostAsync("v3/mg.nederlandsecluboslo.nl/messages", content);
+                    }
+                
 
                     if((!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap){
-                        var membershipEmail = ConstructMembershipEmail(inschrijving, config.GetSection("MembershipEmail"));
-                        await mailClient.SendEmailAsync(membershipEmail);
+                        // var membershipEmail = ConstructMembershipEmail(inschrijving, config.GetSection("MembershipEmail"));
+                        // await mailClient.SendEmailAsync(membershipEmail);
                     }
                 }
 
