@@ -113,7 +113,15 @@ namespace Sinterklaas.Api
                             }))
                         });
 
-                        await mailClient.PostAsync("v3/mg.nederlandsecluboslo.nl/messages", content);
+                        log.LogInformation("Sending email with Mailgun");
+
+                        var result = await mailClient.PostAsync("v3/mg.nederlandsecluboslo.nl/messages", content);
+                        var resultContentAsString = await result.Content.ReadAsStringAsync();
+                        if(!result.IsSuccessStatusCode){
+                            log.LogError($"Error sending email {result.StatusCode} {resultContentAsString}");
+                        } else {
+                            log.LogInformation($"Successfully send email {resultContentAsString}");
+                        }
                     }
                 
 
