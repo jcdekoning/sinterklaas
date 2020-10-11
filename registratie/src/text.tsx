@@ -100,7 +100,7 @@ export default {
       descriptionGratis:
         'U geeft aan gebruikt te willen maken van het gratis lidmaatschap tot eind 2002.',
       descriptionVerplicht:
-        'Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap een vereiste om deel te nemen aan het Sinterklaasfeest. Het lidmaatschap t/m eind 2020 bedraagt 175 nok.',
+        'Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap van de Nederlandse Club Olso een vereiste om deel te nemen aan het Sinterklaasfeest. Het lidmaatschap t/m eind 2020 bedraagt 175 nok.',
     },
     adresgegevens: {
       title: 'Adresgegevens',
@@ -180,7 +180,8 @@ export default {
     },
     anekdoteKind: {
       label: 'Anekdote kind',
-      description: 'Enkel voor kinderen die 3 jaar of ouder zijn',
+      description:
+        'Schrijf iets waar uw kind zich in kan herkennen. Dit kan van alles zijn, bijvoorbeeld favoriete eten, huisdieren of eventuele hobbies.',
       error: 'Vul een anekdote in',
     },
   },
@@ -270,8 +271,8 @@ export default {
     description: (
       <>
         <p>
-          Bedankt voor uw inschrijving en betaling. U ontvangt een bevesting van
-          uw inschrijving per email.
+          Bedankt voor uw inschrijving en betaling. U ontvangt een bevestiging
+          van uw inschrijving per email.
         </p>
         <p>
           Rond 9 november ontvangt u informatie met betrekking tot de
@@ -285,8 +286,8 @@ export default {
           </a>
         </p>
         <p>
-          We zien jullie graag op {longDateEvent} om er gezamenlijk een
-          onvergetelijke gebeurtenis van te maken!
+          We zien jullie graag, via de computer, op {longDateEvent} om er
+          gezamenlijk een onvergetelijke gebeurtenis van te maken!
         </p>
         <p>Met vriendelijke groet,</p>
         <p>

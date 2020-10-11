@@ -145,14 +145,8 @@ const Stap2 = (props: RouterProps) => {
               <TextAreaField
                 name={`anekdotekind[${number}]`}
                 label={text.stap2.anekdoteKind.label}
-                register={register({
-                  validate: (value: any) => {
-                    const leeftijd = watch(`leeftijdkind[${number}]`);
-                    return ((!value || /^\s*$/.test(value)) && leeftijd) > 2
-                      ? false
-                      : true;
-                  },
-                })}
+                description={text.stap2.anekdoteKind.description}
+                register={register({ required: true })}
                 error={
                   (errors as any)[`anekdotekind[${number}]`] &&
                   text.stap2.anekdoteKind.error
