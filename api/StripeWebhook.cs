@@ -65,70 +65,59 @@ namespace Sinterklaas.Api
                     inschrijving.BetaaldOpUtc = DateTime.UtcNow;
                     await client.ReplaceDocumentAsync(inschrijving._self, inschrijving);
 
-                    //var sendGridApiKey = config["SendGridApiKey"];
+                    var mailService = new MailgunMailService(config["MailgunApiKey"], log);
+                    var mailConfigConfirmEmail = config.GetSection("ConfirmEmail");
+                    var mailModelConfirmEmail = new InschrijvingEmailModel{
+                        Naam = inschrijving.Naam,
+                        Email = inschrijving.Email,
+                        KindOpSchool = inschrijving.KindOpSchool,
+                        LidVanClub = inschrijving.LidVanClub,
+                        Lidmaatschap = (!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap,
+                        GratisLidmaatschap = inschrijving.GratisLidmaatschap,
+                        Straatnaam = inschrijving.Straatnaam,
+                        Postcode = inschrijving.Postcode,
+                        Plaats = inschrijving.Plaats,
+                        Telefoon = inschrijving.Telefoon,
+                        AantalKinderen = inschrijving.Kinderen.Length,
+                        Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
+                            Roepnaam = k.Voornaam,
+                            Achternaam = k.Achternaam,
+                            Leeftijd = k.Leeftijd,
+                            Geslacht = k.Geslacht,
+                            Anekdote = k.Anekdote
+                        }).ToArray(),
+                        Commentaar = inschrijving.Commentaar
+                    };
 
-                    //var mailClient = new SendGridClient(sendGridApiKey);
-
-                    //var confirmEmail = ConstructConfirmEmail(inschrijving, config.GetSection("ConfirmEmail"));
-                    //await mailClient.SendEmailAsync(confirmEmail);
-
-                    var mailGunApiKey = config["MailgunApiKey"];
-
-                    using (var mailClient = new HttpClient { BaseAddress = new Uri("https://api.eu.mailgun.net") })
-                    {
-                        mailClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-                            Convert.ToBase64String(Encoding.ASCII.GetBytes($"api:{mailGunApiKey}")));
-
-                        var mailConfig = config.GetSection("ConfirmEmail");
-                        var fromEmail = mailConfig["FromEmail"];
-                        var fromName = mailConfig["FromName"];
-                        var bcc = mailConfig["Bcc"];
-            
-                        var content = new FormUrlEncodedContent(new[]
-                        {
-                            new KeyValuePair<string, string>("from", $"{fromName} <{fromEmail}>"),
-                            new KeyValuePair<string, string>("to", $"{inschrijving.Naam} <{inschrijving.Email}>"),
-                            new KeyValuePair<string, string>("bcc", bcc),
-                            new KeyValuePair<string, string>("subject", "Bevestiging inschrijving Sinterklaas 2020"),
-                            new KeyValuePair<string, string>("template", "inschrijving_sinterklaas_2020"),
-                            new KeyValuePair<string, string>("h:X-Mailgun-Variables", JsonConvert.SerializeObject(new InschrijvingEmailModel{
-                                Naam = inschrijving.Naam,
-                                Email = inschrijving.Email,
-                                KindOpSchool = inschrijving.KindOpSchool,
-                                LidVanClub = inschrijving.LidVanClub,
-                                Lidmaatschap = (!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap,
-                                GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-                                Straatnaam = inschrijving.Straatnaam,
-                                Postcode = inschrijving.Postcode,
-                                Plaats = inschrijving.Plaats,
-                                Telefoon = inschrijving.Telefoon,
-                                AantalKinderen = inschrijving.Kinderen.Length,
-                                Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
-                                    Roepnaam = k.Voornaam,
-                                    Achternaam = k.Achternaam,
-                                    Leeftijd = k.Leeftijd,
-                                    Geslacht = k.Geslacht,
-                                    Anekdote = k.Anekdote
-                                }).ToArray(),
-                                Commentaar = inschrijving.Commentaar
-                            }))
-                        });
-
-                        log.LogInformation("Sending email with Mailgun");
-
-                        var result = await mailClient.PostAsync("v3/mg.nederlandsecluboslo.nl/messages", content);
-                        var resultContentAsString = await result.Content.ReadAsStringAsync();
-                        if(!result.IsSuccessStatusCode){
-                            log.LogError($"Error sending email {result.StatusCode} {resultContentAsString}");
-                        } else {
-                            log.LogInformation($"Successfully send email {resultContentAsString}");
-                        }
-                    }
-                
-
+                    await mailService.SendMailAsync(mailConfigConfirmEmail["FromName"],
+                                                    mailConfigConfirmEmail["FromEmail"],
+                                                    inschrijving.Naam,
+                                                    inschrijving.Email,
+                                                    mailConfigConfirmEmail["Bcc"],
+                                                    mailConfigConfirmEmail["Subject"],
+                                                    mailConfigConfirmEmail["TemplateId"],
+                                                    mailModelConfirmEmail);
+                    
+                   
                     if((!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap){
-                        // var membershipEmail = ConstructMembershipEmail(inschrijving, config.GetSection("MembershipEmail"));
-                        // await mailClient.SendEmailAsync(membershipEmail);
+                        var mailConfigMembershipEmail = config.GetSection("MembershipEmail");
+                        var mailModelMembershipEmail = new LidmaatschapEmailViewModel{
+                            Naam = inschrijving.Naam,
+                            Email = inschrijving.Email,
+                            GratisLidmaatschap = inschrijving.GratisLidmaatschap,
+                            Straatnaam = inschrijving.Straatnaam,
+                            Postcode = inschrijving.Postcode,
+                            Plaats = inschrijving.Plaats,
+                            Telefoon = inschrijving.Telefoon
+                        };
+                        await mailService.SendMailAsync(mailConfigMembershipEmail["FromName"],
+                                                    mailConfigMembershipEmail["FromEmail"],
+                                                    mailConfigMembershipEmail["ToName"],
+                                                    mailConfigMembershipEmail["ToEmail"],
+                                                    mailConfigMembershipEmail["Bcc"],
+                                                    mailConfigMembershipEmail["Subject"],
+                                                    mailConfigMembershipEmail["TemplateId"],
+                                                    mailModelMembershipEmail);
                     }
                 }
 
@@ -140,66 +129,6 @@ namespace Sinterklaas.Api
             } 
 
             return new OkResult();
-        }
-
-        private static SendGridMessage ConstructConfirmEmail(InschrijvingDataModel inschrijving, IConfigurationSection config){
-            var fromEmail = config["FromEmail"];
-            var fromName = config["FromName"];
-            var bcc = config["Bcc"];
-            var templateId = config["TemplateId"];
-
-            var message = new SendGridMessage();
-            message.SetFrom(fromEmail, fromName);
-            message.AddTo(inschrijving.Email, inschrijving.Naam);
-            message.AddBcc(bcc);
-            
-            message.SetTemplateId(templateId);
-            message.SetTemplateData(new InschrijvingEmailModel{
-                Naam = inschrijving.Naam,
-                Email = inschrijving.Email,
-                KindOpSchool = inschrijving.KindOpSchool,
-                LidVanClub = inschrijving.LidVanClub,
-                Lidmaatschap = (!inschrijving.KindOpSchool && !inschrijving.LidVanClub) || inschrijving.GratisLidmaatschap,
-                GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-                Straatnaam = inschrijving.Straatnaam,
-                Postcode = inschrijving.Postcode,
-                Plaats = inschrijving.Plaats,
-                Telefoon = inschrijving.Telefoon,
-                AantalKinderen = inschrijving.Kinderen.Length,
-                Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
-                    Roepnaam = k.Voornaam,
-                    Achternaam = k.Achternaam,
-                    Leeftijd = k.Leeftijd,
-                    Geslacht = k.Geslacht,
-                    Anekdote = k.Anekdote
-                }).ToArray(),
-                Commentaar = inschrijving.Commentaar
-            });
-
-            return message;
-        }
-
-        private static SendGridMessage ConstructMembershipEmail(InschrijvingDataModel inschrijving, IConfigurationSection config){
-            var fromEmail = config["FromEmail"];
-            var toEmail = config["ToEmail"];
-            var templateId = config["TemplateId"];
-
-            var message = new SendGridMessage();
-            message.SetFrom(fromEmail);
-            message.AddTo(toEmail);
-            
-            message.SetTemplateId(templateId);
-            message.SetTemplateData(new LidmaatschapEmailViewModel{
-                Naam = inschrijving.Naam,
-                Email = inschrijving.Email,
-                GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-                Straatnaam = inschrijving.Straatnaam,
-                Postcode = inschrijving.Postcode,
-                Plaats = inschrijving.Plaats,
-                Telefoon = inschrijving.Telefoon
-            });
-
-            return message;
         }
     }    
 }
