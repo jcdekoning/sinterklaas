@@ -70,6 +70,14 @@ const Stap1 = (props: RouterProps) => {
           })}
           error={errors.email && errors.email.message}
         />
+        <TextField
+          name="telefoon"
+          type="tel"
+          label={text.stap1.telefoon.label}
+          description={text.stap1.telefoon.description}
+          register={register({ required: true })}
+          error={errors.telefoon && text.stap1.telefoon.error}
+        />
         <TwoOptionsField
           name="kindOpSchool"
           label={text.stap1.kindOpSchool.label}
@@ -126,19 +134,12 @@ const Stap1 = (props: RouterProps) => {
           register={register({ required: true })}
           error={errors.plaats && text.stap1.plaats.error}
         />
-        <TextField
-          name="telefoon"
-          type="tel"
-          label={text.stap1.telefoon.label}
-          register={register({ required: true })}
-          error={errors.telefoon && text.stap1.telefoon.error}
-        />
+
         <h2>{text.stap1.deelnemers.title}</h2>
         <p>{text.stap1.deelnemers.description}</p>
         <NumericField
           name="aantalKinderen"
           label={text.stap1.aantalKinderen.label}
-          description={text.stap1.aantalKinderen.description}
           register={register({
             required: text.stap1.aantalKinderen.error.required,
             min: {

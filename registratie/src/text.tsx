@@ -22,11 +22,11 @@ export default {
     description: (
       <>
         <p>
-          Sinterklaas heeft laten weten ook dit jaar naar Noorwegen te komen. Op{' '}
-          {longDateEvent} wil hij speciaal de kinderen van de Nederlandse Club
-          Oslo en de Nederlandse school NTC Het Noorderlicht komen bezoeken.
-          Alle kinderen (0-10 jaar) mogen op audiëntie en ontvangen een
-          cadeautje van Sinterklaas.
+          Groot nieuws! Ook dit jaar vieren we de verjaardag van Sinterklaas! We
+          doen het dit wel in een iets andere vorm, namelijk digitaal via Zoom.
+          Op {longDateEvent} zijn alle kinderen (0-10 jaar) van de Nederlandse
+          Club Oslo en de Nederlandse school NTC Het Noorderlicht van harte
+          welkom om deze feestelijke gebeurtenis mee te vieren.
         </p>
         <p>
           Via dit formulier kunnen ouders/verzorgers hun kind aanmelden voor het
@@ -34,8 +34,18 @@ export default {
         </p>
       </>
     ),
-    stap1:
-      'In de eerste stap wordt u om wat algemene gegevens gevraagd. Ook geeft u hier aan hoeveel kinderen (maximaal 5) u wilt inschrijven.',
+    stap1: (
+      <>
+        <p>
+          In de eerste stap wordt u om wat algemene gegevens gevraagd. In deze
+          stap vragen wij ook naar uw adresgegevens. Deze gegevens zijn
+          noodzakelijk voor de verzending van het cadeautje en het snoepgoed.
+        </p>
+        <p>
+          Ook geeft u hier aan hoeveel kinderen (maximaal 5) u wilt inschrijven.
+        </p>
+      </>
+    ),
     stap2:
       'Per kind (0-10 jaar) wordt gevraagd om de gegevens in te vullen voor in het grote boek van Sinterklaas.',
     stap3:
@@ -110,11 +120,13 @@ export default {
       error: 'Vul uw plaats in',
     },
     telefoon: {
-      label: 'Telefoonnummer',
+      label: 'Uw telefoonnummer',
+      description:
+        'Uw telefoonnummer gebruiken we enkel als directe communicatie vereist is, bijvoorbeeld voor de verzending van het cadeautje en het snoepgoed',
       error: 'Vul uw telefoonnummer in',
     },
     deelnemers: {
-      title: 'Wie komen er naar het Sinterklaasfeest?',
+      title: 'Wie komen er naar het Digitale Sinterklaasfeest?',
       description:
         'Geef hieronder aan wie er mee komen naar het Sinterklaasfeest.',
     },
@@ -263,7 +275,8 @@ export default {
         </p>
         <p>
           Rond 9 november ontvangt u informatie met betrekking tot de
-          groepsindeling.{' '}
+          groepsindeling. Daarnaast ontvangt u ook meer informatie over het
+          gebruik van Zoom.
         </p>
         <p>
           Mocht u vragen hebben dan kunt u contact opnemen via{' '}
@@ -272,8 +285,8 @@ export default {
           </a>
         </p>
         <p>
-          We zien jullie graag op {longDateEvent} om er gezamelijk een
-          onvergetelijke dag van te maken!
+          We zien jullie graag op {longDateEvent} om er gezamenlijk een
+          onvergetelijke gebeurtenis van te maken!
         </p>
         <p>Met vriendelijke groet,</p>
         <p>

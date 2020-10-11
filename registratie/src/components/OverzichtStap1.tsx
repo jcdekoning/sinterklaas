@@ -16,6 +16,8 @@ const OverzichtStap1 = (props: Stap1FormData) => {
         <li>{props.naam}</li>
         <li className={styles.label}>{text.stap1.email.label}</li>
         <li>{props.email}</li>
+        <li className={styles.label}>{text.stap1.telefoon.label}</li>
+        <li>{props.telefoon}</li>
         <li className={styles.label}>{text.stap1.kindOpSchool.label}</li>
         <li>{kindOpSchoolAsBool ? text.labelYes : text.labelNo}</li>
         <li className={styles.label}>{text.stap1.lidVanClub.label}</li>
@@ -26,10 +28,8 @@ const OverzichtStap1 = (props: Stap1FormData) => {
         <li>{props.straatnaam}</li>
         <li className={styles.label}>{text.stap1.postcode.label}</li>
         <li>{props.postcode}</li>
-        <li className={styles.label}>{text.stap1.plaats.label}s</li>
+        <li className={styles.label}>{text.stap1.plaats.label}</li>
         <li>{props.plaats}</li>
-        <li className={styles.label}>{text.stap1.telefoon.label}</li>
-        <li>{props.telefoon}</li>
       </ul>
       {((!kindOpSchoolAsBool && !lidVanClubAsBool) ||
         gratisLidmaatschapAsBool) && (
