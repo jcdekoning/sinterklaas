@@ -1,7 +1,7 @@
 import React from 'react';
 import { singularOrPlural } from './utils/text';
 
-const longDateEvent = 'zaterdag 28 november';
+const longDateEvent = 'zaterdag 27 november';
 
 export default {
   labelYes: 'Ja',
@@ -14,7 +14,7 @@ export default {
   submitError: (error: string) => <p>Er is iets mis {error}</p>,
   formTitle: 'Inschrijving Sinterklaas',
   header: {
-    title: 'Sinterklaas 2020',
+    title: 'Sinterklaas 2021',
     subheader: 'Nederlandse club Oslo - NTC het Noorderlicht',
   },
   intro: {
@@ -262,7 +262,7 @@ export default {
         'persoon',
         'personen'
       )} x 50 NOK`,
-    lidmaatschap: 'Lidmaatschap t/m eind 2020',
+    lidmaatschap: 'Lidmaatschap t/m eind 2021',
     totaal: 'Totaal',
     valuta: 'NOK',
   },
