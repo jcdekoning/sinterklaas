@@ -24,6 +24,8 @@ const OverzichtStap1 = (props: Stap1FormData) => {
         <li>{lidVanClubAsBool ? text.labelYes : text.labelNo}</li>
         <li className={styles.label}>{text.stap1.aantalKinderen.label}</li>
         <li>{props.aantalKinderen}</li>
+        <li className={styles.label}>{text.stap1.aantalPersonen.label}</li>
+        <li>{props.aantalPersonen}</li>
       </ul>
       {((!kindOpSchoolAsBool && !lidVanClubAsBool) || gratisLidmaatschapAsBool) && <>
       <p>{!kindOpSchoolAsBool && !lidVanClubAsBool ?
