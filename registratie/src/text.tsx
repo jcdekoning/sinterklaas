@@ -281,9 +281,7 @@ const texts = {
           van uw inschrijving per email.
         </p>
         <p>
-          Rond 9 november ontvangt u informatie met betrekking tot de
-          groepsindeling. Daarnaast ontvangt u ook meer informatie over het
-          gebruik van Zoom.
+          Begin november ontvangt u de starttijd van de groepsaudiëntie.
         </p>
         <p>
           Mocht u vragen hebben dan kunt u contact opnemen via{' '}
@@ -292,7 +290,7 @@ const texts = {
           </a>
         </p>
         <p>
-          We zien jullie graag, via de computer, op {longDateEvent} om er
+          We zien jullie graag op {longDateEvent} om er
           gezamenlijk een onvergetelijke gebeurtenis van te maken!
         </p>
         <p>Met vriendelijke groet,</p>
