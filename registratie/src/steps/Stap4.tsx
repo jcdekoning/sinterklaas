@@ -53,6 +53,7 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
     }),
     commentaar: stap4.commentaar,
     privacyverklaring: stap4.privacyverklaring === 'true',
+    aantalPersonen: stap1.aantalPersonen
   };
 };
 

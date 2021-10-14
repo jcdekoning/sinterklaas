@@ -23,4 +23,5 @@ export type Inschrijving = {
   kinderen: Kind[];
   commentaar: string;
   privacyverklaring: boolean;
+  aantalPersonen: number;
 };
