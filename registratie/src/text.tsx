@@ -17,7 +17,7 @@ const texts = {
   formTitle: 'Inschrijving Sinterklaas',
   header: {
     title: `Sinterklaas ${year}`,
-    subheader: 'Nederlandse Club Oslo - NTC het Noorderlicht',
+    subheader: 'Nederlandse Club Oslo',
   },
   intro: {
     title: 'Hoe werkt het inschrijven?',
@@ -295,8 +295,7 @@ const texts = {
         </p>
         <p>Met vriendelijke groet,</p>
         <p>
-          De Hulppieten van de Nederlandse Club Oslo en de Nederlandse School
-          NTC Het Noorderlicht
+          De Hulppieten van de Nederlandse Club Oslo
         </p>
       </>
     ),
