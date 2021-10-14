@@ -7,7 +7,6 @@ import ScrollToTop from './ScrollToTop';
 import Intro from './steps/Intro';
 import Stap1 from './steps/Stap1';
 import Stap2 from './steps/Stap2';
-import Stap3 from './steps/Stap3';
 import Stap4 from './steps/Stap4';
 
 import SuccessPage from './SuccessPage';

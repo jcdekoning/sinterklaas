@@ -9,7 +9,7 @@ type OverzichtEntreegeldProps = {
   gratisLidmaatschap: boolean;
 };
 
-const bedragEntreegeld = 100;
+const bedragEntreegeld = 150;
 const bedragLidmaatschap = 175;
 const bedragExtraPersoon = 50;
 

@@ -6,6 +6,7 @@ export type Stap1FormData = {
   kindOpSchool: string;
   lidVanClub: string;
   aantalKinderen: number;
+  aantalPersonen: number;
   gratisLidmaatschap?: string;
   straatnaam: string;
   postcode: string;
@@ -18,7 +19,11 @@ export type Stap2FormData = {
   achternaam: string;
   leeftijd: number;
   geslacht: Geslacht;
-  anekdote: string;
+  eten: string;
+  speelgoed: string;
+  hobby: string;
+  ruimtevoorverbetering: string;
+  vraagsintenpiet: string;
 };
 
 export type Vrijwilliger =

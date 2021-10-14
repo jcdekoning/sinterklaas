@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './TextAreaField.module.css';
 
-type TextAreaField = {
+type TextAreaFieldProps = {
   name: string;
   label: string;
   description?: string;
@@ -9,7 +9,7 @@ type TextAreaField = {
   error?: string;
 }
 
-const TextAreaField = (props: TextAreaField) => {
+const TextAreaField = (props: TextAreaFieldProps) => {
   return <fieldset className={styles.textarea}>
     <label htmlFor={props.name}>{props.label}</label>
     {props.description && <p className={styles.description}>{props.description}</p>}

@@ -20,8 +20,16 @@ const OverzichtStap2 = (props: OverzichtStap2Props) => {
           <li>{kind.leeftijd} jaar</li>
           <li className={styles.label}>{text.stap2.geslachtKind.label}</li>
           <li>{kind.geslacht}</li>
-          <li className={styles.label}>{text.stap2.anekdoteKind.label}</li>
-          <li>{kind.anekdote}</li>
+          <li className={styles.label}>{text.stap2.favorietEten.label}</li>
+          <li>{kind.eten}</li>
+          <li className={styles.label}>{text.stap2.favorietSpeelgoed.label}</li>
+          <li>{kind.speelgoed}</li>
+          <li className={styles.label}>{text.stap2.hobby.label}</li>
+          <li>{kind.hobby}</li>
+          <li className={styles.label}>{text.stap2.ruimteVoorVerbetering.label}</li>
+          <li>{kind.ruimtevoorverbetering}</li>
+          <li className={styles.label}>{text.stap2.vraagVoorSintEnPiet.label}</li>
+          <li>{kind.vraagsintenpiet}</li>
         </ul>
       </div>)
     })}

@@ -3,7 +3,11 @@ type Kind = {
   achternaam: string;
   leeftijd: number;
   geslacht: string;
-  anekdote: string;
+  eten: string;
+  speelgoed: string;
+  hobby: string;
+  ruimtevoorverbetering: string;
+  vraagsintenpiet: string;
 };
 
 export type Inschrijving = {

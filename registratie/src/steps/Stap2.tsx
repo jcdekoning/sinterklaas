@@ -20,7 +20,11 @@ type FormData = {
   achternaamkind: string[];
   leeftijdkind: number[];
   geslachtkind: string[];
-  anekdotekind: string[];
+  eten: string[];
+  speelgoed: string[];
+  hobby: string[];
+  ruimtevoorverbetering: string[];
+  vraagsintenpiet: string[];
 };
 
 const mapToStateData = (data: FormData): Stap2FormData[] => {
@@ -30,7 +34,11 @@ const mapToStateData = (data: FormData): Stap2FormData[] => {
       achternaam: data.achternaamkind[index],
       leeftijd: data.leeftijdkind[index],
       geslacht: data.geslachtkind[index] as Geslacht,
-      anekdote: data.anekdotekind[index],
+      eten: data.eten[index],
+      speelgoed: data.speelgoed[index],
+      hobby: data.hobby[index],
+      ruimtevoorverbetering: data.ruimtevoorverbetering[index],
+      vraagsintenpiet: data.vraagsintenpiet[index],
     };
   });
 };
@@ -41,14 +49,18 @@ const mapToFormData = (data: Stap2FormData[]): FormData => {
     achternaamkind: data.map((k) => k.achternaam),
     leeftijdkind: data.map((k) => k.leeftijd),
     geslachtkind: data.map((k) => k.geslacht),
-    anekdotekind: data.map((k) => k.anekdote),
+    eten: data.map((k) => k.eten),
+    speelgoed: data.map((k) => k.speelgoed),
+    hobby: data.map((k) => k.hobby),
+    ruimtevoorverbetering: data.map((k) => k.ruimtevoorverbetering),
+    vraagsintenpiet: data.map((k) => k.vraagsintenpiet),
   };
 };
 
 const Stap2 = (props: RouterProps) => {
   const { state, dispatch } = React.useContext(FormContext);
   const defaultValues = state.stap2 || [];
-  const { register, errors, handleSubmit, watch, getValues } = useForm<
+  const { register, errors, handleSubmit, getValues } = useForm<
     FormData
   >({ defaultValues: mapToFormData(defaultValues) });
 
@@ -143,15 +155,49 @@ const Stap2 = (props: RouterProps) => {
                 register={register({ required: true })}
               />
               <TextAreaField
-                name={`anekdotekind[${number}]`}
-                label={text.stap2.anekdoteKind.label}
-                description={text.stap2.anekdoteKind.description}
-                register={register({ required: true })}
+                name={`eten[${number}]`}
+                label={text.stap2.favorietEten.label}
+                register={register({ required: false })}
                 error={
-                  (errors as any)[`anekdotekind[${number}]`] &&
-                  text.stap2.anekdoteKind.error
+                  (errors as any)[`eten[${number}]`] &&
+                  text.stap2.favorietEten.error
                 }
               />
+               <TextAreaField
+                name={`speelgoed[${number}]`}
+                label={text.stap2.favorietSpeelgoed.label}
+                register={register({ required: false })}
+                error={
+                  (errors as any)[`speelgoed[${number}]`] &&
+                  text.stap2.favorietSpeelgoed.error
+                }
+              />
+               <TextAreaField
+                name={`hobby[${number}]`}
+                label={text.stap2.hobby.label}
+                register={register({ required: false })}
+                error={
+                  (errors as any)[`hobby[${number}]`] &&
+                  text.stap2.hobby.error
+                }
+              /> <TextAreaField
+              name={`ruimtevoorverbetering[${number}]`}
+              label={text.stap2.ruimteVoorVerbetering.label}
+              description={text.stap2.ruimteVoorVerbetering.description}
+              register={register({ required: false })}
+              error={
+                (errors as any)[`ruimtevoorverbetering[${number}]`] &&
+                text.stap2.ruimteVoorVerbetering.error
+              }
+            /> <TextAreaField
+            name={`vraagsintenpiet[${number}]`}
+            label={text.stap2.vraagVoorSintEnPiet.label}
+            register={register({ required: false })}
+            error={
+              (errors as any)[`vraagsintenpiet[${number}]`] &&
+              text.stap2.vraagVoorSintEnPiet.error
+            }
+          />
             </div>
           );
         })}

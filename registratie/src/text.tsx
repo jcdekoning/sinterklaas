@@ -1,9 +1,11 @@
 import React from 'react';
 import { singularOrPlural } from './utils/text';
 
+const year = '2021';
+const entreegeld = 150;
 const longDateEvent = 'zaterdag 27 november';
 
-export default {
+const texts = {
   labelYes: 'Ja',
   labelNo: 'Nee',
   buttonBack: 'Terug',
@@ -14,7 +16,7 @@ export default {
   submitError: (error: string) => <p>Er is iets mis {error}</p>,
   formTitle: 'Inschrijving Sinterklaas',
   header: {
-    title: 'Sinterklaas 2021',
+    title: `Sinterklaas ${year}`,
     subheader: 'Nederlandse club Oslo - NTC het Noorderlicht',
   },
   intro: {
@@ -22,30 +24,19 @@ export default {
     description: (
       <>
         <p>
-          Groot nieuws! Ook dit jaar vieren we de verjaardag van Sinterklaas! We
-          doen het dit wel in een iets andere vorm, namelijk digitaal via Zoom.
-          Op {longDateEvent} zijn alle kinderen (0-10 jaar) van de Nederlandse
-          Club Oslo en de Nederlandse school NTC Het Noorderlicht van harte
-          welkom om deze feestelijke gebeurtenis mee te vieren.
+          Groot nieuws! Sinterklaas kan gelukkig dit jaar weer naar Noorwegen komen. 
+          Het post-corona tijdperk verlangt echter dat we dit doen in een iets andere vorm dan voorgaande jaren. 
         </p>
         <p>
-          Via dit formulier kunnen ouders/verzorgers hun kind aanmelden voor het
-          Sinterklaasfeest.
+          Op {longDateEvent} zijn alle kinderen van de Nederlandse Club Oslo en NTC Het Noorderlicht van harte welkom voor een feestelijke groepsaudiëntie.
+        </p>
+        <p>
+          Via dit formulier kunnen ouders/verzorgers hun kind(eren) aanmelden voor de groepsaudiëntie.
         </p>
       </>
     ),
-    stap1: (
-      <>
-        <p>
-          In de eerste stap wordt u om wat algemene gegevens gevraagd. In deze
-          stap vragen wij ook naar uw adresgegevens. Deze gegevens zijn
-          noodzakelijk voor de verzending van het cadeautje en het snoepgoed.
-        </p>
-        <p>
-          Ook geeft u hier aan hoeveel kinderen (maximaal 5) u wilt inschrijven.
-        </p>
-      </>
-    ),
+    stap1:
+      'In de eerste stap wordt u om wat algemene gegevens gevraagd. Ook geeft u hier aan hoeveel kinderen (maximaal 5) u wilt inschrijven.',
     stap2:
       'Per kind (0-10 jaar) wordt gevraagd om de gegevens in te vullen voor in het grote boek van Sinterklaas.',
     stap3:
@@ -87,7 +78,7 @@ export default {
             Omdat u een of meerdere kinderen op de NTC Het Noorderlicht heeft,
             is een lidmaatschap van de Nederlandse Club Oslo geen vereiste om
             deel te nemen aan het Sinterklaasfeest. De Nederlandse Club Oslo
-            biedt u wel een gratis lidmaatschap aan tot eind 2020. Het
+            biedt u wel een gratis lidmaatschap aan tot eind {year}. Het
             lidmaatschap wordt daarna automatisch verlengd.
           </p>
           <p>Wilt u van dit aanbod gebruik maken?</p>
@@ -98,9 +89,9 @@ export default {
     lidmaatschap: {
       label: 'Lidmaatschap Nederlandse Club Oslo',
       descriptionGratis:
-        'U geeft aan gebruikt te willen maken van het gratis lidmaatschap tot eind 2002.',
+        `U geeft aan gebruikt te willen maken van het gratis lidmaatschap tot eind ${year}.`,
       descriptionVerplicht:
-        'Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap van de Nederlandse Club Olso een vereiste om deel te nemen aan het Sinterklaasfeest. Het lidmaatschap t/m eind 2020 bedraagt 175 nok.',
+        `Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap van de Nederlandse Club Olso een vereiste om deel te nemen aan het Sinterklaasfeest. Het lidmaatschap t/m eind ${year} bedraagt 175 nok.`,
     },
     adresgegevens: {
       title: 'Adresgegevens',
@@ -122,34 +113,34 @@ export default {
     telefoon: {
       label: 'Uw telefoonnummer',
       description:
-        'Uw telefoonnummer gebruiken we enkel als directe communicatie vereist is, bijvoorbeeld voor de verzending van het cadeautje en het snoepgoed',
+        'Uw telefoonnummer gebruiken we enkel als directe communicatie vereist is.',
       error: 'Vul uw telefoonnummer in',
     },
     deelnemers: {
-      title: 'Wie komen er naar het Digitale Sinterklaasfeest?',
+      title: 'Wie komen er naar het Sinterklaasfeest?',
       description:
         'Geef hieronder aan wie er mee komen naar het Sinterklaasfeest.',
     },
     aantalKinderen: {
       label: 'Aantal kinderen tussen de 0 en 10 jaar.',
       description:
-        'Alle kinderen (0-10 jaar) mogen op audiëntie en ontvangen een cadeautje van Sinterklaas. Daarnaast zijn er verschillende gezellige Sinterklaasactiviteiten.',
+        'Alle kinderen (0-10 jaar) mogen op groepsaudiëntie en ontvangen een cadeautje van Sinterklaas.',
       error: {
         required: 'Vul het aantal kinderen in',
         min: 'Minimaal aantal kinderen moet 1 zijn',
         max:
-          'Er kunnen maximaal 5 kinderen worden ingeschreven. Wilt u meer kinderen aanmelden neem dan contact op via sinterklaas@nederlandsecluboslo.nl',
+          'Er kunnen maximaal 5 kinderen worden ingeschreven.',
       },
     },
     aantalPersonen: {
-      label: 'Aantal volwassenen (inclusief kinderen boven de 10 jaar)',
+      label: 'Aantal volwassenen',
       description:
-        'Per gezin hebben twee personen (volwassenen en kinderen boven de 10 jaar) gratis toegang tot het feest. Voor elke extra persoon boven vragen we een vergoeding.',
+        'Per gezin kunnen we maximaal twee volwassenen ontvangen. We hopen dat u begrip heeft voor deze afweging.',
       error: {
-        required: 'Vul het aantal volwassenen/kinderen boven de 10 jaar in',
+        required: 'Kies het aantal volwassenen die meegaan',
         min: 'Minimaal aantal personen moet 1 zijn',
         max:
-          'Er kunnen maximaal 10 personen mee. Wilt u meer personen meenemen, neem dan contact op via sinterklaas@nederlandsecluboslo.nl',
+          'Er kunnen maximaal 2 personen mee.',
       },
     },
   },
@@ -178,11 +169,26 @@ export default {
       optionJongen: 'Jongen',
       optionMeisje: 'Meisje',
     },
-    anekdoteKind: {
-      label: 'Anekdote kind',
-      description:
-        'Schrijf iets waar uw kind zich in kan herkennen. Dit kan van alles zijn, bijvoorbeeld favoriete eten, huisdieren of eventuele hobbies.',
-      error: 'Vul een anekdote in',
+    favorietEten: {
+      label: 'Wat is het favoriete eten van uw kind?',
+      error: 'Vul het favoriete eten van uw kind in',
+    },
+    favorietSpeelgoed: {
+      label: 'Wat is het favoriete speelgoed van uw kind?',
+      error: 'Vul het favoriete speelgoed van uw kind in',
+    },
+    hobby: {
+      label: 'Heeft uw kind een hobby?',
+      error: 'Vul de hobby van uw kind in',
+    },
+    ruimteVoorVerbetering: {
+      label: 'Waar moet nog op geoefend worden?',
+      description: 'Bijvoorbeeld kamer opruimen, bord leeg eten, gaan slapen, tandenpoetsen, huiswerk maken',
+      error: 'Vul in waar nog op geoefend moet worden',
+    },
+    vraagVoorSintEnPiet: {
+      label: 'Heeft uw kind nog een vraag voor Sint of Piet?',
+      error: 'Vul een vraag voor Sint of Piet in',
     },
   },
   stap3: {
@@ -255,14 +261,14 @@ export default {
         aantalKinderen,
         'inschrijving',
         'inschrijvingen'
-      )} x 100 NOK`,
+      )} x ${entreegeld} NOK`,
     aantalExtraPersonen: (aantalExtraPersonen: number) =>
       `${aantalExtraPersonen} extra ${singularOrPlural(
         aantalExtraPersonen,
         'persoon',
         'personen'
       )} x 50 NOK`,
-    lidmaatschap: 'Lidmaatschap t/m eind 2021',
+    lidmaatschap: `Lidmaatschap t/m eind #${year}`,
     totaal: 'Totaal',
     valuta: 'NOK',
   },
@@ -298,3 +304,5 @@ export default {
     ),
   },
 };
+
+export default texts;

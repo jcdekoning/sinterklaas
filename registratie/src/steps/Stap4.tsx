@@ -9,7 +9,6 @@ import {
   FormState,
   Stap1FormData,
   Stap2FormData,
-  Stap3FormData,
 } from '../types/form';
 import { Inschrijving } from '../types/api';
 import StepHeader from '../components/StepHeader';
@@ -45,7 +44,11 @@ const mapFormStateToApiData = (state: FormState): Inschrijving => {
         achternaam: kind.achternaam,
         leeftijd: kind.leeftijd,
         geslacht: kind.geslacht,
-        anekdote: kind.anekdote,
+        eten: kind.eten,
+        speelgoed: kind.speelgoed,
+        hobby: kind.hobby,
+        ruimtevoorverbetering: kind.ruimtevoorverbetering,
+        vraagsintenpiet: kind.vraagsintenpiet
       };
     }),
     commentaar: stap4.commentaar,
