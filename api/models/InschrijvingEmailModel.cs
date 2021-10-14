@@ -13,8 +13,16 @@ namespace Sinterklaas.Api.Models
     public int Leeftijd {get; set;}
     [JsonProperty("geslacht")]
     public string Geslacht {get; set;}
-    [JsonProperty("anekdote")]
-    public string Anekdote {get; set;}
+    [JsonProperty("eten")]
+    public string Eten {get; set;}
+    [JsonProperty("speelgoed")]
+    public string Speelgoed {get; set;}
+    [JsonProperty("hobby")]
+    public string Hobby { get; set; }
+    [JsonProperty("ruimtevoorverbetering")]
+    public string RuimteVoorVerbetering { get; set; }
+    [JsonProperty("vraagsintenpiet")]
+    public string VraagSintEnPiet { get; set; }
   }
 
   public class VrijwilligerEmailModel {
@@ -37,6 +45,8 @@ namespace Sinterklaas.Api.Models
     public bool KindOpSchool {get; set;}
     [JsonProperty("lidVanClub")]
     public bool LidVanClub {get; set;}
+    [JsonProperty("aantalPersonen")]
+    public int AantalPersonen {get; set;}
     [JsonProperty("aantalKinderen")]
     public int AantalKinderen {get; set;}
     [JsonProperty("lidmaatschap")]

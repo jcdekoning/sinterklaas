@@ -79,12 +79,17 @@ namespace Sinterklaas.Api
                         Plaats = inschrijving.Plaats,
                         Telefoon = inschrijving.Telefoon,
                         AantalKinderen = inschrijving.Kinderen.Length,
+                        AantalPersonen = inschrijving.AantalPersonen,
                         Kinderen = inschrijving.Kinderen.Select(k => new KindEmailModel{
                             Roepnaam = k.Voornaam,
                             Achternaam = k.Achternaam,
                             Leeftijd = k.Leeftijd,
                             Geslacht = k.Geslacht,
-                            Anekdote = k.Anekdote
+                            Eten = k.Eten,
+                            Speelgoed = k.Speelgoed,
+                            Hobby = k.Hobby,
+                            RuimteVoorVerbetering = k.RuimteVoorVerbetering,
+                            VraagSintEnPiet = k.VraagSintEnPiet
                         }).ToArray(),
                         Commentaar = inschrijving.Commentaar
                     };
