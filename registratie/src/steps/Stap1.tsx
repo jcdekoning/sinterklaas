@@ -1,5 +1,5 @@
 import React from 'react';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { RouterProps } from 'react-router';
 
 import { FormContext } from './../FormContext';
@@ -39,7 +39,7 @@ const Stap1 = (props: RouterProps) => {
   const lidVanClub = watch('lidVanClub');
   const gratisLidmaatschap =
     kindOpSchool === 'true' && watch('gratisLidmaatschap') === 'true';
-  const aantalKinderen = parseInt(watch('aantalKinderen')) || 0;
+  const aantalKinderen = watch('aantalKinderen') || 0;
 
   const lidmaatschapNodig = kindOpSchool === 'false' && lidVanClub === 'false';
   const lidmaatschap = lidmaatschapNodig || gratisLidmaatschap;
@@ -68,7 +68,7 @@ const Stap1 = (props: RouterProps) => {
               message: text.stap1.email.error.invalid,
             },
           })}
-          error={errors.email && errors.email.message}
+          error={errors.email && errors.email.message?.toString()}
         />
         <TextField
           name="telefoon"
@@ -111,29 +111,29 @@ const Stap1 = (props: RouterProps) => {
             register={register({ required: true })}
           />
         )}
-        {lidmaatschap && 
-             <>
-             <h2>{text.stap1.lidmaatschap.label}</h2>
-             <p>{gratisLidmaatschap ? text.stap1.lidmaatschap.descriptionGratis : text.stap1.lidmaatschap.descriptionVerplicht}</p>
-             <TextField
-                name="straatnaam"
-                label={text.stap1.straatnaam.label}
-                register={register({ required: true })}
-                error={errors.straatnaam && text.stap1.straatnaam.error}
-              />
-              <TextField
-                name="postcode"
-                label={text.stap1.postcode.label}
-                register={register({ required: true })}
-                error={errors.postcode && text.stap1.postcode.error}
-              />
-              <TextField
-                name="plaats"
-                label={text.stap1.plaats.label}
-                register={register({ required: true })}
-                error={errors.plaats && text.stap1.plaats.error}
-              />
-           </>
+        {lidmaatschap &&
+          <>
+            <h2>{text.stap1.lidmaatschap.label}</h2>
+            <p>{gratisLidmaatschap ? text.stap1.lidmaatschap.descriptionGratis : text.stap1.lidmaatschap.descriptionVerplicht}</p>
+            <TextField
+              name="straatnaam"
+              label={text.stap1.straatnaam.label}
+              register={register({ required: true })}
+              error={errors.straatnaam && text.stap1.straatnaam.error}
+            />
+            <TextField
+              name="postcode"
+              label={text.stap1.postcode.label}
+              register={register({ required: true })}
+              error={errors.postcode && text.stap1.postcode.error}
+            />
+            <TextField
+              name="plaats"
+              label={text.stap1.plaats.label}
+              register={register({ required: true })}
+              error={errors.plaats && text.stap1.plaats.error}
+            />
+          </>
         }
         <h2>{text.stap1.deelnemers.title}</h2>
         <p>{text.stap1.deelnemers.description}</p>
@@ -152,19 +152,19 @@ const Stap1 = (props: RouterProps) => {
               message: text.stap1.aantalKinderen.error.max,
             },
           })}
-          error={errors.aantalKinderen && errors.aantalKinderen.message}
+          error={errors.aantalKinderen && errors.aantalKinderen.message?.toString()}
         />
         <TwoOptionsField
-                name="aantalPersonen"
-                label={text.stap1.aantalPersonen.label}
-                description={text.stap1.aantalPersonen.description}
-                error={errors.aantalPersonen && text.stap1.aantalPersonen.error.required}
-                optionOneLabel="1"
-                optionOneValue="1"
-                optionTwoLabel="2"
-                optionTwoValue="2"
-                register={register({ required: true })}
-              />
+          name="aantalPersonen"
+          label={text.stap1.aantalPersonen.label}
+          description={text.stap1.aantalPersonen.description}
+          error={errors.aantalPersonen && text.stap1.aantalPersonen.error.required}
+          optionOneLabel="1"
+          optionOneValue="1"
+          optionTwoLabel="2"
+          optionTwoValue="2"
+          register={register({ required: true })}
+        />
         <OverzichtEntreegeld
           aantalKinderen={aantalKinderen}
           aantalPersonen={0}

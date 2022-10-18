@@ -1,5 +1,5 @@
 import React from 'react';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { RouterProps, Redirect } from 'react-router';
 
 import { FormContext } from '../FormContext';
@@ -77,7 +77,7 @@ const Stap2 = (props: RouterProps) => {
   };
 
   const goBack = () => {
-    const currentValues = getValues({ nest: true });
+    const currentValues = getValues();
     dispatch({
       type: 'setStap2FormData',
       payload: mapToStateData(currentValues),
@@ -163,7 +163,7 @@ const Stap2 = (props: RouterProps) => {
                   text.stap2.favorietEten.error
                 }
               />
-               <TextAreaField
+              <TextAreaField
                 name={`speelgoed[${number}]`}
                 label={text.stap2.favorietSpeelgoed.label}
                 register={register({ required: false })}
@@ -172,7 +172,7 @@ const Stap2 = (props: RouterProps) => {
                   text.stap2.favorietSpeelgoed.error
                 }
               />
-               <TextAreaField
+              <TextAreaField
                 name={`hobby[${number}]`}
                 label={text.stap2.hobby.label}
                 register={register({ required: false })}
@@ -181,23 +181,23 @@ const Stap2 = (props: RouterProps) => {
                   text.stap2.hobby.error
                 }
               /> <TextAreaField
-              name={`ruimtevoorverbetering[${number}]`}
-              label={text.stap2.ruimteVoorVerbetering.label}
-              description={text.stap2.ruimteVoorVerbetering.description}
-              register={register({ required: false })}
-              error={
-                (errors as any)[`ruimtevoorverbetering[${number}]`] &&
-                text.stap2.ruimteVoorVerbetering.error
-              }
-            /> <TextAreaField
-            name={`vraagsintenpiet[${number}]`}
-            label={text.stap2.vraagVoorSintEnPiet.label}
-            register={register({ required: false })}
-            error={
-              (errors as any)[`vraagsintenpiet[${number}]`] &&
-              text.stap2.vraagVoorSintEnPiet.error
-            }
-          />
+                name={`ruimtevoorverbetering[${number}]`}
+                label={text.stap2.ruimteVoorVerbetering.label}
+                description={text.stap2.ruimteVoorVerbetering.description}
+                register={register({ required: false })}
+                error={
+                  (errors as any)[`ruimtevoorverbetering[${number}]`] &&
+                  text.stap2.ruimteVoorVerbetering.error
+                }
+              /> <TextAreaField
+                name={`vraagsintenpiet[${number}]`}
+                label={text.stap2.vraagVoorSintEnPiet.label}
+                register={register({ required: false })}
+                error={
+                  (errors as any)[`vraagsintenpiet[${number}]`] &&
+                  text.stap2.vraagVoorSintEnPiet.error
+                }
+              />
             </div>
           );
         })}
