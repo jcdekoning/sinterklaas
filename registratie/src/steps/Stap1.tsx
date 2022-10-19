@@ -154,16 +154,22 @@ const Stap1 = (props: RouterProps) => {
           })}
           error={errors.aantalKinderen && errors.aantalKinderen.message?.toString()}
         />
-        <TwoOptionsField
+        <NumericField
           name="aantalPersonen"
           label={text.stap1.aantalPersonen.label}
           description={text.stap1.aantalPersonen.description}
-          error={errors.aantalPersonen && text.stap1.aantalPersonen.error.required}
-          optionOneLabel="1"
-          optionOneValue="1"
-          optionTwoLabel="2"
-          optionTwoValue="2"
-          register={register({ required: true })}
+          register={register({
+            required: text.stap1.aantalPersonen.error.required,
+            min: {
+              value: 1,
+              message: text.stap1.aantalPersonen.error.min,
+            },
+            max: {
+              value: 4,
+              message: text.stap1.aantalPersonen.error.max,
+            },
+          })}
+          error={errors.aantalPersonen && errors.aantalPersonen.message?.toString()}
         />
         <OverzichtEntreegeld
           aantalKinderen={aantalKinderen}

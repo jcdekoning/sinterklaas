@@ -132,12 +132,12 @@ const texts = {
     aantalPersonen: {
       label: 'Aantal volwassenen',
       description:
-        'Per gezin kunnen we maximaal twee volwassenen ontvangen. We hopen dat u begrip heeft voor deze afweging.',
+        'Per gezin kunnen we maximaal vier volwassenen ontvangen.',
       error: {
-        required: 'Kies het aantal volwassenen die meegaan',
+        required: 'Vul het aantal volwassenen die meegaan in',
         min: 'Minimaal aantal personen moet 1 zijn',
         max:
-          'Er kunnen maximaal 2 personen mee.',
+          'Er kunnen maximaal 4 personen mee.',
       },
     },
   },
