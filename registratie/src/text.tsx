@@ -1,9 +1,9 @@
 import React from 'react';
 import { singularOrPlural } from './utils/text';
 
-const year = '2021';
+const year = '2022';
 const entreegeld = 150;
-const longDateEvent = 'zaterdag 27 november';
+const longDateEvent = 'zaterdag 26 november';
 
 const texts = {
   labelYes: 'Ja',
@@ -24,10 +24,7 @@ const texts = {
     description: (
       <>
         <p>
-          Groot nieuws! Sinterklaas kan gelukkig dit jaar weer naar Noorwegen komen. 
-          Het post-corona tijdperk verlangt echter dat we dit doen in een iets andere vorm dan voorgaande jaren. 
-        </p>
-        <p>
+          Groot nieuws! Sinterklaas komt dit jaar weer naar Noorwegen.
           Op {longDateEvent} zijn alle kinderen van de Nederlandse Club Oslo en NTC Het Noorderlicht van harte welkom voor een feestelijke groepsaudiëntie.
         </p>
         <p>
