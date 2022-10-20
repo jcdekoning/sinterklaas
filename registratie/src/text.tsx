@@ -41,7 +41,7 @@ const texts = {
     stap4:
       'De ingevulde informatie uit de voorgaande stappen wordt hier ter controle getoond. Het totaal entreebedrag wordt hier ook getoond.',
     stap5:
-      'Nadat u de inschrijving hebt gecontroleerd gaat u over tot betaling met behulp van uw bankpas/creditcard. De betaling zelf wordt afgehandeld door een externe partij. Uw betaalgegevens worden daarbij met de grootst mogelijke zorg behandeld en worden niet opgeslagen bij de Nederlandse Club Oslo',
+      'Nadat u de inschrijving hebt gecontroleerd gaat u over tot betaling met behulp van uw bankpas/creditcard. De betaling zelf wordt afgehandeld door een externe partij. Uw betaalgegevens worden daarbij met de grootst mogelijke zorg behandeld en worden niet opgeslagen bij de Nederlandse Club Oslo.',
   },
   stap1: {
     title: 'Algemene gegevens',
@@ -116,7 +116,7 @@ const texts = {
     deelnemers: {
       title: 'Wie komen er naar het Sinterklaasfeest?',
       description:
-        'Geef hieronder aan wie er mee komen naar het Sinterklaasfeest.',
+        'Geef hieronder aan wie er komen naar het Sinterklaasfeest.',
     },
     aantalKinderen: {
       label: 'Aantal kinderen tussen de 0 en 10 jaar.',
@@ -265,7 +265,7 @@ const texts = {
         'persoon',
         'personen'
       )} x 50 NOK`,
-    lidmaatschap: `Lidmaatschap t/m eind #${year}`,
+    lidmaatschap: `Lidmaatschap t/m eind ${year}`,
     totaal: 'Totaal',
     valuta: 'NOK',
   },
@@ -278,7 +278,7 @@ const texts = {
           van uw inschrijving per email.
         </p>
         <p>
-          Begin november ontvangt u de starttijd van de groepsaudiëntie.
+          In de tweede week van november ontvangt u de starttijd van de groepsaudiëntie.
         </p>
         <p>
           Mocht u vragen hebben dan kunt u contact opnemen via{' '}
@@ -288,7 +288,7 @@ const texts = {
         </p>
         <p>
           We zien jullie graag op {longDateEvent} om er
-          gezamenlijk een onvergetelijke gebeurtenis van te maken!
+          samen een onvergetelijke gebeurtenis van te maken!
         </p>
         <p>Met vriendelijke groet,</p>
         <p>
