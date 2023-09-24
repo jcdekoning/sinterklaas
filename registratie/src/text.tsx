@@ -1,9 +1,10 @@
 import React from 'react';
 import { singularOrPlural } from './utils/text';
 
-const year = '2022';
+const year = '2023';
 const entreegeld = 150;
-const longDateEvent = 'zaterdag 26 november';
+const contributie = 350;
+const longDateEvent = 'zaterdag 25 november';
 
 const texts = {
   labelYes: 'Ja',
@@ -88,7 +89,7 @@ const texts = {
       descriptionGratis:
         `U geeft aan gebruikt te willen maken van het gratis lidmaatschap tot eind ${year}.`,
       descriptionVerplicht:
-        `Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap van de Nederlandse Club Olso een vereiste om deel te nemen aan het Sinterklaasfeest. Het lidmaatschap t/m eind ${year} bedraagt 175 nok.`,
+        `Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap van de Nederlandse Club Olso een vereiste om deel te nemen aan het Sinterklaasfeest. Het lidmaatschap t/m eind ${year} bedraagt ${contributie} nok.`,
     },
     adresgegevens: {
       title: 'Adresgegevens',

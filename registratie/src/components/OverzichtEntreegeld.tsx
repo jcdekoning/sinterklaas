@@ -10,7 +10,7 @@ type OverzichtEntreegeldProps = {
 };
 
 const bedragEntreegeld = 150;
-const bedragLidmaatschap = 175;
+const bedragLidmaatschap = 350;
 const bedragExtraPersoon = 50;
 
 const OverzichtEntreegeld = (props: OverzichtEntreegeldProps) => {
