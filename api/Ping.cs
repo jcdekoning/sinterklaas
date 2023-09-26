@@ -1,19 +1,29 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
+using System.Net;
+using System.Text.Json;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Sinterklaas.Api
 {
-    public static class Ping
+    public class Ping
     {
-        [FunctionName("Ping")]
-        public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ping")] HttpRequest req,
-            ILogger log)
+        private readonly ILogger<Ping> _log;
+
+        public Ping(ILogger<Ping> log)
         {
-            return new JsonResult("Pong!");
+            _log = log;
+        }
+        
+        [Function("Ping")]
+        public HttpResponseData Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ping")] HttpRequestData req)
+        {
+            var json = JsonSerializer.Serialize("Pong!");
+            var response = req.CreateResponse(HttpStatusCode.OK);
+            response.Headers.Add("Content-Type", "text/json; charset=utf-8");
+            response.WriteString(json);
+            return response;
         }
     }
 }
