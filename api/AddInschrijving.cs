@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -16,11 +17,13 @@ namespace Sinterklaas.Api
 {
     public class AddInschrijving
     {
+        private readonly CosmosClient _cosmosClient;
         private readonly ILogger<AddInschrijving> _logger;
         private readonly ApiSettings _settings;
 
-        public AddInschrijving(IOptions<ApiSettings> settings, ILogger<AddInschrijving> logger)
+        public AddInschrijving(CosmosClient cosmosClient, IOptions<ApiSettings> settings, ILogger<AddInschrijving> logger)
         {
+            _cosmosClient = cosmosClient;
             _logger = logger;
             _settings = settings.Value;
         }
@@ -66,9 +69,11 @@ namespace Sinterklaas.Api
                 _logger.LogInformation($"Stripe session created {sessionId}");
                 
                 _logger.LogInformation("Save inschrijving to database");
-                // await inschrijvingenOut.AddAsync(MapToDataModel(inschrijving, sessionId, 
-                // //         options.LineItems.Where(l => l.Amount.HasValue).Sum(l => l.Amount.Value)));
-                
+                var container = _cosmosClient.GetContainer("sinterklaas", "inschrijvingen");
+                var inschrijvingData = MapToDataModel(inschrijving, sessionId,
+                    options.LineItems.Where(l => l.Amount.HasValue).Sum(l => l.Amount.Value));
+                await container.CreateItemAsync(inschrijvingData);
+
                 _logger.LogInformation("Inschrijving saved. Returning sessionId to consumer");
                 
                 var json = JsonConvert.SerializeObject(new
@@ -122,35 +127,35 @@ namespace Sinterklaas.Api
            };
       }
     }
-    //
-    // private static InschrijvingDataModel MapToDataModel(InschrijvingViewModel inschrijving, string sessionId, long bedrag){
-    //     return new InschrijvingDataModel{
-    //         Commentaar = inschrijving.Commentaar,
-    //         Email = inschrijving.Email,
-    //         Naam = inschrijving.Naam,
-    //         Privacyverklaring = inschrijving.Privacyverklaring,
-    //         SessionId = sessionId,
-    //         LidVanClub = inschrijving.LidVanClub,
-    //         KindOpSchool = inschrijving.KindOpSchool,
-    //         GratisLidmaatschap = inschrijving.GratisLidmaatschap,
-    //         Straatnaam = inschrijving.Straatnaam,
-    //         Postcode = inschrijving.Postcode,
-    //         Plaats = inschrijving.Plaats,
-    //         Telefoon = inschrijving.Telefoon,
-    //         AantalPersonen = inschrijving.AantalPersonen,
-    //         Kinderen  = inschrijving.Kinderen.Select(k => new KindDataModel{
-    //             Achternaam = k.Achternaam,
-    //             Eten = k.Eten,
-    //             Speelgoed = k.Speelgoed,
-    //             Hobby = k.Hobby,
-    //             RuimteVoorVerbetering = k.RuimteVoorVerbetering,
-    //             VraagSintEnPiet = k.VraagSintEnPiet,
-    //             Geslacht = k.Geslacht,
-    //             Leeftijd = k.Leeftijd,
-    //             Voornaam = k.Voornaam
-    //         }).ToArray(),
-    //         Bedrag = bedrag
-    //     };
-    // }
+    
+    private static InschrijvingDataModel MapToDataModel(InschrijvingViewModel inschrijving, string sessionId, long bedrag){
+        return new InschrijvingDataModel{
+            Commentaar = inschrijving.Commentaar,
+            Email = inschrijving.Email,
+            Naam = inschrijving.Naam,
+            Privacyverklaring = inschrijving.Privacyverklaring,
+            SessionId = sessionId,
+            LidVanClub = inschrijving.LidVanClub,
+            KindOpSchool = inschrijving.KindOpSchool,
+            GratisLidmaatschap = inschrijving.GratisLidmaatschap,
+            Straatnaam = inschrijving.Straatnaam,
+            Postcode = inschrijving.Postcode,
+            Plaats = inschrijving.Plaats,
+            Telefoon = inschrijving.Telefoon,
+            AantalPersonen = inschrijving.AantalPersonen,
+            Kinderen  = inschrijving.Kinderen.Select(k => new KindDataModel{
+                Achternaam = k.Achternaam,
+                Eten = k.Eten,
+                Speelgoed = k.Speelgoed,
+                Hobby = k.Hobby,
+                RuimteVoorVerbetering = k.RuimteVoorVerbetering,
+                VraagSintEnPiet = k.VraagSintEnPiet,
+                Geslacht = k.Geslacht,
+                Leeftijd = k.Leeftijd,
+                Voornaam = k.Voornaam
+            }).ToArray(),
+            Bedrag = bedrag
+        };
+    }
   }
 }

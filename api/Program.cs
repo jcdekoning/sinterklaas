@@ -1,3 +1,4 @@
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,14 @@ var host = new HostBuilder()
         services.AddOptions<ApiSettings>().Configure<IConfiguration>((settings, configuration) =>
         {
             configuration.Bind(settings);
+        });
+        services.AddSingleton((s) => {
+            
+            var configuration = s.GetRequiredService<IConfiguration>();
+            var cosmosConnectionString = configuration.GetConnectionString("CosmosDBConnection");
+            
+            var cosmosClient = new CosmosClient(cosmosConnectionString);
+            return cosmosClient;
         });
     })
     .Build();
