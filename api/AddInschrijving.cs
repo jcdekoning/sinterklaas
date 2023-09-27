@@ -70,7 +70,7 @@ namespace Sinterklaas.Api
                 
                 _logger.LogInformation("Save inschrijving to database");
                 var container = _cosmosClient.GetContainer("sinterklaas", "inschrijvingen");
-                var inschrijvingData = MapToDataModel(inschrijving, sessionId,
+                var inschrijvingData = MapToDataModel(Guid.NewGuid(), inschrijving, sessionId,
                     options.LineItems.Where(l => l.Amount.HasValue).Sum(l => l.Amount.Value));
                 await container.CreateItemAsync(inschrijvingData);
 
@@ -129,8 +129,9 @@ namespace Sinterklaas.Api
       }
     }
     
-    private static InschrijvingDataModel MapToDataModel(InschrijvingViewModel inschrijving, string sessionId, long bedrag){
+    private static InschrijvingDataModel MapToDataModel(Guid id, InschrijvingViewModel inschrijving, string sessionId, long bedrag){
         return new InschrijvingDataModel{
+            id = id.ToString(),
             Commentaar = inschrijving.Commentaar,
             Email = inschrijving.Email,
             Naam = inschrijving.Naam,
