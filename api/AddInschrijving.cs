@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Sinterklaas.Api.Models;
 using Stripe;
 using Stripe.Checkout;
@@ -33,7 +33,8 @@ namespace Sinterklaas.Api
             {
                 _logger.LogInformation($"Add inschrijving triggered");
 
-                var inschrijving = await req.ReadFromJsonAsync<InschrijvingViewModel>();
+                var requestBody = await req.ReadAsStringAsync();
+                var inschrijving = JsonConvert.DeserializeObject<InschrijvingViewModel>(requestBody);
                 _logger.LogInformation($"Inschrijving received for {inschrijving.Naam}");
                 
                 StripeConfiguration.ApiKey = _settings.Stripe.SecretKey;
@@ -70,7 +71,7 @@ namespace Sinterklaas.Api
                 
                 _logger.LogInformation("Inschrijving saved. Returning sessionId to consumer");
                 
-                var json = JsonSerializer.Serialize(new
+                var json = JsonConvert.SerializeObject(new
                 {
                     sessionId = sessionId
                 });
@@ -83,7 +84,7 @@ namespace Sinterklaas.Api
             {
                 _logger.LogError(ex, $"Something went wrong {ex.Message}");
 
-                var json = JsonSerializer.Serialize(new
+                var json = JsonConvert.SerializeObject(new
                 {
                     InvocationId = context.InvocationId
                 });
