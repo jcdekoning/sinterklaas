@@ -91,6 +91,7 @@ namespace Sinterklaas.Api
 
                 var json = JsonConvert.SerializeObject(new
                 {
+                    Error = ex.Message,
                     InvocationId = context.InvocationId
                 });
                 var response = req.CreateResponse(HttpStatusCode.BadRequest);
