@@ -155,6 +155,7 @@ const texts = {
     },
     leeftijdKind: {
       label: 'Leeftijd kind',
+      description: 'Op de dag van de Sinterklaasviering',
       error: {
         required: 'Vul de leeftijd van uw kind in',
         min: 'Leeftijd kan niet negatief zijn',

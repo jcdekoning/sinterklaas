@@ -125,6 +125,7 @@ const Stap2 = (props: RouterProps) => {
               <NumericField
                 label={text.stap2.leeftijdKind.label}
                 name={`leeftijdkind[${number}]`}
+                description={text.stap2.leeftijdKind.description}
                 register={register({
                   required: text.stap2.leeftijdKind.error.required,
                   min: {
