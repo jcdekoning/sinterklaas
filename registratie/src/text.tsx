@@ -1,10 +1,10 @@
 import React from 'react';
 import { singularOrPlural } from './utils/text';
 
-const year = '2023';
+const year = '2024';
 const entreegeld = 150;
 const contributie = 350;
-const longDateEvent = 'zaterdag 25 november';
+const longDateEvent = 'zaterdag 30 november';
 
 const texts = {
   labelYes: 'Ja',

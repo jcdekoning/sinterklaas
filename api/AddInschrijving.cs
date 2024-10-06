@@ -108,7 +108,7 @@ namespace Sinterklaas.Api
         log.LogInformation("Person needs a club subscription. Creating line item");
         yield return new SessionLineItemOptions {
             Name = "Lidmaatschap Nederlandse Club Oslo",
-            Description = "2023",
+            Description = "2024",
             Amount = 35000,
             Currency = "nok",
             Quantity = 1

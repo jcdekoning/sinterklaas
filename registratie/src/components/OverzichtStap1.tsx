@@ -30,7 +30,7 @@ const OverzichtStap1 = (props: Stap1FormData) => {
       {((!kindOpSchoolAsBool && !lidVanClubAsBool) || gratisLidmaatschapAsBool) && <>
         <p>{!kindOpSchoolAsBool && !lidVanClubAsBool ?
           "Omdat u geen kinderen heeft op de NTC Het Noorderlicht is een lidmaatschap een vereiste om deel te nemen aan het Sinterklaasfeest." :
-          "U wilt gebruik maken van het van het gratis lidmaatschap tot eind 2023. Daarna wordt het lidmaatschap automatisch verlengd."}</p>
+          "U wilt gebruik maken van het van het gratis lidmaatschap tot eind 2024. Daarna wordt het lidmaatschap automatisch verlengd."}</p>
         <ul>
           <li className={styles.label}>{text.stap1.straatnaam.label}</li>
           <li>{props.straatnaam}</li>
