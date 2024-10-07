@@ -65,7 +65,7 @@ const texts = {
       error: 'Maak een keuze',
     },
     lidVanClub: {
-      label: 'Bent u lid van de Nederlandse Club Oslo?',
+      label: 'Bent u betalend lid van de Nederlandse Club Oslo?',
       error: 'Maak een keuze',
     },
     gratisLidmaatschap: {
