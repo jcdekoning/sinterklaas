@@ -1,7 +1,7 @@
 import React from 'react';
 import { singularOrPlural } from './utils/text';
 
-const year = '2024';
+const year = '2025';
 const entreegeld = 150;
 const contributie = 350;
 const longDateEvent = 'zaterdag 30 november';
